@@ -1,0 +1,82 @@
+//
+//  SensorView.swift
+//  WatchCoreMotionSensorReader Watch App
+//
+//  Created by Maurice Richter on 17.06.24.
+//
+
+import SwiftUI
+
+struct SensorView: View {
+    
+    @Environment(MotionDataViewModel.self) private var sensorReader
+    let steps = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+    var body: some View {
+        VStack {
+            List {
+
+                Text("Abtastrate: \(Int(sensorReader.sampleRate)) Hz")
+                    .font(.headline)
+                    .padding()
+                
+                Slider(
+                    value: Binding(
+                        get: {
+                            Double(steps.firstIndex(of: Int(sensorReader.sampleRate)) ?? 0)
+                        },
+                        set: { newValue in
+                            sensorReader.sampleRate = Double(steps[Int(newValue)])
+                            self.sensorReader.stopReadingSensors()
+                            self.sensorReader.startReadingSensors()
+                        }
+                    ),
+                    in: 0...Double(steps.count - 1),
+                    step: 1
+                )
+                .padding()
+                
+                Text("Einstellbare Abtastrate: 1, 10, 20, 30, 40, 50, 60")
+                    .font(.footnote)
+                    .padding()
+                Section(header: Text("Ausrichtung")) {
+                    Text("Pitch: \(sensorReader.lastSensorData?.deviceMotionData?.pitch ?? 0.0)")
+                    Text("Yaw: \(sensorReader.lastSensorData?.deviceMotionData?.yaw ?? 0.0)")
+                    Text("Roll: \(sensorReader.lastSensorData?.deviceMotionData?.pitch ?? 0.0)")
+                }
+                
+                Section(header: Text("Benutzer Beschleunigung")) {
+                    Text("X: \(sensorReader.lastSensorData?.deviceMotionData?.userAccelX ?? 0.0)")
+                    Text("Y: \(sensorReader.lastSensorData?.deviceMotionData?.userAccelY ?? 0.0)")
+                    Text("Z: \(sensorReader.lastSensorData?.deviceMotionData?.userAccelZ ?? 0.0)")
+                }
+                
+                Section(header: Text("Schwerkraft Beschleunigung")) {
+                    Text("X: \(sensorReader.lastSensorData?.deviceMotionData?.gravityAccelX ?? 0.0)")
+                    Text("Y: \(sensorReader.lastSensorData?.deviceMotionData?.gravityAccelY ?? 0.0)")
+                    Text("Z: \(sensorReader.lastSensorData?.deviceMotionData?.gravityAccelZ ?? 0.0)")
+                }
+                
+                Section(header: Text("Rotationsrate")) {
+                    Text("X: \(sensorReader.lastSensorData?.deviceMotionData?.rotationRateX ?? 0.0)")
+                    Text("Y: \(sensorReader.lastSensorData?.deviceMotionData?.rotationRateY ?? 0.0)")
+                    Text("Z: \(sensorReader.lastSensorData?.deviceMotionData?.rotationRateZ ?? 0.0)")
+                }
+                
+                Section(header: Text("Beschleunigung")) {
+                    Text("X: \(sensorReader.lastSensorData?.accelerometerData?.accelerationX ?? 0.0)")
+                    Text("Y: \(sensorReader.lastSensorData?.accelerometerData?.accelerationY ?? 0.0)")
+                    Text("Z: \(sensorReader.lastSensorData?.accelerometerData?.accelerationZ ?? 0.0)")
+                }
+            }
+        }.onAppear() {
+            sensorReader.startReadingSensors()
+        }
+    }
+    
+}
+
+#Preview {
+    SensorView()
+        .environment(MotionDataViewModel())
+}

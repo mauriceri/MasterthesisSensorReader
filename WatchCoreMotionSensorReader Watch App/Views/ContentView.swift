@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  CoreMotionSensorReader
+//  WatchCoreMotionSensorReader Watch App
 //
 //  Created by Maurice Richter on 15.06.24.
 //
@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var sensorReciver = WatchReciverController()
+    @State private var sensorReader = MotionDataViewModel()
 
     var body: some View {
-        TabContentView()
-            .environment(sensorReciver)
+        TabNavView()
+            .environment(sensorReader)
     }
 }
 
