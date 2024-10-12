@@ -9,8 +9,7 @@ import Foundation
 import HealthKit
 import WidgetKit
 
-@Observable
-class HealthDataManager {
+class HealthDataManager: ObservableObject {
     static let shared = HealthDataManager()
     
     private var healthStore = HKHealthStore()
@@ -28,7 +27,6 @@ class HealthDataManager {
     }
     
     func requestAuthorization() {
-        // this is the type of data we will be reading from Health (e.g stepCount)
         let toReads = Set([
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
@@ -36,14 +34,11 @@ class HealthDataManager {
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
         ])
         
-        // this is to make sure User's Heath Data is Avaialble
         guard HKHealthStore.isHealthDataAvailable() else {
             print("health data not available!")
             return
         }
         
-        // asking User's permission for their Health Data
-        // note: toShare is set to nil since I'm not updating any data
         healthStore.requestAuthorization(toShare: nil, read: toReads) {
             success, error in
             if success {

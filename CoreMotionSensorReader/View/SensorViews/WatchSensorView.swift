@@ -9,20 +9,28 @@ import SwiftUI
 
 struct WatchSensorView: View {
     
-    @Environment(WatchReciverController.self) private var watchReciever
+    @State private var watchReciever = WatchReciverController()
     
     var body: some View {
         VStack(alignment: .leading) {
             List {
-                Section(header: Text("Vorhersage")) {
-                    Text(watchReciever.prediction)
+                Section(header: Text("Vorhersagen")) {
+                    Text("Threshold: \(watchReciever.prediction)")
+                    Text("Model: \(watchReciever.modelPrediction)")
                 }
                 
                 Section(header: Text("CSV-Export")) {
                     Button("CSV Export") {
                         watchReciever.exportToCsv()
                     }
+                    
+                    Text("Datenmenge: \(watchReciever.getArraySize())")
+                    Text("Vergangene Zeit: \(String(format: "%.2f", watchReciever.getElapsedTime()))")
+                    Button("Daten löschen") {
+                        watchReciever.clearData()
+                    }
                 }
+                
                 
                 
                 Section(header: Text("Ausrichtung")) {

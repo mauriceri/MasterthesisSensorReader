@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct AirPodsMotionData {
+struct AirPodsMotionData: Identifiable {
+    
+    let id = UUID()
+    
+    let timestamp: Date
+    let elapsedTime: TimeInterval
+    
     let pitch: Double
     let yaw: Double
     let roll: Double

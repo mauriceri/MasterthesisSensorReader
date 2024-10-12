@@ -9,7 +9,7 @@ import Foundation
 import CoreMotion
 
 @Observable
-class MotionDataViewModel {
+class MotionDataController {
     
     let motionManager = CMMotionManager()
     let queue = OperationQueue()
@@ -28,9 +28,19 @@ class MotionDataViewModel {
  
     var sensorReaderIsUpdating = false
     
-
+    func getElapsedTime() -> TimeInterval {
+        guard let first = sensorData.first, let last = sensorData.last else {
+            return 0
+        }
+        return last.timestamp.timeIntervalSince(first.timestamp)
+    }
+    
     
     func startReadingSensors() {
+        
+        self.currentSensorData.timestamp = Date()
+        self.currentSensorData.elapsedTime = getElapsedTime()
+        
         if motionManager.isAccelerometerAvailable {
             motionManager.accelerometerUpdateInterval = 1.0 / sampleRate
             motionManager.startAccelerometerUpdates(to: .main) { [weak self] (data, error) in

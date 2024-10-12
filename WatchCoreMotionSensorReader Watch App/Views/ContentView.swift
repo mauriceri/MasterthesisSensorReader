@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var sensorReader = MotionDataViewModel()
+    @State private var sensorReader = MotionDataController()
 
     var body: some View {
         TabNavView()

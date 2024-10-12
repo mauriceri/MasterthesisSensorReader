@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import Charts
 
 struct AirpodsDataView: View {
     @State private var airpodscontroller = AirpodsDataController()
     let soundservice = SoundService()
+    
+    @State private var decimalPlaces: Double = 5
     
     
     var body: some View {
         
         VStack {
             List {
-                Section(header: Text("Vorhersage")){
-                    Text("\(airpodscontroller.prediction)")
+                Section(header: Text("Vorhersagen")){
+                    Text("Threshhold: \(airpodscontroller.prediction)")
+                    Text("Model: \(airpodscontroller.modelPrediction)")
                 }
                 
                 Section(header: Text("Ort des Sensors")){
@@ -33,9 +37,33 @@ struct AirpodsDataView: View {
                         airpodscontroller.clearArray()
                     }
                     
+                    
+                    HStack {
+                        Text("Decimal Places: \(Int(decimalPlaces))")
+                        Spacer()
+                        Slider(value: $decimalPlaces, in: 1...15, step: 1)
+                            .accentColor(.blue)
+                            .onChange(of: decimalPlaces) {oldValue, newValue in
+                                airpodscontroller.setDecimalPlaces(places: Int(newValue))
+                            }
+                        
+                    }
+                    
+                    
                     Button("Spiele Sound ab"){
                         soundservice.playSound()
                     }.clipShape(Capsule())
+                }
+                
+                Section(header: Text("Menge an Daten")) {
+                    Text("Anzahl Daten: \(airpodscontroller.getSensorDataAmount())")
+                    Text("Vergangene Zeit: \(String(format: "%.2f", airpodscontroller.getElapsedTime()))")
+                }
+                
+                Section(header: Text("Plots")) {
+                    
+                 
+          
                 }
                 
                 

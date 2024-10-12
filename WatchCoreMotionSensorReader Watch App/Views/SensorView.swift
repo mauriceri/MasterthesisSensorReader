@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SensorView: View {
     
-    @Environment(MotionDataViewModel.self) private var sensorReader
+    @Environment(MotionDataController.self) private var sensorReader
     let steps = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
     var body: some View {
@@ -78,5 +78,5 @@ struct SensorView: View {
 
 #Preview {
     SensorView()
-        .environment(MotionDataViewModel())
+        .environment(MotionDataController())
 }

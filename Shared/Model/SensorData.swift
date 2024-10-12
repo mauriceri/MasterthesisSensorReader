@@ -32,8 +32,22 @@ struct DeviceMotionData: Codable {
 }
 
 struct SensorData: Codable {
+    
+    var timestamp: Date
+    var elapsedTime: TimeInterval
+    
     var deviceMotionData: DeviceMotionData?
     var accelerometerData: AccelerometerData?
+    
+    init(timestamp: Date = Date(),
+         elapsedTime: TimeInterval = 0.0,
+         deviceMotionData: DeviceMotionData? = nil,
+         accelerometerData: AccelerometerData? = nil) {
+        self.timestamp = timestamp
+        self.elapsedTime = elapsedTime
+        self.deviceMotionData = deviceMotionData
+        self.accelerometerData = accelerometerData
+    }
     
     func encodeIt() -> Data {
         let encoder = JSONEncoder()
@@ -50,7 +64,7 @@ struct SensorData: Codable {
             return decoded
         }
         
-        return SensorData(deviceMotionData: nil, accelerometerData: nil)
+        return SensorData(timestamp: Date(),elapsedTime: 0.0, deviceMotionData: nil, accelerometerData: nil)
     }
     
 }

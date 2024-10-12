@@ -9,11 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var sensorReciver = WatchReciverController()
 
     var body: some View {
         TabContentView()
-            .environment(sensorReciver)
     }
 }
 
