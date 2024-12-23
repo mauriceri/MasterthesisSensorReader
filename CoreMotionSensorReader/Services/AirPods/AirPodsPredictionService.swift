@@ -10,7 +10,7 @@ import CoreMotion
 
 class AirPodsPredictionService {
     let leftYaw: Double = -0.7
-    let rigtYaw: Double = 0.7
+    let rightYaw: Double = 0.7
     
     let upPitch: Double = 0.7
     let downPitch: Double = -0.7
@@ -27,7 +27,7 @@ class AirPodsPredictionService {
         
         if (yaw <= leftYaw) {
             return "Rechts"
-        } else if (yaw >= rigtYaw) {
+        } else if (yaw >= rightYaw) {
             return "Links"
         } else if (pitch >= upPitch) {
             return "Oben"

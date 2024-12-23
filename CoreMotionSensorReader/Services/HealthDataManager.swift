@@ -65,7 +65,6 @@ class HealthDataManager: ObservableObject {
         
         let now = Date()
         
-        //get start of day by 0:00am
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: now)
         let startDate = calendar.date(from: components)!

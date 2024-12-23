@@ -19,8 +19,8 @@ struct AirpodsDataView: View {
         
         VStack {
             List {
-                Section(header: Text("Vorhersagen")){
-                    Text("Threshhold: \(airpodscontroller.prediction)")
+                Section(header: Text("Bewegungserkennung")){
+                    Text("Threshold: \(airpodscontroller.prediction)")
                     Text("Model: \(airpodscontroller.modelPrediction)")
                 }
                 
@@ -39,7 +39,7 @@ struct AirpodsDataView: View {
                     
                     
                     HStack {
-                        Text("Decimal Places: \(Int(decimalPlaces))")
+                        Text("Dezimalstellen: \(Int(decimalPlaces))")
                         Spacer()
                         Slider(value: $decimalPlaces, in: 1...15, step: 1)
                             .accentColor(.blue)

@@ -12,10 +12,8 @@ import CoreMotion
 class WatchCsvWriter {
     
     func exportCSV(from data: [SensorData], to filename: String) {
-        // CSV-Kopfzeile
         let header = "timestamp,elapsed,pitch,yaw,roll,rotationRateX,rotationRateY,rotationRateZ,userAccelX,userAccelY,userAccelZ,gravityAccelX,gravityAccelY,gravityAccelZ,accelerationX,accelerationY,accelerationZ\n"
         
-        // CSV-Inhalt
         var csvString = header
         let dateFormatter = ISO8601DateFormatter()
         
@@ -42,8 +40,7 @@ class WatchCsvWriter {
             line += "\n"
             csvString += line
         }
-        
-        // Pfad zur Datei, mit Überprüfung, ob eine Datei mit demselben Namen existiert
+
         let path = getUniqueFilePath(for: filename)
         
         do {

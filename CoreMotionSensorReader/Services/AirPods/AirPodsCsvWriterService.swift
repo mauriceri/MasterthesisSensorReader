@@ -9,11 +9,9 @@ import Foundation
 class AirPodsCsvWriterService {
     
     func exportCSV(from data: [AirPodsMotionData], to filename: String) -> Void {
-        // CSV-Kopfzeile
         let header = "timestamp,elapsedTime,pitch,yaw,roll,rotationRateX,rotationRateY,rotationRateZ,userAccelX,userAccelY,userAccelZ,gravityAccelX,gravityAccelY,gravityAccelZ\n"
         
         let dateFormatter = ISO8601DateFormatter()
-        // CSV-Inhalt
         var csvString = header
         for record in data {
             let timestampString = dateFormatter.string(from: record.timestamp)
@@ -21,10 +19,8 @@ class AirPodsCsvWriterService {
             csvString += line
         }
         
-        // Pfad zur Datei, mit Überprüfung, ob eine Datei mit demselben Namen existiert
         let path = getUniqueFilePath(for: filename)
         
-        // CSV-String in Datei schreiben
         do {
             try csvString.write(to: path, atomically: true, encoding: .utf8)
             print("CSV-Datei erfolgreich exportiert nach \(path)")

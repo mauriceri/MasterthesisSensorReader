@@ -14,7 +14,7 @@ struct WatchSensorView: View {
     var body: some View {
         VStack(alignment: .leading) {
             List {
-                Section(header: Text("Vorhersagen")) {
+                Section(header: Text("Bewegungserkennung")) {
                     Text("Threshold: \(watchReciever.prediction)")
                     Text("Model: \(watchReciever.modelPrediction)")
                 }
