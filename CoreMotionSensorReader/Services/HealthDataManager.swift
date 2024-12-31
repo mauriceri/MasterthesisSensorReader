@@ -9,7 +9,8 @@ import Foundation
 import HealthKit
 import WidgetKit
 
-class HealthDataManager: ObservableObject {
+@Observable
+class HealthDataManager {
     static let shared = HealthDataManager()
     
     private var healthStore = HKHealthStore()

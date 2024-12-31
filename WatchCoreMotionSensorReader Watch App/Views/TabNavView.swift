@@ -11,8 +11,6 @@ struct TabNavView: View {
     var body: some View {
         TabView() {
             SensorView().tabItem { }.tag(1)
-            
-            WorkoutView().tabItem { }.tag(2)
         }
     }
 }

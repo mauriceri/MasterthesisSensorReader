@@ -10,14 +10,15 @@ import SwiftUI
 struct TabContentView: View {
     var body: some View {
         TabView {
-            WatchSensorView()
-                .tabItem { Label("Watch", systemImage:"watch.analog" ) }
+            WatchAirPodsSensorView()
+                .tabItem { Label("Watch&AirPods", systemImage: "person.wave.2.fill")}
             
-            AirpodsDataView()
-                .tabItem { Label("Airpods", systemImage: "airpodspro") }
+            InfoView().tabItem{
+                Label("Info", systemImage: "info")}
             
-            HealthDataView()
-                .tabItem { Label("Gesundheitsdaten", systemImage: "heart.fill")}
+            HealthDataView().tabItem {
+                Label("Health Data", systemImage: "heart.fill")
+            }
 
         }
     }

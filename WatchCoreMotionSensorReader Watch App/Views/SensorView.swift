@@ -10,12 +10,35 @@ import SwiftUI
 struct SensorView: View {
     
     @Environment(MotionDataController.self) private var sensorReader
+    @StateObject private var workoutManager = WorkoutManager()
+
+    @State var startedRunning: Bool = false
+
+    
     let steps = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
     var body: some View {
-        VStack {
-            List {
 
+        VStack {
+            
+            List {
+                Section(header: Text("Sensor/Workout Steuerung")){
+                    Button(action: {
+                        workoutManager.startWorkout()
+                        sensorReader.startReadingSensors()
+                        startedRunning = true
+                    } ) {
+                        Text("Starte Workout/Sensoren")
+                    }
+               
+                    Button(action: {
+                        workoutManager.endWorkout()
+                        sensorReader.stopReadingSensors()
+                        startedRunning = false
+                    }) {
+                        Text("Beende Workout/Sensorlesen")
+                    }
+                }
                 Text("Abtastrate: \(Int(sensorReader.sampleRate)) Hz")
                     .font(.headline)
                     .padding()
@@ -70,7 +93,8 @@ struct SensorView: View {
                 }
             }
         }.onAppear() {
-            sensorReader.startReadingSensors()
+            //sensorReader.startReadingSensors()
+            workoutManager.requestAuthorization()
         }
     }
     

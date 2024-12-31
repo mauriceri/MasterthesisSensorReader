@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HealthDataView: View {
     
-    @State var storedata = HealthDataManager.shared
+    @State var storedata = HealthDataManager()
     
     var body: some View {
         VStack {

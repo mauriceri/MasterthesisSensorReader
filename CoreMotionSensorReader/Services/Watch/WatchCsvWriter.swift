@@ -19,7 +19,7 @@ class WatchCsvWriter {
         
         for record in data {
             
-            print(record.elapsedTime)
+           // print(record.elapsedTime)
             var line = ""
             line += "\(dateFormatter.string(from: record.timestamp)),\(record.elapsedTime),"
             if let deviceMotion = record.deviceMotionData {

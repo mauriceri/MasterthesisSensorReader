@@ -24,6 +24,11 @@ class WatchPredicterService {
         
         //let attitude_roll = (motionData["attitude_roll"] as! Double)
         
+        guard let deviceMotionData = motionData.deviceMotionData else {
+               print("Device motion data ist nil")
+               return "Unbekannt"
+           }
+        
         let attitude_roll: Double = motionData.deviceMotionData!.roll
         let gravity_x: Double = motionData.deviceMotionData!.gravityAccelX
         let gravity_z: Double = motionData.deviceMotionData!.gravityAccelZ
@@ -40,6 +45,12 @@ class WatchPredicterService {
     
     
     func testPred(motionData: SensorData) -> String {
+        
+        guard let deviceMotionData = motionData.deviceMotionData else {
+               print("Device motion data ist nil")
+               return "Unbekannt"
+           }
+        
         do {
             if let prediction = try movementPrediction?.prediction(rotationRateX: motionData.deviceMotionData!.rotationRateX,
                                                                    rotationRateY: motionData.deviceMotionData!.rotationRateY,

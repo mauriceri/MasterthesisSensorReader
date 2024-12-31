@@ -22,11 +22,21 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     var sensorData: [AirPodsMotionData] = []
     var lastSensorData: AirPodsMotionData?
     
+    var tempData = [AirPodsMotionData]()
+    private var timer: Timer?
+    private var countTimer: Timer? = nil
+    var timerSeconds: Int = 30
+    var isCollectingTrainData: Bool = false
+    var isCountTimerRunning: Bool = false
     
     
     var prediction: String = "-"
     var modelPrediction: String = "-"
     var sensorlocation: String = "-"
+    
+    var isAvailable: Bool {
+        return motionManager.isDeviceMotionAvailable
+    }
     
     private var decimalPlaces = 5
     
@@ -37,8 +47,13 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
         startHeadphoneData()
     }
     
-    func exportToCsv() -> Void {
-        csvWriter.exportCSV(from: sensorData, to: "Airpods.csv")
+    func exportToCsv(to fileName: String) -> Void {
+        csvWriter.exportCSV(from: sensorData, to: fileName)
+    }
+    
+    
+    func exportToCsv(data: [AirPodsMotionData], to fileName: String) {
+        csvWriter.exportCSV(from: data, to: fileName)
     }
     
     func clearArray() -> Void {
@@ -62,6 +77,40 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
             return 0
         }
         return last.timestamp.timeIntervalSince(first.timestamp)
+    }
+    
+    func startTimerAndExport(to fileName: String) {
+        self.tempData.removeAll()
+        self.isCollectingTrainData = true
+        self.isCountTimerRunning = true
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            self.isCollectingTrainData = false
+            self.exportToCsv(data: self.tempData, to: fileName)
+            self.tempData.removeAll()
+        }
+        
+        countTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            if self.timerSeconds > 0 {
+                self.timerSeconds -= 1
+            } else {
+                self.countTimer?.invalidate()
+                self.countTimer = nil
+                self.timerSeconds = 30
+                self.isCountTimerRunning = false
+            }
+        }
+    }
+    
+    func stopAllTimers() -> Void {
+        self.isCollectingTrainData = false
+        self.isCountTimerRunning = false
+        self.timer?.invalidate()
+        self.timer = nil
+        self.countTimer?.invalidate()
+        self.countTimer = nil
+        self.timerSeconds = 30
     }
     
     

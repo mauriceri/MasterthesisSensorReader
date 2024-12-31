@@ -15,6 +15,9 @@
 		511410472C22FAD1004ACAE4 /* TherapySessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */; };
 		5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114104A2C23058D004ACAE4 /* TabContentView.swift */; };
 		5166A3112C84754800A4FFE2 /* AirPodsPrediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5166A3102C84754800A4FFE2 /* AirPodsPrediction.mlmodel */; };
+		516F67322D21891D00C44CD1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516F67312D21891D00C44CD1 /* InfoView.swift */; };
+		5172CF862D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */; };
+		5172CF882D1EC8DB00BCD740 /* WorkOutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5172CF872D1EC8DB00BCD740 /* WorkOutManager.swift */; };
 		518357482C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518357472C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift */; };
 		5183574A2C1DF1F8000EAD64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518357492C1DF1F8000EAD64 /* ContentView.swift */; };
 		5183574C2C1DF1F9000EAD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5183574B2C1DF1F9000EAD64 /* Assets.xcassets */; };
@@ -25,7 +28,6 @@
 		518357632C1DF2D2000EAD64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */; };
 		518357662C1DF2D2000EAD64 /* WatchCoreMotionSensorReader Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 518357592C1DF2D1000EAD64 /* WatchCoreMotionSensorReader Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		518672DB2C836BD700BA6223 /* MovementPrediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 518672DA2C836BD700BA6223 /* MovementPrediction.mlmodel */; };
-		51935BA32C3EC0AE00839BAB /* BatchedWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51935BA22C3EC0AE00839BAB /* BatchedWorkout.swift */; };
 		51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
 		51CD6A9F2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
 		51CD6AA32C1EE3E100C53B8A /* BatchedSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AA22C1EE3E100C53B8A /* BatchedSensorData.swift */; };
@@ -34,12 +36,8 @@
 		51CD6AAD2C20313A00C53B8A /* MotionDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AAC2C20313A00C53B8A /* MotionDataController.swift */; };
 		51CD6AAF2C203CE700C53B8A /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AAE2C203CE700C53B8A /* SensorView.swift */; };
 		51CD6AB32C20603A00C53B8A /* TabNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AB22C20603A00C53B8A /* TabNavView.swift */; };
-		51CD6AB52C2060B200C53B8A /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AB42C2060B200C53B8A /* WorkoutView.swift */; };
 		51CD6AB82C20652100C53B8A /* ConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AB72C20652100C53B8A /* ConnectivityService.swift */; };
-		51CD6ABA2C206BCF00C53B8A /* WatchSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AB92C206BCF00C53B8A /* WatchSensorView.swift */; };
-		51CD6ABC2C207A7200C53B8A /* AirpodsDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6ABB2C207A7200C53B8A /* AirpodsDataView.swift */; };
 		51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */; };
-		51CD6AC02C21D69600C53B8A /* BatchedSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6ABF2C21D69600C53B8A /* BatchedSensorView.swift */; };
 		51E484702C2714E40084A3C7 /* AirPodsPredictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E4846F2C2714E40084A3C7 /* AirPodsPredictionService.swift */; };
 		51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */; };
 		51F7C0012C2308480058B12F /* interfacesound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51F7C0002C2308480058B12F /* interfacesound.mp3 */; };
@@ -81,6 +79,10 @@
 		511410492C22FB1C004ACAE4 /* WatchCoreMotionSensorReader-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WatchCoreMotionSensorReader-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5114104A2C23058D004ACAE4 /* TabContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContentView.swift; sourceTree = "<group>"; };
 		5166A3102C84754800A4FFE2 /* AirPodsPrediction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AirPodsPrediction.mlmodel; sourceTree = "<group>"; };
+		516F67312D21891D00C44CD1 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAirPodsSensorView.swift; sourceTree = "<group>"; };
+		5172CF872D1EC8DB00BCD740 /* WorkOutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutManager.swift; sourceTree = "<group>"; };
+		5172CF8F2D1ED52000BCD740 /* WatchCoreMotionSensorReader Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchCoreMotionSensorReader Watch App.entitlements"; sourceTree = "<group>"; };
 		518357442C1DF1F8000EAD64 /* CoreMotionSensorReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMotionSensorReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		518357472C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionSensorReaderApp.swift; sourceTree = "<group>"; };
 		518357492C1DF1F8000EAD64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,7 +95,6 @@
 		518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		518672DA2C836BD700BA6223 /* MovementPrediction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MovementPrediction.mlmodel; sourceTree = "<group>"; };
 		51935BA12C3EBD4000839BAB /* CoreMotionSensorReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoreMotionSensorReader.entitlements; sourceTree = "<group>"; };
-		51935BA22C3EC0AE00839BAB /* BatchedWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedWorkout.swift; sourceTree = "<group>"; };
 		51935BA42C4824D700839BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		51CD6A9D2C1EE28200C53B8A /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		51CD6AA22C1EE3E100C53B8A /* BatchedSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedSensorData.swift; sourceTree = "<group>"; };
@@ -101,12 +102,8 @@
 		51CD6AAC2C20313A00C53B8A /* MotionDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionDataController.swift; sourceTree = "<group>"; };
 		51CD6AAE2C203CE700C53B8A /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		51CD6AB22C20603A00C53B8A /* TabNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavView.swift; sourceTree = "<group>"; };
-		51CD6AB42C2060B200C53B8A /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		51CD6AB72C20652100C53B8A /* ConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityService.swift; sourceTree = "<group>"; };
-		51CD6AB92C206BCF00C53B8A /* WatchSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSensorView.swift; sourceTree = "<group>"; };
-		51CD6ABB2C207A7200C53B8A /* AirpodsDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirpodsDataView.swift; sourceTree = "<group>"; };
 		51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirpodsDataController.swift; sourceTree = "<group>"; };
-		51CD6ABF2C21D69600C53B8A /* BatchedSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedSensorView.swift; sourceTree = "<group>"; };
 		51E4846F2C2714E40084A3C7 /* AirPodsPredictionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsPredictionService.swift; sourceTree = "<group>"; };
 		51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsCsvWriterService.swift; sourceTree = "<group>"; };
 		51F7C0002C2308480058B12F /* interfacesound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = interfacesound.mp3; sourceTree = "<group>"; };
@@ -147,6 +144,14 @@
 				511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		516F67302D21890400C44CD1 /* InfoViews */ = {
+			isa = PBXGroup;
+			children = (
+				516F67312D21891D00C44CD1 /* InfoView.swift */,
+			);
+			path = InfoViews;
 			sourceTree = "<group>";
 		};
 		5183573B2C1DF1F8000EAD64 = {
@@ -200,6 +205,7 @@
 		5183575A2C1DF2D1000EAD64 /* WatchCoreMotionSensorReader Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				5172CF8F2D1ED52000BCD740 /* WatchCoreMotionSensorReader Watch App.entitlements */,
 				511410492C22FB1C004ACAE4 /* WatchCoreMotionSensorReader-Watch-App-Info.plist */,
 				511410482C22FAD5004ACAE4 /* Delegates */,
 				51CD6AB62C20643200C53B8A /* Services */,
@@ -230,6 +236,7 @@
 		5183576C2C1DF2F6000EAD64 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				516F67302D21890400C44CD1 /* InfoViews */,
 				51F7C0052C2312810058B12F /* HealthDataViews */,
 				51F7C0042C2312680058B12F /* SensorViews */,
 				5114104A2C23058D004ACAE4 /* TabContentView.swift */,
@@ -281,8 +288,6 @@
 				5183575D2C1DF2D1000EAD64 /* ContentView.swift */,
 				51CD6AAE2C203CE700C53B8A /* SensorView.swift */,
 				51CD6AB22C20603A00C53B8A /* TabNavView.swift */,
-				51CD6AB42C2060B200C53B8A /* WorkoutView.swift */,
-				51CD6ABF2C21D69600C53B8A /* BatchedSensorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,7 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				51CD6AB72C20652100C53B8A /* ConnectivityService.swift */,
-				51935BA22C3EC0AE00839BAB /* BatchedWorkout.swift */,
+				5172CF872D1EC8DB00BCD740 /* WorkOutManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -324,8 +329,7 @@
 		51F7C0042C2312680058B12F /* SensorViews */ = {
 			isa = PBXGroup;
 			children = (
-				51CD6AB92C206BCF00C53B8A /* WatchSensorView.swift */,
-				51CD6ABB2C207A7200C53B8A /* AirpodsDataView.swift */,
+				5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */,
 			);
 			path = SensorViews;
 			sourceTree = "<group>";
@@ -441,17 +445,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51CD6ABA2C206BCF00C53B8A /* WatchSensorView.swift in Sources */,
 				5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */,
 				5183574A2C1DF1F8000EAD64 /* ContentView.swift in Sources */,
 				51CD6AA62C1EE4F000C53B8A /* WatchReciverController.swift in Sources */,
 				5166A3112C84754800A4FFE2 /* AirPodsPrediction.mlmodel in Sources */,
 				510617CC2C3EB8CB00186390 /* HealthDataManager.swift in Sources */,
 				51CD6AA32C1EE3E100C53B8A /* BatchedSensorData.swift in Sources */,
+				5172CF862D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift in Sources */,
 				51E484702C2714E40084A3C7 /* AirPodsPredictionService.swift in Sources */,
 				51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */,
 				51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */,
 				510617CE2C3EB95200186390 /* HealthDataView.swift in Sources */,
+				516F67322D21891D00C44CD1 /* InfoView.swift in Sources */,
 				51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */,
 				51FADADE2C83839200F51251 /* MarchingClassifier.mlmodel in Sources */,
 				518672DB2C836BD700BA6223 /* MovementPrediction.mlmodel in Sources */,
@@ -460,7 +465,6 @@
 				518357482C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift in Sources */,
 				511410452C22E5B2004ACAE4 /* AirPodsSensorData.swift in Sources */,
 				510617CA2C3EB54600186390 /* WatchPredicterService.swift in Sources */,
-				51CD6ABC2C207A7200C53B8A /* AirpodsDataView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,12 +474,10 @@
 			files = (
 				5183575E2C1DF2D1000EAD64 /* ContentView.swift in Sources */,
 				51CD6AAD2C20313A00C53B8A /* MotionDataController.swift in Sources */,
-				51CD6AB52C2060B200C53B8A /* WorkoutView.swift in Sources */,
 				511410472C22FAD1004ACAE4 /* TherapySessionDelegate.swift in Sources */,
 				51CD6AB82C20652100C53B8A /* ConnectivityService.swift in Sources */,
-				51935BA32C3EC0AE00839BAB /* BatchedWorkout.swift in Sources */,
-				51CD6AC02C21D69600C53B8A /* BatchedSensorView.swift in Sources */,
 				51CD6AAF2C203CE700C53B8A /* SensorView.swift in Sources */,
+				5172CF882D1EC8DB00BCD740 /* WorkOutManager.swift in Sources */,
 				51CD6AA42C1EE3E100C53B8A /* BatchedSensorData.swift in Sources */,
 				51CD6A9F2C1EE28200C53B8A /* SensorData.swift in Sources */,
 				5183575C2C1DF2D1000EAD64 /* WatchCoreMotionSensorReaderApp.swift in Sources */,
@@ -626,7 +628,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreMotionSensorReader/Info.plist;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Geundeitsdaten";
+				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Für das Updaten der Gesundheitsdaten";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Benötigt für Bewegungserfassung";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -660,7 +665,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreMotionSensorReader/Info.plist;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Geundeitsdaten";
+				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Für das Updaten der Gesundheitsdaten";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Benötigt für Bewegungserfassung";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -686,6 +694,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
@@ -693,10 +702,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WatchCoreMotionSensorReader-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = WatchCoreMotionSensorReader;
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Benötigt für Lesen von Daten";
+				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Benötigt für Lesen von Gesubndheitsdaten";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten wird dieser Zugriff benötigt";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Benötigt für App";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wird benötigt um Gesundheitsdaten während des Workouts zu updaten";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.maurice.richter.CoreMotionSensorReader;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -720,6 +729,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
@@ -727,10 +737,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WatchCoreMotionSensorReader-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = WatchCoreMotionSensorReader;
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Benötigt für Lesen von Daten";
+				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Benötigt für Lesen von Gesubndheitsdaten";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten wird dieser Zugriff benötigt";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Benötigt für App";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wird benötigt um Gesundheitsdaten während des Workouts zu updaten";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.maurice.richter.CoreMotionSensorReader;
 				LD_RUNPATH_SEARCH_PATHS = (
