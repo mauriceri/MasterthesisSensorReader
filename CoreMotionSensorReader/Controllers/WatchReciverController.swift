@@ -32,6 +32,9 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     let csvWriter = WatchCsvWriter()
     
     
+    let soundservice = SoundService()
+    
+    
     var session: WCSession
     
     init(session: WCSession = .default) {
@@ -84,6 +87,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             self.isCollectingTrainData = false
             self.exportToCsv(data: self.tempData, to: fileName)
             self.tempData.removeAll()
+            self.soundservice.playSound()
+            self.sendHapticFeedback()
         }
         
         countTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -135,6 +140,16 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             return 0
         }
         return last.timestamp.timeIntervalSince(first.timestamp)
+    }
+    
+    func sendHapticFeedback() {
+        var dict = ["haptic": "true"]
+        
+        if session.activationState == .activated && session.isReachable {
+            session.sendMessage(dict, replyHandler: nil, errorHandler: nil)
+        } else {
+            print("Session nicht erreichbar")
+        }
     }
     
 }

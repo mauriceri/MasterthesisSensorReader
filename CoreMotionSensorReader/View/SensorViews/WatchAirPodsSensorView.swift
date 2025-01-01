@@ -103,7 +103,6 @@ struct WatchAirPodsSensorView: View {
                         }
                     }
                     
-          
                     Text("Datenmenge Aufnahme: \(watchReciever.getTempArraySitze())")
                     Text("Datenmenge insgesamt: \(watchReciever.getArraySize())")
                 
@@ -117,7 +116,6 @@ struct WatchAirPodsSensorView: View {
                 
                 Section(header: Text("Apple Watch")) {
                     VStack(alignment: .leading, spacing: 16) {
-                        // Ausrichtung Group
                         VStack(alignment: .leading) {
                             Text("Ausrichtung")
                                 .font(.headline)
@@ -126,7 +124,6 @@ struct WatchAirPodsSensorView: View {
                             Text("Roll: \(watchReciever.lastSensorData?.deviceMotionData?.pitch ?? 0.0)")
                         }
                         
-                        // Benutzer Beschleunigung Group
                         VStack(alignment: .leading) {
                             Text("Benutzer Beschleunigung")
                                 .font(.headline)
@@ -135,7 +132,6 @@ struct WatchAirPodsSensorView: View {
                             Text("Z: \(watchReciever.lastSensorData?.deviceMotionData?.userAccelZ ?? 0.0)")
                         }
                         
-                        // Schwerkraft Beschleunigung Group
                         VStack(alignment: .leading) {
                             Text("Schwerkraft Beschleunigung")
                                 .font(.headline)
@@ -144,7 +140,6 @@ struct WatchAirPodsSensorView: View {
                             Text("Z: \(watchReciever.lastSensorData?.deviceMotionData?.gravityAccelZ ?? 0.0)")
                         }
                         
-                        // Rotationsrate Group
                         VStack(alignment: .leading) {
                             Text("Rotationsrate")
                                 .font(.headline)
@@ -153,7 +148,6 @@ struct WatchAirPodsSensorView: View {
                             Text("Z: \(watchReciever.lastSensorData?.deviceMotionData?.rotationRateZ ?? 0.0)")
                         }
                         
-                        // Beschleunigung Group
                         VStack(alignment: .leading) {
                             Text("Beschleunigung")
                                 .font(.headline)
@@ -196,9 +190,6 @@ struct WatchAirPodsSensorView: View {
                             soundservice.playSound()
                         }.clipShape(Capsule())
                     }
-                    
-                    
-                    
                 }
                 
                 
@@ -211,7 +202,6 @@ struct WatchAirPodsSensorView: View {
                             Text("Yaw: \(airpodscontroller.lastSensorData?.yaw ?? 0.0)")
                             Text("Roll: \(airpodscontroller.lastSensorData?.roll ?? 0.0)")
                         }
-                        
                         
                         VStack(alignment: .leading) {
                             Text("Rotationsrate")

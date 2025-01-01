@@ -7,6 +7,7 @@
 
 import Foundation
 import WatchConnectivity
+import WatchKit
 
 class ConnectivityService: NSObject, WCSessionDelegate {
     
@@ -33,6 +34,16 @@ class ConnectivityService: NSObject, WCSessionDelegate {
             session.sendMessage(dict, replyHandler: nil, errorHandler: nil)
         } else {
             print("Session nicht erreichbar")
+        }
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        if let hapticValue = message["haptic"] as? String, hapticValue == "true" {
+            print("Haptic is set to true")
+            WKInterfaceDevice.current().play(.success)
+            
+        } else {
+            print("Haptic is not set to true or is missing")
         }
     }
     

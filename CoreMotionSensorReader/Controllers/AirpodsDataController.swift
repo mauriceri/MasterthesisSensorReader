@@ -145,6 +145,10 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                     self.lastSensorData = newData
                     self.sensorData.append(newData)
                     
+                    if (self.isCollectingTrainData) {
+                        self.tempData.append(newData)
+                    }
+                    
                     self.prediction = self.predictionService.predictViewingDirection(data: motion)
                     self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
                     
