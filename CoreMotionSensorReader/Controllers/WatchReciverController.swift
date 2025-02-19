@@ -11,13 +11,15 @@ import WatchConnectivity
 @Observable
 class WatchReciverController: NSObject, WCSessionDelegate {
     
+    
+    
     var lastSensorData: SensorData?
     var sensorData = [SensorData]()
     
     var tempData = [SensorData]()
     private var timer: Timer?
     private var countTimer: Timer? = nil
-    var timerSeconds: Int = 30
+    var timerSeconds: Int = 60
     
     var prediction: String = "-"
     var modelPrediction: String = "-"
@@ -82,7 +84,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         self.isCollectingTrainData = true
         self.isCountTimerRunning = true
         
-        timer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { [weak self] _ in
             guard let self = self else { return }
             self.isCollectingTrainData = false
             self.exportToCsv(data: self.tempData, to: fileName)
@@ -97,7 +99,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             } else {
                 self.countTimer?.invalidate()
                 self.countTimer = nil
-                self.timerSeconds = 30
+                self.timerSeconds = 60
                 self.isCountTimerRunning = false
             }
         }
@@ -110,7 +112,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         self.countTimer?.invalidate()
         self.timer = nil
         self.countTimer = nil
-        self.timerSeconds = 30
+        self.timerSeconds = 60
     }
     
     
@@ -143,7 +145,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
     func sendHapticFeedback() {
-        var dict = ["haptic": "true"]
+        let dict = ["haptic": "true"]
         
         if session.activationState == .activated && session.isReachable {
             session.sendMessage(dict, replyHandler: nil, errorHandler: nil)

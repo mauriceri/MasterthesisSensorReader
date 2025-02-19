@@ -25,7 +25,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     var tempData = [AirPodsMotionData]()
     private var timer: Timer?
     private var countTimer: Timer? = nil
-    var timerSeconds: Int = 30
+    var timerSeconds: Int = 60
     var isCollectingTrainData: Bool = false
     var isCountTimerRunning: Bool = false
     
@@ -34,11 +34,29 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     var modelPrediction: String = "-"
     var sensorlocation: String = "-"
     
+    
+    var isCalibrated: Bool = false
+    
+    var pitchBias: Double = 0.0
+    var yawBias: Double = 0.0
+    var rollBias: Double = 0.0
+    var rotationRateXBias: Double = 0.0
+    var rotationRateYBias: Double = 0.0
+    var rotationRateZBias: Double = 0.0
+    var userAccelXBias: Double = 0.0
+    var userAccelYBias: Double = 0.0
+    var userAccelZBias: Double = 0.0
+    var gravityAccelXBias: Double = 0.0
+    var gravityAccelYBias: Double = 0.0
+    var gravityAccelZBias: Double = 0.0
+    
+    var latestUncalibratedData: AirPodsMotionData?
+ 
+    
     var isAvailable: Bool {
         return motionManager.isDeviceMotionAvailable
     }
     
-    private var decimalPlaces = 5
     
     
     override init() {
@@ -68,12 +86,9 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
         self.sensorData.removeAll()
     }
     
-    func setDecimalPlaces(places: Int) -> Void {
-        self.decimalPlaces = places
-    }
-    
+ 
     func getElapsedTime() -> TimeInterval {
-        guard let first = sensorData.first, let last = sensorData.last else {
+        guard let first = tempData.first, let last = tempData.last else {
             return 0
         }
         return last.timestamp.timeIntervalSince(first.timestamp)
@@ -84,7 +99,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
         self.isCollectingTrainData = true
         self.isCountTimerRunning = true
         
-        timer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { [weak self] _ in
             guard let self = self else { return }
             self.isCollectingTrainData = false
             self.exportToCsv(data: self.tempData, to: fileName)
@@ -110,7 +125,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
         self.timer = nil
         self.countTimer?.invalidate()
         self.countTimer = nil
-        self.timerSeconds = 30
+        self.timerSeconds = 60
     }
     
     
@@ -127,29 +142,48 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                 let newData = AirPodsMotionData(
                     timestamp: Date(),
                     elapsedTime: self.getElapsedTime(),
-                    pitch: motion.attitude.pitch.rounded(toPlaces: self.decimalPlaces),
-                    yaw: motion.attitude.yaw.rounded(toPlaces: self.decimalPlaces),
-                    roll: motion.attitude.roll.rounded(toPlaces: self.decimalPlaces),
-                    rotationRateX: motion.rotationRate.x.rounded(toPlaces: self.decimalPlaces),
-                    rotationRateY: motion.rotationRate.y.rounded(toPlaces: self.decimalPlaces),
-                    rotationRateZ: motion.rotationRate.z.rounded(toPlaces: self.decimalPlaces),
-                    userAccelX: motion.userAcceleration.x.rounded(toPlaces: self.decimalPlaces),
-                    userAccelY: motion.userAcceleration.y.rounded(toPlaces: self.decimalPlaces),
-                    userAccelZ: motion.userAcceleration.z.rounded(toPlaces: self.decimalPlaces),
-                    gravityAccelX: motion.gravity.x.rounded(toPlaces: self.decimalPlaces),
-                    gravityAccelY: motion.gravity.y.rounded(toPlaces: self.decimalPlaces),
-                    gravityAccelZ: motion.gravity.z.rounded(toPlaces: self.decimalPlaces)
+                    pitch: motion.attitude.pitch - self.pitchBias,
+                    yaw: motion.attitude.yaw - self.yawBias,
+                    roll: motion.attitude.roll - self.rollBias,
+                    rotationRateX: motion.rotationRate.x - self.rotationRateXBias,
+                    rotationRateY: motion.rotationRate.y - self.rotationRateYBias,
+                    rotationRateZ: motion.rotationRate.z - self.rotationRateZBias,
+                    userAccelX: motion.userAcceleration.x - self.userAccelXBias,
+                    userAccelY: motion.userAcceleration.y - self.userAccelYBias,
+                    userAccelZ: motion.userAcceleration.z - self.userAccelZBias,
+                    gravityAccelX: motion.gravity.x - self.gravityAccelXBias,
+                    gravityAccelY: motion.gravity.y - self.gravityAccelYBias,
+                    gravityAccelZ: motion.gravity.z - self.gravityAccelZBias
                 )
+                
+                let rawNewData = AirPodsMotionData(
+                    timestamp: Date(),
+                    elapsedTime: self.getElapsedTime(),
+                    pitch: motion.attitude.pitch,
+                    yaw: motion.attitude.yaw,
+                    roll: motion.attitude.roll,
+                    rotationRateX: motion.rotationRate.x,
+                    rotationRateY: motion.rotationRate.y,
+                    rotationRateZ: motion.rotationRate.z,
+                    userAccelX: motion.userAcceleration.x,
+                    userAccelY: motion.userAcceleration.y,
+                    userAccelZ: motion.userAcceleration.z,
+                    gravityAccelX: motion.gravity.x,
+                    gravityAccelY: motion.gravity.y,
+                    gravityAccelZ: motion.gravity.z
+                )
+                
                 
                 DispatchQueue.main.async {
                     self.lastSensorData = newData
+                    self.latestUncalibratedData = rawNewData
                     self.sensorData.append(newData)
                     
                     if (self.isCollectingTrainData) {
                         self.tempData.append(newData)
                     }
                     
-                    self.prediction = self.predictionService.predictViewingDirection(data: motion)
+                    self.prediction = self.predictionService.predictViewingDirection(data: newData)
                     self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
                     
                     switch motion.sensorLocation {
@@ -168,6 +202,25 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
             }
         }
         
+    }
+    
+    func calibrate(data: AirPodsMotionData) {
+        self.pitchBias = data.pitch
+        self.yawBias = data.yaw
+        self.rollBias = data.roll
+        
+        self.rotationRateXBias = data.rotationRateX
+        self.rotationRateYBias = data.rotationRateY
+        self.rotationRateZBias = data.rotationRateZ
+        
+        self.userAccelXBias = data.userAccelX
+        self.userAccelYBias = data.userAccelY
+        self.userAccelZBias = data.userAccelZ
+        
+        self.gravityAccelXBias = data.gravityAccelX
+        self.gravityAccelYBias = data.gravityAccelY
+        self.gravityAccelZBias = data.gravityAccelZ
+      
     }
     
 }

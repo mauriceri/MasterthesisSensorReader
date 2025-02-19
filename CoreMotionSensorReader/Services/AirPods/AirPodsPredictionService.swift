@@ -20,10 +20,10 @@ class AirPodsPredictionService {
 
 
     
-    func predictViewingDirection(data: CMDeviceMotion) -> String {
+    func predictViewingDirection(data: AirPodsMotionData) -> String {
         
-        let yaw: Double = data.attitude.yaw
-        let pitch: Double = data.attitude.pitch
+        let yaw: Double = data.yaw
+        let pitch: Double = data.pitch
         
         if (yaw <= leftYaw) {
             return "Rechts"

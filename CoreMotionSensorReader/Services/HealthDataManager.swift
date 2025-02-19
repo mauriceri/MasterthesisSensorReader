@@ -28,11 +28,17 @@ class HealthDataManager {
     }
     
     func requestAuthorization() {
+        /*
         let toReads = Set([
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .restingHeartRate)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+        ])
+         */
+        
+        let toReads = Set([
+            HKQuantityType.quantityType(forIdentifier: .restingHeartRate)!
         ])
         
         guard HKHealthStore.isHealthDataAvailable() else {
