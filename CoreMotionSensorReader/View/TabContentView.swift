@@ -16,9 +16,11 @@ struct TabContentView: View {
             InfoView().tabItem{
                 Label("Info", systemImage: "info")}
             
+            /*
             HealthDataView().tabItem {
                 Label("Health Data", systemImage: "heart.fill")
             }
+             */
 
         }
     }

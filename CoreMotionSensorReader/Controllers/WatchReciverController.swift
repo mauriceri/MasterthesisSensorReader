@@ -37,6 +37,13 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     let soundservice = SoundService()
     
     
+    let featureExtractor = FeatureExtractor()
+    
+    
+    //Daten aus Fenster
+    var sensorBuffer: [SensorData] = []
+    let windowSize: TimeInterval = 2.0
+    
     var session: WCSession
     
     init(session: WCSession = .default) {
@@ -73,6 +80,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             if(self.isCollectingTrainData) {
                 self.tempData.append(messageData)
             }
+            
+           // self.updateSensorBuffer(with: messageData)
             
             self.prediction = self.watchPrediction.predictMovement(motionData: messageData)
             self.modelPrediction = self.watchPrediction.testPred(motionData: messageData)
@@ -151,6 +160,25 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             session.sendMessage(dict, replyHandler: nil, errorHandler: nil)
         } else {
             print("Session nicht erreichbar")
+        }
+    }
+    
+  
+    
+    func updateSensorBuffer(with newData: SensorData) {
+    
+        sensorBuffer.append(newData)
+
+        let currentTime = newData.timestamp
+        sensorBuffer = sensorBuffer.filter { currentTime.timeIntervalSince($0.timestamp) <= windowSize }
+        
+
+        if sensorBuffer.count > 1 {
+            
+            let features = featureExtractor.computeFeatures(from: sensorBuffer)
+            
+            print(features.maxValues)
+            //featureExtractor.processFeatures(features) // Weiterverarbeitung, z.B. ML-Model
         }
     }
     

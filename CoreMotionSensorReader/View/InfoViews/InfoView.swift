@@ -16,10 +16,11 @@ struct InfoView: View {
         - Um Bewegungsdaten von der Apple Watch zu lesen, muss die App auf der Watch gestartet werden.
         - Tippe auf **"Starte Workout"**, um das Workout zu beginnen. Dies stellt sicher, dass die Datenaufzeichnung nicht unterbrochen wird.
         
-        - Für das Aufzeichnen einer Übung auf den Übungsnamen klicken und die Übung durchführen für 30 Sekunden.
+        - Für das Aufzeichnen einer Übung auf den Übungsnamen klicken und die Übung durchführen für 60 Sekunden.
+        
 
         ### Datenverwaltung:
-        Die gesammelten Daten werden im App-Ordner als **CSV-Dateien** gespeichert.
+        Die gesammelten Daten werden im App-Ordner als **CSV-Dateien** gespeichert. Alle Sensordaten werden vollständig lokal gespeichert. Die Gesundheitsdaten (z. B. die Herzfrequenz) werden von der nativen Apple-Health-Anwendung verwaltet.
         """)
     }
 }

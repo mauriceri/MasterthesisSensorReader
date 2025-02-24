@@ -30,7 +30,7 @@ struct SensorView: View {
                             workoutManager.startWorkout()
                             sensorReader.startReadingSensors()
                             startedRunning = true
-                            showAlert = true
+                    
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(.blue)
@@ -39,10 +39,10 @@ struct SensorView: View {
                             workoutManager.endWorkout()
                             sensorReader.stopReadingSensors()
                             startedRunning = false
-                            showAlert = true
+                    
                         }
                         .buttonStyle(.borderedProminent)
-                        .tint(.red) // Setzt die Button-Farbe auf Rot
+                        .tint(.red)
                     }
                     
                 }
@@ -106,7 +106,9 @@ struct SensorView: View {
         }.onAppear() {
             //sensorReader.startReadingSensors()
             workoutManager.requestAuthorization()
-        }.alert(isPresented: $showAlert) {
+        }
+        
+        .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Aktion bestätigt"),
                 message: Text(startedRunning ? "Workout gestartet!" : "Workout beendet!"),
@@ -115,6 +117,7 @@ struct SensorView: View {
                 }
             )
         }
+         
         
     }
     
