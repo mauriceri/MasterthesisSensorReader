@@ -47,6 +47,8 @@ struct SensorView: View {
                     
                 }
                 
+                /*
+                
                 Text("Abtastrate berechnet: \(sensorReader.samplingRate)")
                 
                 
@@ -73,7 +75,7 @@ struct SensorView: View {
                 Text("Einstellbare Abtastrate: 1, 10, 20, 30, 40, 50, 60")
                     .font(.footnote)
                     .padding()
-                
+                */
                 
                 Section(header: Text("Ausrichtung")) {
                     Text("Pitch: \(sensorReader.lastSensorData?.deviceMotionData?.pitch ?? 0.0)")
@@ -106,8 +108,8 @@ struct SensorView: View {
                 }
             }
         }.onAppear() {
-            sensorReader.startReadingSensors()
-            //workoutManager.requestAuthorization()
+            //sensorReader.startReadingSensors()
+            workoutManager.requestAuthorization()
         }
     
         /*
