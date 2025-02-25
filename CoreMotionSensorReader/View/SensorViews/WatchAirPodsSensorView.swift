@@ -9,7 +9,9 @@ import SwiftUI
 
 struct WatchAirPodsSensorView: View {
     
-    @State private var watchReciever = WatchReciverController()
+    @Bindable var watchReciever: WatchReciverController
+    
+    
     @State private var airpodscontroller = AirpodsDataController()
     
     
@@ -344,5 +346,5 @@ struct WatchAirPodsSensorView: View {
 
 
 #Preview {
-    WatchAirPodsSensorView()
+    WatchAirPodsSensorView(watchReciever: WatchReciverController())
 }

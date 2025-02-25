@@ -13,6 +13,9 @@ class ConnectivityService: NSObject, WCSessionDelegate {
     
     var session: WCSession
     
+    var sensorBuffer: [SensorData] = []
+    let bufferSize = 10
+    
     init(session: WCSession = .default) {
         self.session = session
         super.init()
@@ -27,7 +30,10 @@ class ConnectivityService: NSObject, WCSessionDelegate {
         print(activationState)
     }
     
+    
+    /*
     func sendSensorData(data: SensorData) {
+        /*
         let dict: [String : Any] = ["data": data.encodeIt()]
         
         if session.activationState == .activated && session.isReachable {
@@ -35,7 +41,42 @@ class ConnectivityService: NSObject, WCSessionDelegate {
         } else {
             print("Session nicht erreichbar")
         }
+       
+        let encodedData = data.encodeIt()
+        
+        if session.activationState == .activated && session.isReachable {
+            session.sendMessageData(encodedData, replyHandler: nil, errorHandler: nil)
+        } else {
+            print("Session nicht erreichbar")
+        }
+         */
+        
+        sensorBuffer.append(data)
+        
+        if sensorBuffer.count >= bufferSize {
+            let encodedData = try? JSONEncoder().encode(sensorBuffer)
+            sensorBuffer.removeAll()
+            
+            if session.activationState == .activated && session.isReachable {
+                session.sendMessageData(encodedData!, replyHandler: nil, errorHandler: nil)
+            } else {
+                print("Session nicht erreichbar")
+            }
+        }
     }
+     */
+    
+    func sendSensorDataBatch(data: [SensorData]) {
+        guard session.activationState == .activated && session.isReachable else {
+            print("Session nicht erreichbar")
+            return
+        }
+        
+        if let encodedData = try? JSONEncoder().encode(data) {
+            session.sendMessageData(encodedData, replyHandler: nil, errorHandler: nil)
+        }
+    }
+
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         if let hapticValue = message["haptic"] as? String, hapticValue == "true" {
@@ -46,5 +87,20 @@ class ConnectivityService: NSObject, WCSessionDelegate {
             print("Haptic is not set to true or is missing")
         }
     }
+    
+    /*
+    
+    func sendSensorDataBatch(data: [SensorData]) {
+        guard session.activationState == .activated && session.isReachable else {
+            print("Session nicht erreichbar")
+            return
+        }
+        
+        if let encodedData = try? JSONEncoder().encode(data) {
+            session.sendMessageData(encodedData, replyHandler: nil, errorHandler: nil)
+        }
+    }
+     */
+
     
 }

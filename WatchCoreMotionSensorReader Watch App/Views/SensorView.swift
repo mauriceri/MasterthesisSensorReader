@@ -47,6 +47,8 @@ struct SensorView: View {
                     
                 }
                 
+                Text("Abtastrate berechnet: \(sensorReader.samplingRate)")
+                
                 
                 Text("Abtastrate: \(Int(sensorReader.sampleRate)) Hz")
                     .font(.headline)
@@ -104,10 +106,11 @@ struct SensorView: View {
                 }
             }
         }.onAppear() {
-            //sensorReader.startReadingSensors()
-            workoutManager.requestAuthorization()
+            sensorReader.startReadingSensors()
+            //workoutManager.requestAuthorization()
         }
-        
+    
+        /*
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Aktion bestätigt"),
@@ -117,7 +120,8 @@ struct SensorView: View {
                 }
             )
         }
-         
+        
+       */
         
     }
     

@@ -9,9 +9,15 @@ import SwiftUI
 
 struct TabContentView: View {
     var body: some View {
+        
+        @State var watchReciever = WatchReciverController()
+        
         TabView {
-            WatchAirPodsSensorView()
+            WatchAirPodsSensorView(watchReciever: watchReciever)
                 .tabItem { Label("Watch&AirPods", systemImage: "person.wave.2.fill")}
+            
+            FeatureView(watchReciever: watchReciever).tabItem{
+                Label("FeatureView", systemImage: "x.squareroot")}
             
             InfoView().tabItem{
                 Label("Info", systemImage: "info")}

@@ -39,6 +39,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     let featureExtractor = FeatureExtractor()
     
+    var currentFeatureStruct: SensorFeatures?
+    
     
     //Daten aus Fenster
     var sensorBuffer: [SensorData] = []
@@ -66,7 +68,47 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         session.activate()
     }
     
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let sensorArray = try? JSONDecoder().decode([SensorData].self, from: messageData) {
+                DispatchQueue.main.async {
+                    self.sensorData.append(contentsOf: sensorArray)
+                    self.lastSensorData = sensorArray.last
+                    
+                    if self.isCollectingTrainData {
+                        self.tempData.append(contentsOf: sensorArray)
+                    }
+
+                    sensorArray.forEach { self.updateSensorBuffer(with: $0) }
+                }
+            }
+        }
+    }
+
+
     
+    /*
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        let sensorData = SensorData.decodeIt(messageData)
+        
+        DispatchQueue.main.async {
+            self.sensorData.append(sensorData)
+            self.lastSensorData = sensorData
+            
+            if self.isCollectingTrainData {
+                self.tempData.append(sensorData)
+            }
+            
+            self.updateSensorBuffer(with: sensorData)
+            
+            self.prediction = self.watchPrediction.predictMovement(motionData: sensorData)
+            self.modelPrediction = self.watchPrediction.testPred(motionData: sensorData)
+        }
+    }
+    */
+    
+    
+    /*
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         guard let data: Data = message["data"] as? Data else { return }
         
@@ -81,12 +123,12 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                 self.tempData.append(messageData)
             }
             
-           // self.updateSensorBuffer(with: messageData)
+            self.updateSensorBuffer(with: messageData)
             
             self.prediction = self.watchPrediction.predictMovement(motionData: messageData)
             self.modelPrediction = self.watchPrediction.testPred(motionData: messageData)
         }
-    }
+    }*/
     
     func startTimerAndExport(to fileName: String) {
         self.tempData.removeAll()
@@ -176,6 +218,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         if sensorBuffer.count > 1 {
             
             let features = featureExtractor.computeFeatures(from: sensorBuffer)
+            
+            self.currentFeatureStruct = features
             
             print(features.maxValues)
             //featureExtractor.processFeatures(features) // Weiterverarbeitung, z.B. ML-Model
