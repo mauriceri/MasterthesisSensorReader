@@ -41,6 +41,10 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     var currentFeatureStruct: SensorFeatures?
     
+    var receivedCount: Int = 0
+    var frequencyHistory: [Int] = []
+    let historySize = 5
+    
     
     //Daten aus Fenster
     var sensorBuffer: [SensorData] = []
@@ -80,12 +84,11 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                     }
 
                     sensorArray.forEach { self.updateSensorBuffer(with: $0) }
+                    
                 }
             }
         }
     }
-
-
     
     /*
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {

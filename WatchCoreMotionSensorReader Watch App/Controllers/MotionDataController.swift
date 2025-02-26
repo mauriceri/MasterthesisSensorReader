@@ -44,12 +44,14 @@ class MotionDataController {
     
     let sensorQueue = OperationQueue()
     
+   
+    
     func startReadingSensors() {
         self.currentSensorData.timestamp = Date()
         self.currentSensorData.elapsedTime = getElapsedTime()
         
         if motionManager.isAccelerometerAvailable {
-            motionManager.accelerometerUpdateInterval = 1/60.1
+            motionManager.accelerometerUpdateInterval =  1.0 / 100.0
             motionManager.startAccelerometerUpdates(to: sensorQueue) { [weak self] (data, error) in
                 if let data = data {
                     self?.currentSensorData.accelerometerData = AccelerometerData(
@@ -57,16 +59,14 @@ class MotionDataController {
                         accelerationY: data.acceleration.y,
                         accelerationZ: data.acceleration.z
                     )
-                    //self?.updateSensorDataArray()
-                    DispatchQueue.main.async {
-                                   self?.updateSensorDataArray()
-                               }
+                    self?.updateSensorDataArray()
+               
                 }
             }
         }
         
         if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 1/60.1
+            motionManager.deviceMotionUpdateInterval = 1.0 / 100.0
             motionManager.startDeviceMotionUpdates(to: sensorQueue) { [weak self] (data, error) in
                 if let data = data {
                     self?.currentSensorData.deviceMotionData = DeviceMotionData(
@@ -84,10 +84,8 @@ class MotionDataController {
                         gravityAccelZ: data.gravity.z
                     )
                     
-                    DispatchQueue.main.async {
-                                   self?.updateSensorDataArray()
-                               }
-                    //self?.updateSensorDataArray()
+                 
+                    self?.updateSensorDataArray()
                 }
             }
         }
@@ -123,8 +121,9 @@ class MotionDataController {
             return
         }
         
-        sensorBuffer.append(currentSensorData) // Speichere Sensordaten im Buffer
-        currentSensorData = SensorData() // Setze `currentSensorData` zurück
+        sensorBuffer.append(currentSensorData)
+        self.lastSensorData = currentSensorData
+        currentSensorData = SensorData()
     }
 
     

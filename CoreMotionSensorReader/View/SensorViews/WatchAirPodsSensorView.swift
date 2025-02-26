@@ -88,19 +88,23 @@ struct WatchAirPodsSensorView: View {
                         }
                 }
                 
-
-                Section(header: Text("Daten-Export (CSV)")) {
-                    
-                    if airpodscontroller.isAvailable {
+                if airpodscontroller.isAvailable {
+                    Section(header: Text("Kalibrierung")) {
                         Button("Kalibriere AirPods") {
                             if airpodscontroller.latestUncalibratedData != nil {
                                 airpodscontroller.calibrate(data: airpodscontroller.latestUncalibratedData!)
                             }
                         }
-                        Spacer()
                     }
                     
+                }
                 
+                
+                Section(header: Text("Daten-Export (CSV)")) {
+                    
+                    
+                    
+                    
                     
                     if(watchReciever.isCollectingTrainData) {
                         Text("Die Daten werden gesammelt. Nach erfolgreichem Abschluss des Sammelns werden die Exportoptionen wieder sichtbar. Verbleibende Zeit: \(watchReciever.timerSeconds)")
@@ -125,7 +129,7 @@ struct WatchAirPodsSensorView: View {
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-
+                        
                         Button("Arm nach vorne heben") {
                             let filename = "watch_armfrontraise_\(studyid)_\(height)_\(age)_\(armlength).csv"
                             watchReciever.startTimerAndExport(to: filename)
@@ -135,7 +139,7 @@ struct WatchAirPodsSensorView: View {
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-
+                        
                         Button("Gewicht verlagern mit Arm") {
                             let filename = "watch_weightdist_\(studyid)_\(height)_\(age)_\(armlength).csv"
                             watchReciever.startTimerAndExport(to: filename)
@@ -145,7 +149,7 @@ struct WatchAirPodsSensorView: View {
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-
+                        
                         Button("Knie kreisen") {
                             let filename = "watch_kneecircles_\(studyid)_\(height)_\(age)_\(armlength).csv"
                             watchReciever.startTimerAndExport(to: filename)
@@ -155,7 +159,7 @@ struct WatchAirPodsSensorView: View {
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-
+                        
                         Button("Schnelle tiefe schritte") {
                             let filename = "watch_stepsdeepfast_\(studyid)_\(height)_\(age)_\(armlength).csv"
                             watchReciever.startTimerAndExport(to: filename)
@@ -165,7 +169,7 @@ struct WatchAirPodsSensorView: View {
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-
+                        
                         Button("Arm nach oben heben") {
                             let filename = "watch_armtopraise_\(studyid)_\(height)_\(age)_\(armlength).csv"
                             watchReciever.startTimerAndExport(to: filename)
@@ -176,10 +180,11 @@ struct WatchAirPodsSensorView: View {
                             }
                         }
                     }
-                   
+                    
+                  //  Text("HZ: \(watchReciever.receivedCount)")
                     Text("Datenmenge insgesamt: \(watchReciever.getArraySize())")
                     Text("Vergangene Zeit: \(String(format: "%.0f", watchReciever.getElapsedTime()))")
-  
+                    
                     Button("Daten löschen") {
                         watchReciever.clearData()
                         airpodscontroller.clearArray()
@@ -194,14 +199,14 @@ struct WatchAirPodsSensorView: View {
                 }
                 
                 
-               
+                
                 if (airpodscontroller.isAvailable) {
                     Section(header: Text("Bewegungserkennung AirPods")){
                         Text("Threshold: \(airpodscontroller.prediction)")
                         Text("Model: \(airpodscontroller.modelPrediction)")
                     }
                 }
-             
+                
                 
                 Section(header: Text("AirPods")) {
                     if(airpodscontroller.isAvailable) {

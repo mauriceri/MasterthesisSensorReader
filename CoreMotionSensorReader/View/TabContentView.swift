@@ -19,6 +19,9 @@ struct TabContentView: View {
             FeatureView(watchReciever: watchReciever).tabItem{
                 Label("FeatureView", systemImage: "x.squareroot")}
             
+            
+          //FileListView().tabItem{Label("Files", systemImage: "folder.fill")}
+            
             InfoView().tabItem{
                 Label("Info", systemImage: "info")}
             

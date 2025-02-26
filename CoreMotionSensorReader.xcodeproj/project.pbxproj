@@ -44,6 +44,7 @@
 		51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */; };
 		51E484702C2714E40084A3C7 /* AirPodsPredictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E4846F2C2714E40084A3C7 /* AirPodsPredictionService.swift */; };
 		51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */; };
+		51F5B8EB2D6F37A300A0CC85 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F5B8EA2D6F37A300A0CC85 /* FileListView.swift */; };
 		51F7C0012C2308480058B12F /* interfacesound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51F7C0002C2308480058B12F /* interfacesound.mp3 */; };
 		51F7C0032C23086C0058B12F /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7C0022C23086C0058B12F /* SoundService.swift */; };
 		51FADADE2C83839200F51251 /* MarchingClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 51FADADD2C83839200F51251 /* MarchingClassifier.mlmodel */; };
@@ -114,6 +115,7 @@
 		51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirpodsDataController.swift; sourceTree = "<group>"; };
 		51E4846F2C2714E40084A3C7 /* AirPodsPredictionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsPredictionService.swift; sourceTree = "<group>"; };
 		51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsCsvWriterService.swift; sourceTree = "<group>"; };
+		51F5B8EA2D6F37A300A0CC85 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		51F7C0002C2308480058B12F /* interfacesound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = interfacesound.mp3; sourceTree = "<group>"; };
 		51F7C0022C23086C0058B12F /* SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundService.swift; sourceTree = "<group>"; };
 		51FADADD2C83839200F51251 /* MarchingClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MarchingClassifier.mlmodel; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		5183576C2C1DF2F6000EAD64 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				51F5B8E92D6F379400A0CC85 /* Fileviews */,
 				516F67302D21890400C44CD1 /* InfoViews */,
 				51F7C0052C2312810058B12F /* HealthDataViews */,
 				51F7C0042C2312680058B12F /* SensorViews */,
@@ -334,6 +337,14 @@
 				51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */,
 			);
 			path = AirPods;
+			sourceTree = "<group>";
+		};
+		51F5B8E92D6F379400A0CC85 /* Fileviews */ = {
+			isa = PBXGroup;
+			children = (
+				51F5B8EA2D6F37A300A0CC85 /* FileListView.swift */,
+			);
+			path = Fileviews;
 			sourceTree = "<group>";
 		};
 		51F7BFFF2C2308390058B12F /* Sounds */ = {
@@ -483,6 +494,7 @@
 				516F67322D21891D00C44CD1 /* InfoView.swift in Sources */,
 				51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */,
 				51FADADE2C83839200F51251 /* MarchingClassifier.mlmodel in Sources */,
+				51F5B8EB2D6F37A300A0CC85 /* FileListView.swift in Sources */,
 				518672DB2C836BD700BA6223 /* MovementPrediction.mlmodel in Sources */,
 				510617C72C3D662800186390 /* WatchCsvWriter.swift in Sources */,
 				51F7C0032C23086C0058B12F /* SoundService.swift in Sources */,
