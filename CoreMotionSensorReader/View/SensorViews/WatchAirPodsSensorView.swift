@@ -205,19 +205,16 @@ struct WatchAirPodsSensorView: View {
                         Text("Threshold: \(airpodscontroller.prediction)")
                         Text("Model: \(airpodscontroller.modelPrediction)")
                     }
+                    
+                    Section(header: Text("Ort des Sensors")){
+                        Text("\(airpodscontroller.sensorlocation)")
+                    }
+                    
                 }
                 
                 
                 Section(header: Text("AirPods")) {
                     if(airpodscontroller.isAvailable) {
-                        Section(header: Text("Bewegungserkennung")){
-                            Text("Threshold: \(airpodscontroller.prediction)")
-                            Text("Model: \(airpodscontroller.modelPrediction)")
-                        }
-                        
-                        Section(header: Text("Ort des Sensors")){
-                            Text("\(airpodscontroller.sensorlocation)")
-                        }
                         
                         Section(header: Text("Tools")){
                             Button("Export"){

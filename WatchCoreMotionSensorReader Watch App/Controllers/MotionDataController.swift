@@ -12,7 +12,9 @@ import CoreMotion
 class MotionDataController {
     
     let motionManager = CMMotionManager()
-    let queue = OperationQueue()
+    
+    private let sensorDataQueue = DispatchQueue(label: "de.sensorreader.watchapp.sensordata", attributes: .concurrent)
+    
     let connectivity = ConnectivityService()
     
     var sensorData: [SensorData] = []
@@ -51,7 +53,7 @@ class MotionDataController {
         self.currentSensorData.elapsedTime = getElapsedTime()
         
         if motionManager.isAccelerometerAvailable {
-            motionManager.accelerometerUpdateInterval =  1.0 / 100.0
+            motionManager.accelerometerUpdateInterval =  1.0 / 70.0
             motionManager.startAccelerometerUpdates(to: sensorQueue) { [weak self] (data, error) in
                 if let data = data {
                     self?.currentSensorData.accelerometerData = AccelerometerData(
@@ -60,13 +62,14 @@ class MotionDataController {
                         accelerationZ: data.acceleration.z
                     )
                     self?.updateSensorDataArray()
+                    
                
                 }
             }
         }
         
         if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 1.0 / 100.0
+            motionManager.deviceMotionUpdateInterval = 1.0 / 70.0
             motionManager.startDeviceMotionUpdates(to: sensorQueue) { [weak self] (data, error) in
                 if let data = data {
                     self?.currentSensorData.deviceMotionData = DeviceMotionData(
@@ -90,6 +93,7 @@ class MotionDataController {
             }
         }
         
+  
         
         updateSensorDataArray()
         startBatchTimer()
@@ -99,7 +103,7 @@ class MotionDataController {
 
     // Startet den Timer, um jede Sekunde einen Batch zu senden
     private func startBatchTimer() {
-        batchTimer?.invalidate() // Falls bereits ein Timer läuft, stoppen
+        batchTimer?.invalidate()
         batchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             self?.sendSensorBatch()
         }
@@ -121,9 +125,22 @@ class MotionDataController {
             return
         }
         
+        let newSensorData = SensorData() // Create a new instance first
+
+        /*
+        sensorDataQueue.async(flags: .barrier) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.sensorBuffer.append(strongSelf.currentSensorData)
+            strongSelf.lastSensorData = strongSelf.currentSensorData
+            strongSelf.currentSensorData = newSensorData // Safely assign outside critical section
+        }
+         */
+        
+        currentSensorData.timestamp = Date()
+   
         sensorBuffer.append(currentSensorData)
-        self.lastSensorData = currentSensorData
-        currentSensorData = SensorData()
+        //self.lastSensorData = currentSensorData
+        //currentSensorData = SensorData()
     }
 
     
