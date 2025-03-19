@@ -14,14 +14,18 @@
 		511410452C22E5B2004ACAE4 /* AirPodsSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410442C22E5B2004ACAE4 /* AirPodsSensorData.swift */; };
 		511410472C22FAD1004ACAE4 /* TherapySessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */; };
 		5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114104A2C23058D004ACAE4 /* TabContentView.swift */; };
+		5126B0CE2D889A41007164CB /* Testmodel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5126B0CD2D889A41007164CB /* Testmodel.mlmodel */; };
 		513E54612D65EE0600CCC1CE /* FeatureExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E54602D65EE0600CCC1CE /* FeatureExtractor.swift */; };
-		513E54662D65EE5E00CCC1CE /* SensorFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E54652D65EE5E00CCC1CE /* SensorFeatures.swift */; };
+		513E54662D65EE5E00CCC1CE /* SensorFeaturesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E54652D65EE5E00CCC1CE /* SensorFeaturesData.swift */; };
 		514CBA352D6CBBDF0081AC06 /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CBA342D6CBBDF0081AC06 /* FeatureView.swift */; };
 		514CBA372D6E04310081AC06 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CBA362D6E04310081AC06 /* DebugView.swift */; };
 		5166A3112C84754800A4FFE2 /* AirPodsPrediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5166A3102C84754800A4FFE2 /* AirPodsPrediction.mlmodel */; };
+		516BD6EA2D8078A70087FCFB /* RandomForestClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 516BD6E92D8078A70087FCFB /* RandomForestClassifier.mlmodel */; };
+		516BD6EE2D807B840087FCFB /* ModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD6ED2D807B840087FCFB /* ModelService.swift */; };
 		516F67322D21891D00C44CD1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516F67312D21891D00C44CD1 /* InfoView.swift */; };
 		5172CF862D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */; };
 		5172CF882D1EC8DB00BCD740 /* WorkOutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5172CF872D1EC8DB00BCD740 /* WorkOutManager.swift */; };
+		5173F0A22D8B132A0033266C /* FeatureProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5173F0A12D8B132A0033266C /* FeatureProcessing.swift */; };
 		518357482C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518357472C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift */; };
 		5183574A2C1DF1F8000EAD64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518357492C1DF1F8000EAD64 /* ContentView.swift */; };
 		5183574C2C1DF1F9000EAD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5183574B2C1DF1F9000EAD64 /* Assets.xcassets */; };
@@ -32,6 +36,7 @@
 		518357632C1DF2D2000EAD64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */; };
 		518357662C1DF2D2000EAD64 /* WatchCoreMotionSensorReader Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 518357592C1DF2D1000EAD64 /* WatchCoreMotionSensorReader Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		518672DB2C836BD700BA6223 /* MovementPrediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 518672DA2C836BD700BA6223 /* MovementPrediction.mlmodel */; };
+		5195C42F2D8086E800A6F7EA /* RFC.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5195C42E2D8086E800A6F7EA /* RFC.mlmodel */; };
 		51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
 		51CD6A9F2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
 		51CD6AA32C1EE3E100C53B8A /* BatchedSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AA22C1EE3E100C53B8A /* BatchedSensorData.swift */; };
@@ -83,15 +88,19 @@
 		511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapySessionDelegate.swift; sourceTree = "<group>"; };
 		511410492C22FB1C004ACAE4 /* WatchCoreMotionSensorReader-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WatchCoreMotionSensorReader-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5114104A2C23058D004ACAE4 /* TabContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContentView.swift; sourceTree = "<group>"; };
+		5126B0CD2D889A41007164CB /* Testmodel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Testmodel.mlmodel; sourceTree = "<group>"; };
 		513E54602D65EE0600CCC1CE /* FeatureExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureExtractor.swift; sourceTree = "<group>"; };
-		513E54652D65EE5E00CCC1CE /* SensorFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorFeatures.swift; sourceTree = "<group>"; };
+		513E54652D65EE5E00CCC1CE /* SensorFeaturesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorFeaturesData.swift; sourceTree = "<group>"; };
 		514CBA342D6CBBDF0081AC06 /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
 		514CBA362D6E04310081AC06 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		5166A3102C84754800A4FFE2 /* AirPodsPrediction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AirPodsPrediction.mlmodel; sourceTree = "<group>"; };
+		516BD6E92D8078A70087FCFB /* RandomForestClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RandomForestClassifier.mlmodel; sourceTree = "<group>"; };
+		516BD6ED2D807B840087FCFB /* ModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelService.swift; sourceTree = "<group>"; };
 		516F67312D21891D00C44CD1 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAirPodsSensorView.swift; sourceTree = "<group>"; };
 		5172CF872D1EC8DB00BCD740 /* WorkOutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutManager.swift; sourceTree = "<group>"; };
 		5172CF8F2D1ED52000BCD740 /* WatchCoreMotionSensorReader Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchCoreMotionSensorReader Watch App.entitlements"; sourceTree = "<group>"; };
+		5173F0A12D8B132A0033266C /* FeatureProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureProcessing.swift; sourceTree = "<group>"; };
 		518357442C1DF1F8000EAD64 /* CoreMotionSensorReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMotionSensorReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		518357472C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionSensorReaderApp.swift; sourceTree = "<group>"; };
 		518357492C1DF1F8000EAD64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +114,7 @@
 		518672DA2C836BD700BA6223 /* MovementPrediction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MovementPrediction.mlmodel; sourceTree = "<group>"; };
 		51935BA12C3EBD4000839BAB /* CoreMotionSensorReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoreMotionSensorReader.entitlements; sourceTree = "<group>"; };
 		51935BA42C4824D700839BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5195C42E2D8086E800A6F7EA /* RFC.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RFC.mlmodel; sourceTree = "<group>"; };
 		51CD6A9D2C1EE28200C53B8A /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		51CD6AA22C1EE3E100C53B8A /* BatchedSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedSensorData.swift; sourceTree = "<group>"; };
 		51CD6AA52C1EE4F000C53B8A /* WatchReciverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchReciverController.swift; sourceTree = "<group>"; };
@@ -144,6 +154,7 @@
 			children = (
 				510617C92C3EB54600186390 /* WatchPredicterService.swift */,
 				510617C62C3D662800186390 /* WatchCsvWriter.swift */,
+				516BD6ED2D807B840087FCFB /* ModelService.swift */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -160,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				513E54602D65EE0600CCC1CE /* FeatureExtractor.swift */,
+				5173F0A12D8B132A0033266C /* FeatureProcessing.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -194,7 +206,10 @@
 		518357462C1DF1F8000EAD64 /* CoreMotionSensorReader */ = {
 			isa = PBXGroup;
 			children = (
+				5126B0CD2D889A41007164CB /* Testmodel.mlmodel */,
+				5195C42E2D8086E800A6F7EA /* RFC.mlmodel */,
 				518672DA2C836BD700BA6223 /* MovementPrediction.mlmodel */,
+				516BD6E92D8078A70087FCFB /* RandomForestClassifier.mlmodel */,
 				5166A3102C84754800A4FFE2 /* AirPodsPrediction.mlmodel */,
 				51FADADD2C83839200F51251 /* MarchingClassifier.mlmodel */,
 				51935BA42C4824D700839BAB /* Info.plist */,
@@ -247,7 +262,7 @@
 		5183576B2C1DF2EC000EAD64 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				513E54652D65EE5E00CCC1CE /* SensorFeatures.swift */,
+				513E54652D65EE5E00CCC1CE /* SensorFeaturesData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -486,12 +501,16 @@
 				5172CF862D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift in Sources */,
 				51E484702C2714E40084A3C7 /* AirPodsPredictionService.swift in Sources */,
 				513E54612D65EE0600CCC1CE /* FeatureExtractor.swift in Sources */,
+				5126B0CE2D889A41007164CB /* Testmodel.mlmodel in Sources */,
 				51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */,
+				516BD6EA2D8078A70087FCFB /* RandomForestClassifier.mlmodel in Sources */,
 				51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */,
+				516BD6EE2D807B840087FCFB /* ModelService.swift in Sources */,
 				514CBA372D6E04310081AC06 /* DebugView.swift in Sources */,
 				510617CE2C3EB95200186390 /* HealthDataView.swift in Sources */,
-				513E54662D65EE5E00CCC1CE /* SensorFeatures.swift in Sources */,
+				513E54662D65EE5E00CCC1CE /* SensorFeaturesData.swift in Sources */,
 				516F67322D21891D00C44CD1 /* InfoView.swift in Sources */,
+				5195C42F2D8086E800A6F7EA /* RFC.mlmodel in Sources */,
 				51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */,
 				51FADADE2C83839200F51251 /* MarchingClassifier.mlmodel in Sources */,
 				51F5B8EB2D6F37A300A0CC85 /* FileListView.swift in Sources */,
@@ -499,6 +518,7 @@
 				510617C72C3D662800186390 /* WatchCsvWriter.swift in Sources */,
 				51F7C0032C23086C0058B12F /* SoundService.swift in Sources */,
 				518357482C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift in Sources */,
+				5173F0A22D8B132A0033266C /* FeatureProcessing.swift in Sources */,
 				511410452C22E5B2004ACAE4 /* AirPodsSensorData.swift in Sources */,
 				510617CA2C3EB54600186390 /* WatchPredicterService.swift in Sources */,
 			);

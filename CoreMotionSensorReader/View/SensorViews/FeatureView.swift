@@ -14,10 +14,10 @@ struct FeatureView: View {
 
     var body: some View {
         List {
-            Text("Max: \(watchReciever.currentFeatureStruct?.maxValues.first ?? 0.0)")
-            Text("Min: \(watchReciever.currentFeatureStruct?.minValues.first ?? 0.0)")
-            Text("FFT Magnitudes: \(watchReciever.currentFeatureStruct?.fftMagnitudes.first ?? 0.0)")
-            Text("Squared Values: \(watchReciever.currentFeatureStruct?.squaredValues.first ?? 0.0)")
+            Text("Acc_x min: \(watchReciever.currentFeatureStruct?.accelerationX_min ?? 0.0)")
+            Text("Acc_x max: \(watchReciever.currentFeatureStruct?.accelerationX_max ?? 0.0)")
+            Text("Acc_y max: \(watchReciever.currentFeatureStruct?.accelerationY_max ?? 0.0)")
+            Text("Acc_y std: \(watchReciever.currentFeatureStruct?.accelerationY_std ?? 0.0)")
         }
        
     }

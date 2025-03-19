@@ -32,7 +32,6 @@ class WorkoutManager: NSObject, ObservableObject {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
             builder = session?.associatedWorkoutBuilder()
         } catch {
-            // Handle any exceptions.
             return
         }
 
@@ -44,37 +43,29 @@ class WorkoutManager: NSObject, ObservableObject {
         session?.delegate = self
         builder?.delegate = self
 
-        // Start the workout session and begin data collection.
         let startDate = Date()
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
-            // The workout has started.
+            
         }
     }
     
-    // Request authorization to access HealthKit.
     func requestAuthorization() {
-        // The quantity type to write to the health store.
         let typesToShare: Set = [
             HKQuantityType.workoutType()
         ]
-
-        // The quantity types to read from the health store.
         let typesToRead: Set = [
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKObjectType.activitySummaryType()
         ]
 
-        // Request authorization for those quantity types.
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
-            // Handle error.
         }
     }
     
     // MARK: - State Control
 
-    // The workout session state.
     @Published var running = false
 
     func pause() {

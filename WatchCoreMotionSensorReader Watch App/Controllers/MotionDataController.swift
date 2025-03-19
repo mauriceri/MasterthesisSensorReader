@@ -10,14 +10,14 @@ class MotionDataController {
     private let connectivity = ConnectivityService()
     
     private var sensorBuffer: [SensorData] = []
-    private let maxBufferSize = 500 // Begrenzung des Puffers
+    private let maxBufferSize = 500 
     
     private var currentSensorData = SensorData()
     private var batchTimer: Timer?
     
     var lastSensorData: SensorData?
     
-    var sampleRate = 65.0 // Reduzierte Abtastrate für bessere Performance
+    var sampleRate = 65.0
     
     func startReadingSensors() {
         currentSensorData.timestamp = Date()

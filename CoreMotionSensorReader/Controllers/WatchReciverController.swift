@@ -37,7 +37,11 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     let soundservice = SoundService()
     
     
-    let featureExtractor = FeatureExtractor()
+    let featureExtractor = FeatureProcessing()
+    let modelService = ModelService()
+    
+    
+    
     
     var currentFeatureStruct: SensorFeatures?
     
@@ -48,7 +52,12 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     //Daten aus Fenster
     var sensorBuffer: [SensorData] = []
-    let windowSize: TimeInterval = 2.0
+    
+    // Fixed sample count for 65Hz buffer (approximately 1 second of data)
+    let fixedSampleCount = 65
+    
+    // Keep windowSize as a fallback mechanism
+    let windowSize: TimeInterval = 1.54
     
     var session: WCSession
     
@@ -89,49 +98,6 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             }
         }
     }
-    
-    /*
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        let sensorData = SensorData.decodeIt(messageData)
-        
-        DispatchQueue.main.async {
-            self.sensorData.append(sensorData)
-            self.lastSensorData = sensorData
-            
-            if self.isCollectingTrainData {
-                self.tempData.append(sensorData)
-            }
-            
-            self.updateSensorBuffer(with: sensorData)
-            
-            self.prediction = self.watchPrediction.predictMovement(motionData: sensorData)
-            self.modelPrediction = self.watchPrediction.testPred(motionData: sensorData)
-        }
-    }
-    */
-    
-    
-    /*
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        guard let data: Data = message["data"] as? Data else { return }
-        
-        var messageData = SensorData.decodeIt(data)
-        messageData.elapsedTime = getElapsedTime()
-        
-        DispatchQueue.main.async {
-            self.sensorData.append(messageData)
-            self.lastSensorData = messageData
-            
-            if(self.isCollectingTrainData) {
-                self.tempData.append(messageData)
-            }
-            
-            self.updateSensorBuffer(with: messageData)
-            
-            self.prediction = self.watchPrediction.predictMovement(motionData: messageData)
-            self.modelPrediction = self.watchPrediction.testPred(motionData: messageData)
-        }
-    }*/
     
     func startTimerAndExport(to fileName: String) {
         self.tempData.removeAll()
@@ -209,24 +175,76 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
   
-    
+ // MARK: Sliding Window, Feature extractor
     func updateSensorBuffer(with newData: SensorData) {
-    
+        // Add new data to buffer
         sensorBuffer.append(newData)
-
-        let currentTime = newData.timestamp
-        sensorBuffer = sensorBuffer.filter { currentTime.timeIntervalSince($0.timestamp) <= windowSize }
         
-
-        if sensorBuffer.count > 1 {
+        // Use sample count as primary mechanism to maintain window size
+        if sensorBuffer.count > fixedSampleCount {
+            // Remove oldest samples to maintain fixed window size
+            sensorBuffer = Array(sensorBuffer.suffix(fixedSampleCount))
+        }
+        
+        // Time-based fallback to ensure data isn't too old (in case of sampling rate changes)
+        if let oldestTimestamp = sensorBuffer.first?.timestamp {
+            let currentTime = newData.timestamp
+            let timeDifference = currentTime.timeIntervalSince(oldestTimestamp)
             
+            // If time window is much larger than expected, trim it
+            if timeDifference > windowSize * 1.5 {
+                sensorBuffer = sensorBuffer.filter {
+                    currentTime.timeIntervalSince($0.timestamp) <= windowSize
+                }
+            }
+        }
+        
+        // Process window if we have enough data
+        if sensorBuffer.count >= fixedSampleCount/2 {
+            // Compute features from the sensor buffer
             let features = featureExtractor.computeFeatures(from: sensorBuffer)
             
+            // Standardize features for the model
+           let scaledFeatures = featureExtractor.standardizeFeatures(features)
+            
+            // Get prediction from model
+            if let prediction = modelService?.classify(features: scaledFeatures) {
+                self.modelPrediction = prediction
+            }
+            
+            // Store current features
             self.currentFeatureStruct = features
             
-            print(features.maxValues)
-            //featureExtractor.processFeatures(features) // Weiterverarbeitung, z.B. ML-Model
+            // Update sampling frequency
+            updateSamplingFrequency()
         }
     }
     
+    // Calculate and update the current sampling frequency
+    private func updateSamplingFrequency() {
+        guard sensorBuffer.count >= 2 else { return }
+        
+        // Calculate time span
+        let firstTime = sensorBuffer.first!.timestamp
+        let lastTime = sensorBuffer.last!.timestamp
+        let timeSpan = lastTime.timeIntervalSince(firstTime)
+        
+        if timeSpan > 0 {
+            // Calculate frequency (samples per second)
+            let samplesCount = sensorBuffer.count - 1 // Count transitions, not samples
+            let frequency = Int(round(Double(samplesCount) / timeSpan))
+            
+            // Update history
+            frequencyHistory.append(frequency)
+            if frequencyHistory.count > historySize {
+                frequencyHistory.removeFirst()
+            }
+            
+            // Calculate average frequency
+            let avgFrequency = frequencyHistory.reduce(0, +) / frequencyHistory.count
+            
+            // Could use this to adjust buffer size if needed
+            print("Current sampling frequency: \(avgFrequency) Hz")
+        }
+    }
 }
