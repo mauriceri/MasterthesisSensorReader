@@ -8,92 +8,110 @@
 import Foundation
 import Accelerate
 
+
+//reduced: mean: [0.21455301516969322, 0.06466442414965638, 0.1781116257348689, 0.02481909410710424, 1.6645067012282806],
+//reduced std: [0.2501521901060052, 0.22570118169428124, 0.1775076154913816, 0.10186794110281397, 1.5693998176383293]
+
+/* alt:
+ mean: [-0.5356399882163667, -0.8957487554202017, 0.8047723287895919, 0.07791302983790317],
+ std: [0.4939388256052858, 1.5746934389624043, 0.7994948541061939, 0.22287172605741165]
+ */
+
+
 struct ScalerParams {
     let mean: [Double]
     let std: [Double]
     
     static let defaultScaler = ScalerParams(
-        mean: [1.8971770950852287, -0.3905246968123367, 0.0834210884892834, 1.051146970619584],
-        std: [0.8398078775682413, 0.446277655818336, 0.6828262178820128, 0.2436906230362451]
+        mean: [0.21455301516969322, 0.06466442414965638, 0.1781116257348689, 0.02481909410710424, 1.6645067012282806],
+        std: [0.2501521901060052, 0.22570118169428124, 0.1775076154913816, 0.10186794110281397, 1.5693998176383293]
     )
+}
+
+struct SensorFeaturesThreeModel {
+    let pitch_filtered_min: Double
+    let  yaw_filtered_min: Double
+    let roll_filtered_max: Double
+    let userAccelX_filtered_mean: Double
+    
+}
+
+struct SensorFeatures {
+    let userAccelY_std: Double
+    let userAccelX_mean: Double
+    let userAccelX_std: Double
+    let userAccelZ_mean: Double
+    let rotation_magnitude: Double
 }
 
 class FeatureExtractor {
     
-    /*
-    func computeFeatures(from data: [SensorData]) -> SensorFeatures {
-        var accelerationX: [Double] = []
-        var accelerationY: [Double] = []
-        var accelerationZ: [Double] = []
-        
-        var pitchValues: [Double] = []
-        var yawValues: [Double] = []
-        var rollValues: [Double] = []
-
-        for entry in data {
-            if let accel = entry.accelerometerData {
-                accelerationX.append(accel.accelerationX)
-                accelerationY.append(accel.accelerationY)
-                accelerationZ.append(accel.accelerationZ)
-            }
-            
-            if let motion = entry.deviceMotionData {
-                pitchValues.append(motion.pitch)
-                yawValues.append(motion.yaw)
-                rollValues.append(motion.roll)
-            }
-        }
-
-        let accelerationX_max = accelerationX.max() ?? 0.0
-        let accelerationX_min = accelerationX.min() ?? 0.0
-        let accelerationY_max = accelerationY.max() ?? 0.0
-
-        let accelerationY_mean = accelerationY.reduce(0, +) / Double(accelerationY.count)
-        let accelerationY_variance = accelerationY.map { pow($0 - accelerationY_mean, 2) }.reduce(0, +) / Double(accelerationY.count)
-        let accelerationY_std = sqrt(accelerationY_variance)
-
-        let sumOfSquaresPitchYawRoll = pitchValues.map { $0 * $0 }.reduce(0, +) +
-                                       yawValues.map { $0 * $0 }.reduce(0, +) +
-                                       rollValues.map { $0 * $0 }.reduce(0, +)
-
-        let sumOfSquaresAccel = accelerationX.map { $0 * $0 }.reduce(0, +) +
-                                accelerationY.map { $0 * $0 }.reduce(0, +) +
-                                accelerationZ.map { $0 * $0 }.reduce(0, +)
-
-        let lastAccelerationX = accelerationX.last ?? 0.0
-        let lastPitchValue = pitchValues.last ?? 0.0
-
-        return SensorFeatures(
-            accelerationX_max: accelerationX_max,
-            accelerationX_min: accelerationX_min,
-            accelerationY_max: accelerationY_max,
-            accelerationY_std: accelerationY_std,
-            sumOfSquaresPitchYawRoll: sumOfSquaresPitchYawRoll,
-            sumOfSquaresAccel: sumOfSquaresAccel,
-            accelerationX: lastAccelerationX,
-            pitch: lastPitchValue
-        )
-    }
-    
-    func standardizeFeatures(_ features: SensorFeatures, using scaler: ScalerParams = ScalerParams.defaultScaler) -> [Double] {
-        let featureArray = [
-            features.sumOfSquaresPitchYawRoll,
-            features.sumOfSquaresAccel,
-            features.accelerationX,
-            features.pitch
-        ]
-        
-        guard featureArray.count == scaler.mean.count, featureArray.count == scaler.std.count else {
-            print("Fehler: Dimensionen von Features und Scaler-Parametern stimmen nicht überein.")
-            return featureArray
-        }
-        
-        return zip(featureArray, zip(scaler.mean, scaler.std)).map { (value, params) in
-            let (mean, std) = params
-            return (value - mean) / std
-        }
-    }
-     */
+    // Function to scale values using mean and std
+       func scale(value: Double, index: Int) -> Double {
+           let mean = ScalerParams.defaultScaler.mean[index]
+           let std = ScalerParams.defaultScaler.std[index]
+           return (value - mean) / std
+       }
+       
+       func computeFeatures(from data: [SensorData]) -> SensorFeatures {
+           var userAccelXValues: [Double] = []
+           var userAccelYValues: [Double] = []
+           var userAccelZValues: [Double] = []
+           var rotationRateXValues: [Double] = []
+           var rotationRateYValues: [Double] = []
+           var rotationRateZValues: [Double] = []
+           
+           for entry in data {
+               if let motion = entry.deviceMotionData {
+                   userAccelXValues.append(motion.userAccelX)
+                   userAccelYValues.append(motion.userAccelY)
+                   userAccelZValues.append(motion.userAccelZ)
+                   rotationRateXValues.append(motion.rotationRateX)
+                   rotationRateYValues.append(motion.rotationRateY)
+                   rotationRateZValues.append(motion.rotationRateZ)
+               }
+           }
+           
+           // Berechnungen für Mittelwerte und Standardabweichungen
+           let userAccelXMean = userAccelXValues.reduce(0, +) / Double(userAccelXValues.count)
+           let userAccelXStd = standardDeviation(of: userAccelXValues)
+           let userAccelYStd = standardDeviation(of: userAccelYValues)
+           let userAccelZMean = userAccelZValues.reduce(0, +) / Double(userAccelZValues.count)
+           
+           // Berechnung der euklidischen Magnitude der Rotation
+           let rotationMagnitude = eucledianMagnitude(x: rotationRateXValues, y: rotationRateYValues, z: rotationRateZValues)
+           
+           // Skalieren der berechneten Features
+           let scaledUserAccelXMean = scale(value: userAccelXMean, index: 1)
+           let scaledUserAccelXStd = scale(value: userAccelXStd, index: 2)
+           let scaledUserAccelYStd = scale(value: userAccelYStd, index: 0)
+           let scaledUserAccelZMean = scale(value: userAccelZMean, index: 3)
+           let scaledRotationMagnitude = scale(value: rotationMagnitude, index: 4)
+           
+           // Features in ein Objekt verpacken
+           return SensorFeatures(
+               userAccelY_std: scaledUserAccelYStd,
+               userAccelX_mean: scaledUserAccelXMean,
+               userAccelX_std: scaledUserAccelXStd,
+               userAccelZ_mean: scaledUserAccelZMean,
+               rotation_magnitude: scaledRotationMagnitude
+           )
+       }
+       
+       // Funktion zur Berechnung der Standardabweichung
+       func standardDeviation(of values: [Double]) -> Double {
+           let mean = values.reduce(0, +) / Double(values.count)
+           let sumOfSquaredDifferences = values.reduce(0) { $0 + pow($1 - mean, 2) }
+           return sqrt(sumOfSquaredDifferences / Double(values.count))
+       }
+       
+       // Berechnung der euklidischen Magnitude für Rotationsraten
+       func eucledianMagnitude(x: [Double], y: [Double], z: [Double]) -> Double {
+           let magnitudes = zip(zip(x, y), z).map { (xy, z) in
+               return sqrt(pow(xy.0, 2) + pow(xy.1, 2) + pow(z, 2))
+           }
+           return magnitudes.reduce(0, +) / Double(magnitudes.count)
+       }
 }
 
-    
+

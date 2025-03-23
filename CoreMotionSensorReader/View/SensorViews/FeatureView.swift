@@ -14,10 +14,9 @@ struct FeatureView: View {
 
     var body: some View {
         List {
-            Text("Acc_x min: \(watchReciever.currentFeatureStruct?.accelerationX_min ?? 0.0)")
-            Text("Acc_x max: \(watchReciever.currentFeatureStruct?.accelerationX_max ?? 0.0)")
-            Text("Acc_y max: \(watchReciever.currentFeatureStruct?.accelerationY_max ?? 0.0)")
-            Text("Acc_y std: \(watchReciever.currentFeatureStruct?.accelerationY_std ?? 0.0)")
+            Text("rotationZ min: \(watchReciever.currentFeatureStruct?.rotationRateZ_filtered_min ?? 0.0)")
+            Text("gravityAccelZ max: \(watchReciever.currentFeatureStruct?.gravityAccelZ_filtered_max ?? 0.0)")
+            Text("pitch min: \(watchReciever.currentFeatureStruct?.pitch_filtered_min ?? 0.0)")
         }
        
     }

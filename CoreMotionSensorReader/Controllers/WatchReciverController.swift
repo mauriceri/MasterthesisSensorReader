@@ -2,7 +2,7 @@
 //  WatchReciverViewModel.swift
 //  CoreMotionSensorReader
 //
-//  Created by Maurice Richter on 16.06.24.
+//  Created by Maurice Richter on 23.03.25.
 //
 
 import Foundation
@@ -11,12 +11,16 @@ import WatchConnectivity
 @Observable
 class WatchReciverController: NSObject, WCSessionDelegate {
     
-    
+    let csvWriter = WatchCsvWriter()
+    let soundservice = SoundService()
+    let extract = FeatureExtractor()
+    let userMovementDetection = UserMovementDetection()
     
     var lastSensorData: SensorData?
     var sensorData = [SensorData]()
     
     var tempData = [SensorData]()
+    
     private var timer: Timer?
     private var countTimer: Timer? = nil
     var timerSeconds: Int = 60
@@ -30,34 +34,30 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     var isCollectingTrainData: Bool = false
     var isCountTimerRunning: Bool = false
     
-    let watchPrediction = WatchPredicterService()
-    let csvWriter = WatchCsvWriter()
+
     
+    var reducedFeatureLabelAll: String = "-"
     
-    let soundservice = SoundService()
-    
-    
-    let featureExtractor = FeatureProcessing()
     let modelService = ModelService()
     
     
-    
-    
-    var currentFeatureStruct: SensorFeatures?
-    
     var receivedCount: Int = 0
+    
     var frequencyHistory: [Int] = []
     let historySize = 5
     
-    
-    //Daten aus Fenster
-    var sensorBuffer: [SensorData] = []
-    
-    // Fixed sample count for 65Hz buffer (approximately 1 second of data)
-    let fixedSampleCount = 65
-    
-    // Keep windowSize as a fallback mechanism
+
     let windowSize: TimeInterval = 1.54
+    
+    var sensorBuffer: [SensorData] = []
+
+    //MARK: SlidingWindow var
+    var slidingWindow: [SensorData] = []
+    let slidingWindowSize = 65
+    
+    
+    var isUserMoving: Bool = false
+    var isUserMovingInformation: String = "-"
     
     var session: WCSession
     
@@ -68,8 +68,10 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         session.activate()
     }
     
+ 
+
     
-    
+    //MARK: Watch Connectivity
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
     }
@@ -91,14 +93,17 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                     if self.isCollectingTrainData {
                         self.tempData.append(contentsOf: sensorArray)
                     }
-
-                    sensorArray.forEach { self.updateSensorBuffer(with: $0) }
+                    
+                    sensorArray.forEach {
+                        self.processData(data: $0)
+                    }
                     
                 }
             }
         }
     }
     
+    //MARK: Timer and Exports
     func startTimerAndExport(to fileName: String) {
         self.tempData.removeAll()
         self.isCollectingTrainData = true
@@ -136,6 +141,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
     
+    // MARK: CSV Export
     func exportToCsv(data: [SensorData], to fileName: String) {
         csvWriter.exportCSV(from: data, to: fileName)
     }
@@ -144,6 +150,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         csvWriter.exportCSV(from: self.sensorData, to: fileName)
     }
     
+    
+    // MARK: Array Size and Time
     func getArraySize() -> Int {
         return self.sensorData.count
     }
@@ -164,6 +172,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         return last.timestamp.timeIntervalSince(first.timestamp)
     }
     
+    
+    // MARK: Haptic Feedback
     func sendHapticFeedback() {
         let dict = ["haptic": "true"]
         
@@ -174,77 +184,63 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         }
     }
     
-  
- // MARK: Sliding Window, Feature extractor
-    func updateSensorBuffer(with newData: SensorData) {
-        // Add new data to buffer
-        sensorBuffer.append(newData)
+    
+    // MARK: Sliding Window, Feature extractor
+    func processData(data: SensorData) {
         
-        // Use sample count as primary mechanism to maintain window size
-        if sensorBuffer.count > fixedSampleCount {
-            // Remove oldest samples to maintain fixed window size
-            sensorBuffer = Array(sensorBuffer.suffix(fixedSampleCount))
-        }
+        slidingWindow.append(data)
+        sensorBuffer.append(data)
         
-        // Time-based fallback to ensure data isn't too old (in case of sampling rate changes)
-        if let oldestTimestamp = sensorBuffer.first?.timestamp {
-            let currentTime = newData.timestamp
-            let timeDifference = currentTime.timeIntervalSince(oldestTimestamp)
+        if slidingWindow.count > slidingWindowSize {
             
-            // If time window is much larger than expected, trim it
-            if timeDifference > windowSize * 1.5 {
-                sensorBuffer = sensorBuffer.filter {
-                    currentTime.timeIntervalSince($0.timestamp) <= windowSize
-                }
-            }
-        }
-        
-        // Process window if we have enough data
-        if sensorBuffer.count >= fixedSampleCount/2 {
-            // Compute features from the sensor buffer
-            let features = featureExtractor.computeFeatures(from: sensorBuffer)
+            slidingWindow.removeFirst()
             
-            // Standardize features for the model
-           let scaledFeatures = featureExtractor.standardizeFeatures(features)
+            let features = extract.computeFeatures(from: slidingWindow)
             
-            // Get prediction from model
-            if let prediction = modelService?.classify(features: scaledFeatures) {
-                self.modelPrediction = prediction
+            if let prediction = modelService?.classifyReducedFeatures(features: features) {
+                self.reducedFeatureLabelAll = prediction
             }
             
-            // Store current features
-            self.currentFeatureStruct = features
-            
-            // Update sampling frequency
+            updateUserMovingInfo(motionData: slidingWindow)
             updateSamplingFrequency()
         }
     }
     
-    // Calculate and update the current sampling frequency
+    
+    
+    // MARK: Abtastrate Berechnen
     private func updateSamplingFrequency() {
         guard sensorBuffer.count >= 2 else { return }
         
-        // Calculate time span
         let firstTime = sensorBuffer.first!.timestamp
         let lastTime = sensorBuffer.last!.timestamp
         let timeSpan = lastTime.timeIntervalSince(firstTime)
         
         if timeSpan > 0 {
-            // Calculate frequency (samples per second)
-            let samplesCount = sensorBuffer.count - 1 // Count transitions, not samples
+            let samplesCount = sensorBuffer.count - 1
             let frequency = Int(round(Double(samplesCount) / timeSpan))
             
-            // Update history
             frequencyHistory.append(frequency)
             if frequencyHistory.count > historySize {
                 frequencyHistory.removeFirst()
             }
             
-            // Calculate average frequency
             let avgFrequency = frequencyHistory.reduce(0, +) / frequencyHistory.count
             
-            // Could use this to adjust buffer size if needed
-            print("Current sampling frequency: \(avgFrequency) Hz")
         }
+    }
+    
+    
+    //MARK: Update information if user is moving
+    private func updateUserMovingInfo(motionData: [SensorData]) {
+        
+        if (userMovementDetection.isActiveMovement(from: motionData)) {
+            isUserMoving = true
+            isUserMovingInformation = "Aktiv"
+        } else {
+            isUserMoving = false
+            isUserMovingInformation = "Inaktiv"
+        }
+        
     }
 }

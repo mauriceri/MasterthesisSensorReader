@@ -19,17 +19,15 @@ struct TabContentView: View {
             FeatureView(watchReciever: watchReciever).tabItem{
                 Label("FeatureView", systemImage: "x.squareroot")}
             
+            ClassificationView(watchReciever: watchReciever).tabItem {
+                Label("Klassifizierungen", systemImage: "arrow.triangle.2.circlepath")
+            }
             
-          //FileListView().tabItem{Label("Files", systemImage: "folder.fill")}
             
             InfoView().tabItem{
                 Label("Info", systemImage: "info")}
             
-            /*
-            HealthDataView().tabItem {
-                Label("Health Data", systemImage: "heart.fill")
-            }
-             */
+    
 
         }
     }
