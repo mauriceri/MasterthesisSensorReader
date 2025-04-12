@@ -13,6 +13,9 @@
 		511410452C22E5B2004ACAE4 /* AirPodsSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410442C22E5B2004ACAE4 /* AirPodsSensorData.swift */; };
 		511410472C22FAD1004ACAE4 /* TherapySessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */; };
 		5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114104A2C23058D004ACAE4 /* TabContentView.swift */; };
+		51376FF32D9162C60079812E /* WatchThreshhold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51376FF22D9162C60079812E /* WatchThreshhold.swift */; };
+		51376FF52D91975B0079812E /* LowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51376FF42D91975B0079812E /* LowPassFilter.swift */; };
+		51376FF72D91977F0079812E /* SensorDataProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51376FF62D91977F0079812E /* SensorDataProcessor.swift */; };
 		513E54612D65EE0600CCC1CE /* FeatureExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E54602D65EE0600CCC1CE /* FeatureExtractor.swift */; };
 		513E54662D65EE5E00CCC1CE /* SensorFeaturesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E54652D65EE5E00CCC1CE /* SensorFeaturesData.swift */; };
 		514CBA352D6CBBDF0081AC06 /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CBA342D6CBBDF0081AC06 /* FeatureView.swift */; };
@@ -32,6 +35,8 @@
 		518357602C1DF2D2000EAD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5183575F2C1DF2D2000EAD64 /* Assets.xcassets */; };
 		518357632C1DF2D2000EAD64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */; };
 		518357662C1DF2D2000EAD64 /* WatchCoreMotionSensorReader Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 518357592C1DF2D1000EAD64 /* WatchCoreMotionSensorReader Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		519FD5342DA588DA008F662F /* LabelMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519FD5332DA588DA008F662F /* LabelMapper.swift */; };
+		51B5A68F2D97184C001206E8 /* FourierTransformHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5A68E2D97184C001206E8 /* FourierTransformHelper.swift */; };
 		51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
 		51CD6A9F2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
 		51CD6AA32C1EE3E100C53B8A /* BatchedSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6AA22C1EE3E100C53B8A /* BatchedSensorData.swift */; };
@@ -81,6 +86,9 @@
 		511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapySessionDelegate.swift; sourceTree = "<group>"; };
 		511410492C22FB1C004ACAE4 /* WatchCoreMotionSensorReader-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WatchCoreMotionSensorReader-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5114104A2C23058D004ACAE4 /* TabContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContentView.swift; sourceTree = "<group>"; };
+		51376FF22D9162C60079812E /* WatchThreshhold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchThreshhold.swift; sourceTree = "<group>"; };
+		51376FF42D91975B0079812E /* LowPassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPassFilter.swift; sourceTree = "<group>"; };
+		51376FF62D91977F0079812E /* SensorDataProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataProcessor.swift; sourceTree = "<group>"; };
 		513E54602D65EE0600CCC1CE /* FeatureExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureExtractor.swift; sourceTree = "<group>"; };
 		513E54652D65EE5E00CCC1CE /* SensorFeaturesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorFeaturesData.swift; sourceTree = "<group>"; };
 		514CBA342D6CBBDF0081AC06 /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
@@ -104,6 +112,8 @@
 		518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		51935BA12C3EBD4000839BAB /* CoreMotionSensorReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoreMotionSensorReader.entitlements; sourceTree = "<group>"; };
 		51935BA42C4824D700839BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		519FD5332DA588DA008F662F /* LabelMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapper.swift; sourceTree = "<group>"; };
+		51B5A68E2D97184C001206E8 /* FourierTransformHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourierTransformHelper.swift; sourceTree = "<group>"; };
 		51CD6A9D2C1EE28200C53B8A /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		51CD6AA22C1EE3E100C53B8A /* BatchedSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedSensorData.swift; sourceTree = "<group>"; };
 		51CD6AA52C1EE4F000C53B8A /* WatchReciverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchReciverController.swift; sourceTree = "<group>"; };
@@ -144,8 +154,10 @@
 		510617C82C3EB53700186390 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				519FD5332DA588DA008F662F /* LabelMapper.swift */,
 				510617C62C3D662800186390 /* WatchCsvWriter.swift */,
 				516BD6ED2D807B840087FCFB /* ModelService.swift */,
+				51376FF22D9162C60079812E /* WatchThreshhold.swift */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -169,7 +181,10 @@
 		516510412D8C6DCA0029FA3E /* Signalprocessing */ = {
 			isa = PBXGroup;
 			children = (
+				51376FF62D91977F0079812E /* SensorDataProcessor.swift */,
 				5165104A2D8C974C0029FA3E /* UserMovementDetection.swift */,
+				51376FF42D91975B0079812E /* LowPassFilter.swift */,
+				51B5A68E2D97184C001206E8 /* FourierTransformHelper.swift */,
 			);
 			path = Signalprocessing;
 			sourceTree = "<group>";
@@ -498,9 +513,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */,
+				51B5A68F2D97184C001206E8 /* FourierTransformHelper.swift in Sources */,
 				5183574A2C1DF1F8000EAD64 /* ContentView.swift in Sources */,
 				514CBA352D6CBBDF0081AC06 /* FeatureView.swift in Sources */,
 				51CD6AA62C1EE4F000C53B8A /* WatchReciverController.swift in Sources */,
+				51376FF32D9162C60079812E /* WatchThreshhold.swift in Sources */,
 				510617CC2C3EB8CB00186390 /* HealthDataManager.swift in Sources */,
 				51CD6AA32C1EE3E100C53B8A /* BatchedSensorData.swift in Sources */,
 				5172CF862D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift in Sources */,
@@ -511,13 +528,16 @@
 				51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */,
 				516BD6EE2D807B840087FCFB /* ModelService.swift in Sources */,
 				514CBA372D6E04310081AC06 /* DebugView.swift in Sources */,
+				519FD5342DA588DA008F662F /* LabelMapper.swift in Sources */,
 				510617CE2C3EB95200186390 /* HealthDataView.swift in Sources */,
 				516510442D8C77F90029FA3E /* ClassificationView.swift in Sources */,
+				51376FF52D91975B0079812E /* LowPassFilter.swift in Sources */,
 				513E54662D65EE5E00CCC1CE /* SensorFeaturesData.swift in Sources */,
 				516F67322D21891D00C44CD1 /* InfoView.swift in Sources */,
 				51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */,
 				51F5B8EB2D6F37A300A0CC85 /* FileListView.swift in Sources */,
 				510617C72C3D662800186390 /* WatchCsvWriter.swift in Sources */,
+				51376FF72D91977F0079812E /* SensorDataProcessor.swift in Sources */,
 				51F7C0032C23086C0058B12F /* SoundService.swift in Sources */,
 				518357482C1DF1F8000EAD64 /* CoreMotionSensorReaderApp.swift in Sources */,
 				511410452C22E5B2004ACAE4 /* AirPodsSensorData.swift in Sources */,
@@ -678,7 +698,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoreMotionSensorReader/CoreMotionSensorReader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
 				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
@@ -699,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -715,7 +735,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoreMotionSensorReader/CoreMotionSensorReader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
 				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
@@ -736,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -752,7 +772,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
 				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
@@ -768,7 +788,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -787,7 +807,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
 				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
@@ -803,7 +823,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

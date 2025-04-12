@@ -68,7 +68,7 @@ class MotionDataController {
     
     private func startBatchTimer() {
         batchTimer?.invalidate()
-        batchTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        batchTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
             self?.sendSensorBatch()
         }
     }
@@ -100,6 +100,7 @@ class MotionDataController {
         }
         
         currentSensorData = SensorData()
+        lastSensorData = currentSensorData;
     }
     
     func stopReadingSensors() {

@@ -9,13 +9,6 @@ import Foundation
 import Accelerate
 
 
-//reduced: mean: [0.21455301516969322, 0.06466442414965638, 0.1781116257348689, 0.02481909410710424, 1.6645067012282806],
-//reduced std: [0.2501521901060052, 0.22570118169428124, 0.1775076154913816, 0.10186794110281397, 1.5693998176383293]
-
-/* alt:
- mean: [-0.5356399882163667, -0.8957487554202017, 0.8047723287895919, 0.07791302983790317],
- std: [0.4939388256052858, 1.5746934389624043, 0.7994948541061939, 0.22287172605741165]
- */
 
 
 struct ScalerParams {
@@ -23,95 +16,145 @@ struct ScalerParams {
     let std: [Double]
     
     static let defaultScaler = ScalerParams(
-        mean: [0.21455301516969322, 0.06466442414965638, 0.1781116257348689, 0.02481909410710424, 1.6645067012282806],
-        std: [0.2501521901060052, 0.22570118169428124, 0.1775076154913816, 0.10186794110281397, 1.5693998176383293]
+        mean: [ 1.49584231,  2.32193533,  0.94175419, -2.26208662,  0.64448792,  0.28287349,
+                -0.0790468,  -0.80686126, -0.06297699,  0.01790369],
+        std: [1.4702313 , 2.32698841, 0.61716279 ,2.16311315, 0.32188388 ,0.27951477
+              ,1.23603774, 0.47592983 ,0.63687188 ,0.02990101]
     )
 }
 
-struct SensorFeaturesThreeModel {
-    let pitch_filtered_min: Double
-    let  yaw_filtered_min: Double
-    let roll_filtered_max: Double
-    let userAccelX_filtered_mean: Double
-    
+struct SensorFeatures {
+    let rotationRateZ_std: Double
+    let rotationRateZ_max: Double
+    let accelerationY_max: Double
+    let rotationRateZ_min: Double
+    let gravityAccelY_max: Double
+    let userAccelY_std: Double
+    let roll_min: Double
+    let pitch_min: Double
+    let gravityAccelX_min: Double
+    let gravityAccelSquaredVarCoeff: Double
 }
 
-struct SensorFeatures {
-    let userAccelY_std: Double
-    let userAccelX_mean: Double
-    let userAccelX_std: Double
-    let userAccelZ_mean: Double
-    let rotation_magnitude: Double
+struct SensorFeaturesAllLabel {
+    var pitch_min: Double
+    var gravityAccelZ_max: Double
+    var gravityAccelY_max: Double
+    var rotationRateZ_std: Double
+    var gravityAccelZ_min: Double
+    var rotationRateZ_max: Double
+    var accelerationY_max: Double
+    var roll_min: Double
+    var roll_std: Double
+    var gravityAccelX_min: Double
 }
 
 class FeatureExtractor {
     
-    // Function to scale values using mean and std
-       func scale(value: Double, index: Int) -> Double {
-           let mean = ScalerParams.defaultScaler.mean[index]
-           let std = ScalerParams.defaultScaler.std[index]
-           return (value - mean) / std
-       }
-       
-       func computeFeatures(from data: [SensorData]) -> SensorFeatures {
-           var userAccelXValues: [Double] = []
-           var userAccelYValues: [Double] = []
-           var userAccelZValues: [Double] = []
-           var rotationRateXValues: [Double] = []
-           var rotationRateYValues: [Double] = []
-           var rotationRateZValues: [Double] = []
-           
-           for entry in data {
-               if let motion = entry.deviceMotionData {
-                   userAccelXValues.append(motion.userAccelX)
-                   userAccelYValues.append(motion.userAccelY)
-                   userAccelZValues.append(motion.userAccelZ)
-                   rotationRateXValues.append(motion.rotationRateX)
-                   rotationRateYValues.append(motion.rotationRateY)
-                   rotationRateZValues.append(motion.rotationRateZ)
-               }
-           }
-           
-           // Berechnungen für Mittelwerte und Standardabweichungen
-           let userAccelXMean = userAccelXValues.reduce(0, +) / Double(userAccelXValues.count)
-           let userAccelXStd = standardDeviation(of: userAccelXValues)
-           let userAccelYStd = standardDeviation(of: userAccelYValues)
-           let userAccelZMean = userAccelZValues.reduce(0, +) / Double(userAccelZValues.count)
-           
-           // Berechnung der euklidischen Magnitude der Rotation
-           let rotationMagnitude = eucledianMagnitude(x: rotationRateXValues, y: rotationRateYValues, z: rotationRateZValues)
-           
-           // Skalieren der berechneten Features
-           let scaledUserAccelXMean = scale(value: userAccelXMean, index: 1)
-           let scaledUserAccelXStd = scale(value: userAccelXStd, index: 2)
-           let scaledUserAccelYStd = scale(value: userAccelYStd, index: 0)
-           let scaledUserAccelZMean = scale(value: userAccelZMean, index: 3)
-           let scaledRotationMagnitude = scale(value: rotationMagnitude, index: 4)
-           
-           // Features in ein Objekt verpacken
-           return SensorFeatures(
-               userAccelY_std: scaledUserAccelYStd,
-               userAccelX_mean: scaledUserAccelXMean,
-               userAccelX_std: scaledUserAccelXStd,
-               userAccelZ_mean: scaledUserAccelZMean,
-               rotation_magnitude: scaledRotationMagnitude
-           )
-       }
-       
-       // Funktion zur Berechnung der Standardabweichung
-       func standardDeviation(of values: [Double]) -> Double {
-           let mean = values.reduce(0, +) / Double(values.count)
-           let sumOfSquaredDifferences = values.reduce(0) { $0 + pow($1 - mean, 2) }
-           return sqrt(sumOfSquaredDifferences / Double(values.count))
-       }
-       
-       // Berechnung der euklidischen Magnitude für Rotationsraten
-       func eucledianMagnitude(x: [Double], y: [Double], z: [Double]) -> Double {
-           let magnitudes = zip(zip(x, y), z).map { (xy, z) in
-               return sqrt(pow(xy.0, 2) + pow(xy.1, 2) + pow(z, 2))
-           }
-           return magnitudes.reduce(0, +) / Double(magnitudes.count)
-       }
+    func scale(_ value: Double, index: Int) -> Double {
+        let mean = ScalerParams.defaultScaler.mean[index]
+        let std = ScalerParams.defaultScaler.std[index]
+        return (value - mean) / std
+    }
+    
+    func computeFeatures(from data: [SensorData]) -> SensorFeatures {
+        var rotationRateZ: [Double] = []
+        var userAccelX: [Double] = []
+        var userAccelY: [Double] = []
+        var userAccelZ: [Double] = []
+        var gravityY: [Double] = []
+        var gravityX: [Double] = []
+        var roll: [Double] = []
+        var pitch: [Double] = []
+        
+        for entry in data {
+            if let motion = entry.deviceMotionData {
+                rotationRateZ.append(motion.rotationRateZ)
+                userAccelX.append(motion.userAccelX)
+                userAccelY.append(motion.userAccelY)
+                userAccelZ.append(motion.userAccelZ)
+                gravityY.append(motion.gravityAccelY)
+                gravityX.append(motion.gravityAccelX)
+                roll.append(motion.roll)
+                pitch.append(motion.pitch)
+            }
+        }
+        
+        let rZ_std = standardDeviation(of: rotationRateZ)
+        let rZ_max = rotationRateZ.max() ?? 0.0
+        let rZ_min = rotationRateZ.min() ?? 0.0
+        let accelY_max = userAccelY.max() ?? 0.0
+        let gravityY_max = gravityY.max() ?? 0.0
+        let gravityX_min = gravityX.min() ?? 0.0
+        let userAccelY_std = standardDeviation(of: userAccelY)
+        let roll_min = roll.min() ?? 0.0
+        let pitch_min = pitch.min() ?? 0.0
+        
+        
+        let userAccelSquared: [Double] = zip(zip(userAccelX, userAccelY), userAccelZ).map { (xy, z) in
+            let (x, y) = xy
+            return x * x + y * y + z * z
+        }
+        
+        let stdMag = standardDeviation(of: userAccelSquared)
+        let meanMag = userAccelSquared.reduce(0, +) / Double(userAccelSquared.count)
+        let varCoeff = stdMag / (meanMag + 1e-8)
+        
+        return SensorFeatures(
+            rotationRateZ_std: rZ_std,
+            rotationRateZ_max: rZ_max,
+            accelerationY_max: accelY_max,
+            rotationRateZ_min: rZ_min,
+            gravityAccelY_max: gravityY_max,
+            userAccelY_std: userAccelY_std,
+            roll_min: roll_min,
+            pitch_min: pitch_min,
+            gravityAccelX_min: gravityX_min,
+            gravityAccelSquaredVarCoeff: varCoeff
+        )
+    }
+    
+    func standardDeviation(of values: [Double]) -> Double {
+        guard !values.isEmpty else { return 0.0 }
+        let mean = values.reduce(0, +) / Double(values.count)
+        let squaredDiffs = values.map { pow($0 - mean, 2) }
+        return sqrt(squaredDiffs.reduce(0, +) / Double(values.count))
+    }
+    
+    
+    func computeFeaturesAllLabel(from data: [SensorData]) -> SensorFeaturesAllLabel {
+        var rotationRateZ: [Double] = []
+        var userAccelY: [Double] = []
+        var gravityAccelZ: [Double] = []
+        var gravityAccelY: [Double] = []
+        var gravityAccelX: [Double] = []
+        var roll: [Double] = []
+        var pitch: [Double] = []
+        
+        for entry in data {
+            if let motion = entry.deviceMotionData {
+                rotationRateZ.append(motion.rotationRateZ)
+                userAccelY.append(motion.userAccelY)
+                gravityAccelZ.append(motion.gravityAccelZ)
+                gravityAccelY.append(motion.gravityAccelY)
+                gravityAccelX.append(motion.gravityAccelX)
+                roll.append(motion.roll)
+                pitch.append(motion.pitch)
+            }
+        }
+        
+        return SensorFeaturesAllLabel(
+            pitch_min: pitch.min() ?? 0.0,
+            gravityAccelZ_max: gravityAccelZ.max() ?? 0.0,
+            gravityAccelY_max: gravityAccelY.max() ?? 0.0,
+            rotationRateZ_std: standardDeviation(of: rotationRateZ),
+            gravityAccelZ_min: gravityAccelZ.min() ?? 0.0,
+            rotationRateZ_max: rotationRateZ.max() ?? 0.0,
+            accelerationY_max: userAccelY.max() ?? 0.0,
+            roll_min: roll.min() ?? 0.0,
+            roll_std: standardDeviation(of: roll),
+            gravityAccelX_min: gravityAccelX.min() ?? 0.0
+        )
+    }
 }
-
 

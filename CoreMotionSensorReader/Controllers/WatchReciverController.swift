@@ -11,10 +11,12 @@ import WatchConnectivity
 @Observable
 class WatchReciverController: NSObject, WCSessionDelegate {
     
+    // MARK: - Class loading
     let csvWriter = WatchCsvWriter()
     let soundservice = SoundService()
     let extract = FeatureExtractor()
     let userMovementDetection = UserMovementDetection()
+    let watchThresholdservice = WatchThreshold()
     
     var lastSensorData: SensorData?
     var sensorData = [SensorData]()
@@ -34,9 +36,11 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     var isCollectingTrainData: Bool = false
     var isCountTimerRunning: Bool = false
     
-
+    
     
     var reducedFeatureLabelAll: String = "-"
+    
+    var fullFeatureLabelAll: String = "-"
     
     let modelService = ModelService()
     
@@ -46,18 +50,21 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     var frequencyHistory: [Int] = []
     let historySize = 5
     
-
+    
     let windowSize: TimeInterval = 1.54
     
     var sensorBuffer: [SensorData] = []
-
-    //MARK: SlidingWindow var
+    
+    //MARK: - SlidingWindow var
     var slidingWindow: [SensorData] = []
     let slidingWindowSize = 65
     
     
     var isUserMoving: Bool = false
     var isUserMovingInformation: String = "-"
+    
+    //MARK: - Threshhold vars:
+    var armPositionThreshholdLabel: String = "-"
     
     var session: WCSession
     
@@ -68,10 +75,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         session.activate()
     }
     
- 
-
     
-    //MARK: Watch Connectivity
+    //MARK: - Watch Connectivity
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
     }
@@ -90,10 +95,26 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                     self.sensorData.append(contentsOf: sensorArray)
                     self.lastSensorData = sensorArray.last
                     
+                    let filter = SensorDataProcessor(alpha: 0.2)
+                    let filteredSensorArray = sensorArray.map { filter.processData($0) }
+                    
+                    
                     if self.isCollectingTrainData {
                         self.tempData.append(contentsOf: sensorArray)
                     }
                     
+                    if filteredSensorArray.last != nil {
+                        self.armPositionThreshholdLabel = self.watchThresholdservice.getThresholdLabel(data: sensorArray.last!)
+                    }
+                    
+                    
+                    /*
+                     if sensorArray.last != nil {
+                         self.armPositionThreshholdLabel = self.watchThresholdservice.getThresholdLabel(data: sensorArray.last!)
+                         
+                     }
+                     */
+                
                     sensorArray.forEach {
                         self.processData(data: $0)
                     }
@@ -103,7 +124,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         }
     }
     
-    //MARK: Timer and Exports
+    //MARK: - Timer and Exports
     func startTimerAndExport(to fileName: String) {
         self.tempData.removeAll()
         self.isCollectingTrainData = true
@@ -141,7 +162,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
     
-    // MARK: CSV Export
+    // MARK: - CSV Export
     func exportToCsv(data: [SensorData], to fileName: String) {
         csvWriter.exportCSV(from: data, to: fileName)
     }
@@ -151,7 +172,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
     
-    // MARK: Array Size and Time
+    // MARK: - Array Size and Time
     func getArraySize() -> Int {
         return self.sensorData.count
     }
@@ -173,7 +194,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
     
-    // MARK: Haptic Feedback
+    // MARK: - Haptic Feedback
     func sendHapticFeedback() {
         let dict = ["haptic": "true"]
         
@@ -196,9 +217,14 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             slidingWindow.removeFirst()
             
             let features = extract.computeFeatures(from: slidingWindow)
+            let featuresAll = extract.computeFeaturesAllLabel(from: slidingWindow)
             
             if let prediction = modelService?.classifyReducedFeatures(features: features) {
                 self.reducedFeatureLabelAll = prediction
+            }
+            
+            if let predictionAllLabel = modelService?.classifyFullFeatures(features: featuresAll) {
+                self.fullFeatureLabelAll = predictionAllLabel
             }
             
             updateUserMovingInfo(motionData: slidingWindow)
@@ -208,7 +234,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     
     
-    // MARK: Abtastrate Berechnen
+    // MARK: - Abtastrate Berechnen
     private func updateSamplingFrequency() {
         guard sensorBuffer.count >= 2 else { return }
         
@@ -225,13 +251,14 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                 frequencyHistory.removeFirst()
             }
             
-            let avgFrequency = frequencyHistory.reduce(0, +) / frequencyHistory.count
+            //let avgFrequency = frequencyHistory.reduce(0, +) / frequencyHistory.count
+            
             
         }
     }
     
     
-    //MARK: Update information if user is moving
+    //MARK: - Update information if user is moving
     private func updateUserMovingInfo(motionData: [SensorData]) {
         
         if (userMovementDetection.isActiveMovement(from: motionData)) {

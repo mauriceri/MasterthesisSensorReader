@@ -184,7 +184,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                     }
                     
                     self.prediction = self.predictionService.predictViewingDirection(data: newData)
-                    self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
+                  //  self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
                     
                     switch motion.sensorLocation {
                     case .headphoneLeft:

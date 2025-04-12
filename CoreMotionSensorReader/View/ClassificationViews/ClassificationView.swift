@@ -6,22 +6,36 @@
 //
 
 import SwiftUI
-
 struct ClassificationView: View {
-    
     @Bindable var watchReciever: WatchReciverController
-    
     
     var body: some View {
         List {
-            if(watchReciever.isUserMoving) {
-                Text(watchReciever.reducedFeatureLabelAll)
-            } else {
-                Text("Keine Bewegung")
+            Section(header: Text("Bewegung")) {
+                if watchReciever.isUserMoving {
+                    Text(watchReciever.reducedFeatureLabelAll)
+                } else {
+                    Text("Keine Bewegung")
+                }
+            }
+            
+            Section(header: Text("Armposition")) {
+                
+                if(!watchReciever.isUserMoving){
+                    Text(watchReciever.armPositionThreshholdLabel)
+                } else {
+                    Text("Aktive Bewegung")
+                }
+            }
+            
+            Section(header: Text("Alle Label")) {
+                
+                
             }
         }
     }
 }
+
 
 #Preview {
     ClassificationView(watchReciever: WatchReciverController())
