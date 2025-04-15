@@ -11,17 +11,23 @@ struct TabContentView: View {
     var body: some View {
         
         @State var watchReciever = WatchReciverController()
+        @State var airpodscontroller = AirpodsDataController()
+
         
         TabView {
-            WatchAirPodsSensorView(watchReciever: watchReciever)
-                .tabItem { Label("Watch&AirPods", systemImage: "person.wave.2.fill")}
-            
-            FeatureView(watchReciever: watchReciever).tabItem{
-                Label("FeatureView", systemImage: "x.squareroot")}
-            
-            ClassificationView(watchReciever: watchReciever).tabItem {
+            ClassificationView(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem {
                 Label("Klassifizierungen", systemImage: "arrow.triangle.2.circlepath")
             }
+            
+            
+            FeatureView(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem{
+                Label("FeatureView", systemImage: "x.squareroot")}
+            
+            
+            WatchAirPodsSensorView(watchReciever: watchReciever, airpodscontroller: airpodscontroller)
+                .tabItem { Label("Watch&AirPods", systemImage: "person.wave.2.fill")}
+        
+       
             
             
             InfoView().tabItem{
@@ -36,4 +42,5 @@ struct TabContentView: View {
 #Preview {
     TabContentView()
         .environment(WatchReciverController())
+        .environment(AirpodsDataController())
 }

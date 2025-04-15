@@ -66,6 +66,16 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     //MARK: - Threshhold vars:
     var armPositionThreshholdLabel: String = "-"
     
+    
+    
+    //MARK: - Features vars
+    var reducedLabelFeatures: SensorFeatures?
+    var allLabelFeatures: SensorFeaturesAllLabel?
+    
+    
+    
+    //MARK: - Watch Connectivity
+    
     var session: WCSession
     
     init(session: WCSession = .default) {
@@ -75,8 +85,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         session.activate()
     }
     
-    
-    //MARK: - Watch Connectivity
+
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
     }
@@ -218,6 +227,9 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             
             let features = extract.computeFeatures(from: slidingWindow)
             let featuresAll = extract.computeFeaturesAllLabel(from: slidingWindow)
+            
+            self.reducedLabelFeatures = features
+            self.allLabelFeatures = featuresAll
             
             if let prediction = modelService?.classifyReducedFeatures(features: features) {
                 self.reducedFeatureLabelAll = prediction

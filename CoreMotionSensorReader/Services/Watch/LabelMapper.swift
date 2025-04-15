@@ -8,10 +8,10 @@
 
 class LabelMapper {
     static let labelMapping: [Int: String] = [
-        0: "Knie Kreiseln",
-        1: "Sitzendes marschieren",
-        2: "Schnelle tiefe Schritte",
-        3: "Gewichtverlagern"
+        0: "Knie kreiseln",
+        1: "Sitzendes Marschieren",
+        2: "Schnelle, tiefe Schritte",
+        3: "Gewicht verlagern"
     ]
     
     static func getLabel(for prediction: Int) -> String {
@@ -22,14 +22,12 @@ class LabelMapper {
         return labelMappingAllLabel[prediction] ?? "Unknown"
     }
     
-    
     static let labelMappingAllLabel: [Int: String] = [
         0: "Arm nach vorne",
-        1: "Arm nach obeb",
+        1: "Arm nach oben",
         2: "Knie kreiseln",
-        3: "Sitzendes marschieren",
-        4: "Schnelle tiefe Scrhitte",
-        5: "Gewichtverlagern"
-        ]
-        
+        3: "Sitzendes Marschieren",
+        4: "Schnelle, tiefe Schritte",
+        5: "Gewicht verlagern"
+    ]
 }

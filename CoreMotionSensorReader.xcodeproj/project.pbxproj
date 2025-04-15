@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		510617C72C3D662800186390 /* WatchCsvWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510617C62C3D662800186390 /* WatchCsvWriter.swift */; };
 		510617CC2C3EB8CB00186390 /* HealthDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510617CB2C3EB8CB00186390 /* HealthDataManager.swift */; };
-		510617CE2C3EB95200186390 /* HealthDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510617CD2C3EB95200186390 /* HealthDataView.swift */; };
 		511410452C22E5B2004ACAE4 /* AirPodsSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410442C22E5B2004ACAE4 /* AirPodsSensorData.swift */; };
 		511410472C22FAD1004ACAE4 /* TherapySessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */; };
 		5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114104A2C23058D004ACAE4 /* TabContentView.swift */; };
@@ -49,7 +48,6 @@
 		51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */; };
 		51E484702C2714E40084A3C7 /* AirPodsPredictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E4846F2C2714E40084A3C7 /* AirPodsPredictionService.swift */; };
 		51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */; };
-		51F5B8EB2D6F37A300A0CC85 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F5B8EA2D6F37A300A0CC85 /* FileListView.swift */; };
 		51F7C0012C2308480058B12F /* interfacesound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51F7C0002C2308480058B12F /* interfacesound.mp3 */; };
 		51F7C0032C23086C0058B12F /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7C0022C23086C0058B12F /* SoundService.swift */; };
 /* End PBXBuildFile section */
@@ -81,7 +79,6 @@
 /* Begin PBXFileReference section */
 		510617C62C3D662800186390 /* WatchCsvWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCsvWriter.swift; sourceTree = "<group>"; };
 		510617CB2C3EB8CB00186390 /* HealthDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataManager.swift; sourceTree = "<group>"; };
-		510617CD2C3EB95200186390 /* HealthDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataView.swift; sourceTree = "<group>"; };
 		511410442C22E5B2004ACAE4 /* AirPodsSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsSensorData.swift; sourceTree = "<group>"; };
 		511410462C22FAD1004ACAE4 /* TherapySessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapySessionDelegate.swift; sourceTree = "<group>"; };
 		511410492C22FB1C004ACAE4 /* WatchCoreMotionSensorReader-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WatchCoreMotionSensorReader-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -124,7 +121,6 @@
 		51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirpodsDataController.swift; sourceTree = "<group>"; };
 		51E4846F2C2714E40084A3C7 /* AirPodsPredictionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsPredictionService.swift; sourceTree = "<group>"; };
 		51E484722C2716A60084A3C7 /* AirPodsCsvWriterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsCsvWriterService.swift; sourceTree = "<group>"; };
-		51F5B8EA2D6F37A300A0CC85 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		51F7C0002C2308480058B12F /* interfacesound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = interfacesound.mp3; sourceTree = "<group>"; };
 		51F7C0022C23086C0058B12F /* SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -287,9 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				516510422D8C77E70029FA3E /* ClassificationViews */,
-				51F5B8E92D6F379400A0CC85 /* Fileviews */,
 				516F67302D21890400C44CD1 /* InfoViews */,
-				51F7C0052C2312810058B12F /* HealthDataViews */,
 				51F7C0042C2312680058B12F /* SensorViews */,
 				5114104A2C23058D004ACAE4 /* TabContentView.swift */,
 			);
@@ -372,14 +366,6 @@
 			path = AirPods;
 			sourceTree = "<group>";
 		};
-		51F5B8E92D6F379400A0CC85 /* Fileviews */ = {
-			isa = PBXGroup;
-			children = (
-				51F5B8EA2D6F37A300A0CC85 /* FileListView.swift */,
-			);
-			path = Fileviews;
-			sourceTree = "<group>";
-		};
 		51F7BFFF2C2308390058B12F /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,14 +382,6 @@
 				514CBA362D6E04310081AC06 /* DebugView.swift */,
 			);
 			path = SensorViews;
-			sourceTree = "<group>";
-		};
-		51F7C0052C2312810058B12F /* HealthDataViews */ = {
-			isa = PBXGroup;
-			children = (
-				510617CD2C3EB95200186390 /* HealthDataView.swift */,
-			);
-			path = HealthDataViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,7 +434,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					518357432C1DF1F8000EAD64 = {
 						CreatedOnToolsVersion = 15.4;
@@ -529,13 +507,11 @@
 				516BD6EE2D807B840087FCFB /* ModelService.swift in Sources */,
 				514CBA372D6E04310081AC06 /* DebugView.swift in Sources */,
 				519FD5342DA588DA008F662F /* LabelMapper.swift in Sources */,
-				510617CE2C3EB95200186390 /* HealthDataView.swift in Sources */,
 				516510442D8C77F90029FA3E /* ClassificationView.swift in Sources */,
 				51376FF52D91975B0079812E /* LowPassFilter.swift in Sources */,
 				513E54662D65EE5E00CCC1CE /* SensorFeaturesData.swift in Sources */,
 				516F67322D21891D00C44CD1 /* InfoView.swift in Sources */,
 				51CD6ABE2C207A8700C53B8A /* AirpodsDataController.swift in Sources */,
-				51F5B8EB2D6F37A300A0CC85 /* FileListView.swift in Sources */,
 				510617C72C3D662800186390 /* WatchCsvWriter.swift in Sources */,
 				51376FF72D91977F0079812E /* SensorDataProcessor.swift in Sources */,
 				51F7C0032C23086C0058B12F /* SoundService.swift in Sources */,
@@ -607,6 +583,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -670,6 +647,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -700,7 +678,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
-				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreMotionSensorReader/Info.plist;
@@ -712,8 +689,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -737,7 +714,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
-				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreMotionSensorReader/Info.plist;
@@ -749,8 +725,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -774,7 +750,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WatchCoreMotionSensorReader-Watch-App-Info.plist";
@@ -809,7 +784,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = ZCH6LHLP3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WatchCoreMotionSensorReader-Watch-App-Info.plist";

@@ -100,7 +100,7 @@ class MotionDataController {
         }
         
         currentSensorData = SensorData()
-        lastSensorData = currentSensorData;
+        //lastSensorData = currentSensorData;
     }
     
     func stopReadingSensors() {

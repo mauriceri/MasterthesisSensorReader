@@ -33,6 +33,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     var prediction: String = "-"
     var modelPrediction: String = "-"
     var sensorlocation: String = "-"
+    var posturePrediction: String = "-"
     
     
     var isCalibrated: Bool = false
@@ -139,6 +140,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                     return
                 }
                 
+                
                 let newData = AirPodsMotionData(
                     timestamp: Date(),
                     elapsedTime: self.getElapsedTime(),
@@ -184,6 +186,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                     }
                     
                     self.prediction = self.predictionService.predictViewingDirection(data: newData)
+                    self.posturePrediction = self.predictionService.predicitPosture(data: newData)
                   //  self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
                     
                     switch motion.sensorLocation {

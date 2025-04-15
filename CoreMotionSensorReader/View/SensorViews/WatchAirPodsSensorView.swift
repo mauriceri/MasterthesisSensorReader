@@ -12,7 +12,7 @@ struct WatchAirPodsSensorView: View {
     @Bindable var watchReciever: WatchReciverController
     
     
-    @State var airpodscontroller = AirpodsDataController()
+    @Bindable var airpodscontroller = AirpodsDataController()
     
     
     
@@ -101,11 +101,7 @@ struct WatchAirPodsSensorView: View {
                 
                 
                 Section(header: Text("Daten-Export (CSV)")) {
-                    
-                    
-                    
-                    
-                    
+
                     if(watchReciever.isCollectingTrainData) {
                         Text("Die Daten werden gesammelt. Nach erfolgreichem Abschluss des Sammelns werden die Exportoptionen wieder sichtbar. Verbleibende Zeit: \(watchReciever.timerSeconds)")
                             .foregroundStyle(Color.red)
@@ -182,8 +178,19 @@ struct WatchAirPodsSensorView: View {
                     }
                     
                   //  Text("HZ: \(watchReciever.receivedCount)")
-                    Text("Datenmenge insgesamt: \(watchReciever.getArraySize())")
+                    Text("Datenmenge insgesamt (Uhr): \(watchReciever.getArraySize())")
+                    Text("Datenmenge insgesamt (AirPods): \(airpodscontroller.getSensorDataAmount())")
+
                     Text("Vergangene Zeit: \(String(format: "%.0f", watchReciever.getElapsedTime()))")
+                    Spacer()
+                    Button("Aktulles Array exprotieren") {
+                        watchReciever.exportToCsv(to: "watch_alldata.csv")
+                        
+                        if (airpodscontroller.isAvailable) {
+                            airpodscontroller.exportToCsv(to: "airpods_alldata.csv")
+                        }
+                    }
+                    Spacer()
                     
                     Button("Daten löschen") {
                         watchReciever.clearData()
@@ -191,14 +198,7 @@ struct WatchAirPodsSensorView: View {
                     }
                 }
                 
-                
-                Section(header: Text("Bewegungserkennung Apple Watch")) {
-                    Text("Threshold: \(watchReciever.prediction)")
-                    Text("Model: \(watchReciever.modelPrediction)")
-                    
-                }
-                
-                
+            
                 
                 if (airpodscontroller.isAvailable) {
                     Section(header: Text("Bewegungserkennung AirPods")){

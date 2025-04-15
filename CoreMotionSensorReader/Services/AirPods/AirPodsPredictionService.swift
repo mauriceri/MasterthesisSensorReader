@@ -35,4 +35,16 @@ class AirPodsPredictionService {
         }
         
     }
+    
+    func predicitPosture(data: AirPodsMotionData) -> String {
+        let yaw: Double = data.yaw
+        let pitch: Double = data.pitch
+        let roll = data.roll
+        
+        if (abs(yaw) <= 0.2) && (abs(pitch) <= 0.2) && (abs(roll) <= 0.2) {
+            return "Gerade"
+        } else {
+            return "Nicht gerade"
+        }
+    }
 }
