@@ -23,11 +23,7 @@ class WatchThreshold {
         let yaw = data.deviceMotionData?.yaw ?? 0.0
         let pitch = data.deviceMotionData?.pitch ?? 0.0
         let roll = data.deviceMotionData?.roll ?? 0.0
-        
-        print("Yaw: \(yaw)")
-        print("Pitch: \(pitch)")
-        print("Roll: \(roll)")
-        
+    
         if abs(yaw - armfrontraisYaw) <= tolerance && abs(pitch - armfrontraisPitch) <= tolerance && abs(roll - armfrontraisRoll) <= tolerance {
             return "Arm vorne"
         } else if abs(yaw - armtopraiseYaw) <= tolerance && abs(pitch - armtopraisePitch) <= tolerance && abs(roll - armtopraiseRoll) <= tolerance {

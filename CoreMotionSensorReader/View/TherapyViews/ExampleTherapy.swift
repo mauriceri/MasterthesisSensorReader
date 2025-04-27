@@ -1,0 +1,114 @@
+//
+//  ExampleTherapy.swift
+//  CoreMotionSensorReader
+//
+//  Created by Maurice Richter on 22.04.25.
+//
+
+import SwiftUI
+
+
+private let exercies = ["Arm nach vorne",
+                        "Arm nach oben",
+                        "Knie kreiseln",
+                        "Sitzendes Marschieren",
+                        "Schnelle, tiefe Schritte",
+                        "Gewicht verlagern"]
+
+
+struct ExampleTherapy: View {
+    
+    @Bindable var watchReciever: WatchReciverController
+    @Bindable var airpodscontroller: AirpodsDataController
+    
+    @State private var selectedExercise: String = "Sitzendes Marschieren"
+    
+    @State private var lastUpdateTime: Date = Date()
+    @State private var isActionTriggered: Bool = false
+    
+    var body: some View {
+        VStack {
+            VStack {
+                
+                /*
+                 Toggle(isOn: $watchReciever.isSVMActive) {
+                 Text("Aktiviere Klassifikation")
+                 }.padding(.horizontal)
+                 */
+                
+                pickerView
+                    .padding()
+                
+                Text("Erkannte Übung")
+                    .font(.headline)
+                Text(watchReciever.svmLabelAll)
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                    .padding(.top)
+                    .frame(maxWidth: .infinity, maxHeight: 120)
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                
+                if watchReciever.svmLabelAll == selectedExercise {
+                    Text("Korrekte Ausführung")
+                        .foregroundColor(.green)
+                        .font(.largeTitle)
+                        .padding(.top)
+                        .transition(.opacity)
+                } else {
+                    Text("Falsche Ausführung")
+                        .foregroundColor(.red)
+                        .font(.largeTitle)
+                        .padding(.top)
+                        .transition(.opacity)
+                }
+            }
+            .padding(.horizontal)
+            .onReceive(timer) { _ in
+                checkForTimeout()
+            }
+        }
+        .onAppear {
+            self.watchReciever.isSVMActive = true
+        }
+        .onDisappear {
+            self.watchReciever.isSVMActive = false
+        }
+    }
+    
+    private var pickerView: some View {
+        Picker("Übung auswählen", selection: $selectedExercise) {
+            ForEach(exercies, id: \.self) { exercise in
+                Text(exercise)
+                    .font(.title3)
+            }
+        }.pickerStyle(.wheel)
+        
+    }
+    
+    private var timer: Timer.TimerPublisher {
+        Timer.publish(every: 0.1, on: .main, in: .common)
+    }
+    
+    private func checkForTimeout() {
+        if watchReciever.svmLabelAll != selectedExercise {
+            let timeDifference = Date().timeIntervalSince(lastUpdateTime)
+            if timeDifference > 1 {
+                if !isActionTriggered {
+                    isActionTriggered = true
+                    print("Aktion ausgelöst")
+                }
+            }
+        } else {
+            lastUpdateTime = Date()
+            isActionTriggered = false
+        }
+    }
+}
+
+
+#Preview {
+    ExampleTherapy(watchReciever: WatchReciverController(), airpodscontroller: AirpodsDataController())
+}

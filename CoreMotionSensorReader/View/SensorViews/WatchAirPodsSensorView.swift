@@ -39,6 +39,10 @@ struct WatchAirPodsSensorView: View {
     @State private var selectedPosition: WatchPositon = .left
     
     
+    @State private var exportFeatures = false
+    
+    
+    
     let soundservice = SoundService()
     
     var body: some View {
@@ -88,6 +92,16 @@ struct WatchAirPodsSensorView: View {
                         }
                 }
                 
+                Toggle(isOn: $watchReciever.isSVMActive) {
+                    Text("Zeige SVM")
+                }
+                
+                if watchReciever.isSVMActive {
+                    Text(watchReciever.svmLabelAll)
+                }
+                
+            
+                
                 if airpodscontroller.isAvailable {
                     Section(header: Text("Kalibrierung")) {
                         Button("Kalibriere AirPods") {
@@ -101,7 +115,7 @@ struct WatchAirPodsSensorView: View {
                 
                 
                 Section(header: Text("Daten-Export (CSV)")) {
-
+                    
                     if(watchReciever.isCollectingTrainData) {
                         Text("Die Daten werden gesammelt. Nach erfolgreichem Abschluss des Sammelns werden die Exportoptionen wieder sichtbar. Verbleibende Zeit: \(watchReciever.timerSeconds)")
                             .foregroundStyle(Color.red)
@@ -117,70 +131,91 @@ struct WatchAirPodsSensorView: View {
                         
                     } else {
                         Button("Sitzend marschieren") {
-                            let filename = "watch_sitmarch_\(studyid)_\(height)_\(age)_\(armlength).csv"
-                            watchReciever.startTimerAndExport(to: filename)
+                       
+                                let filename = "watch_sitmarch_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                                let filenamefeature = "watch_sitmarch_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+
+                                watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
+                                
+                                if(airpodscontroller.isAvailable) {
+                                    let filename_airpods = "airpods_sitmarch_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                                    airpodscontroller.startTimerAndExport(to: filename_airpods)
+                                }
                             
-                            if(airpodscontroller.isAvailable) {
+                        }
+                        Button("Sitzend marschieren") {
+                            let filename = "watch_sitmarch_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            let filenamefeature = "watch_sitmarch_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
+                            
+                            if airpodscontroller.isAvailable {
                                 let filename_airpods = "airpods_sitmarch_\(studyid)_\(height)_\(age)_\(armlength).csv"
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-                        
+
                         Button("Arm nach vorne heben") {
                             let filename = "watch_armfrontraise_\(studyid)_\(height)_\(age)_\(armlength).csv"
-                            watchReciever.startTimerAndExport(to: filename)
+                            let filenamefeature = "watch_armfrontraise_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
                             
-                            if(airpodscontroller.isAvailable) {
+                            if airpodscontroller.isAvailable {
                                 let filename_airpods = "airpods_armfrontraise_\(studyid)_\(height)_\(age)_\(armlength).csv"
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-                        
+
                         Button("Gewicht verlagern mit Arm") {
                             let filename = "watch_weightdist_\(studyid)_\(height)_\(age)_\(armlength).csv"
-                            watchReciever.startTimerAndExport(to: filename)
+                            let filenamefeature = "watch_weightdist_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
                             
-                            if(airpodscontroller.isAvailable) {
+                            if airpodscontroller.isAvailable {
                                 let filename_airpods = "airpods_weightdist_\(studyid)_\(height)_\(age)_\(armlength).csv"
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-                        
+
                         Button("Knie kreisen") {
                             let filename = "watch_kneecircles_\(studyid)_\(height)_\(age)_\(armlength).csv"
-                            watchReciever.startTimerAndExport(to: filename)
+                            let filenamefeature = "watch_kneecircles_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
                             
-                            if(airpodscontroller.isAvailable) {
+                            if airpodscontroller.isAvailable {
                                 let filename_airpods = "airpods_kneecircles_\(studyid)_\(height)_\(age)_\(armlength).csv"
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-                        
-                        Button("Schnelle tiefe schritte") {
+
+                        Button("Schnelle tiefe Schritte") {
                             let filename = "watch_stepsdeepfast_\(studyid)_\(height)_\(age)_\(armlength).csv"
-                            watchReciever.startTimerAndExport(to: filename)
+                            let filenamefeature = "watch_stepsdeepfast_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
                             
-                            if(airpodscontroller.isAvailable) {
+                            if airpodscontroller.isAvailable {
                                 let filename_airpods = "airpods_stepsdeepfast_\(studyid)_\(height)_\(age)_\(armlength).csv"
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
-                        
+
                         Button("Arm nach oben heben") {
                             let filename = "watch_armtopraise_\(studyid)_\(height)_\(age)_\(armlength).csv"
-                            watchReciever.startTimerAndExport(to: filename)
+                            let filenamefeature = "watch_armtopraise_feature_\(studyid)_\(height)_\(age)_\(armlength).csv"
+                            watchReciever.startTimerAndExport(to: filename, to: filenamefeature)
                             
-                            if(airpodscontroller.isAvailable) {
+                            if airpodscontroller.isAvailable {
                                 let filename_airpods = "airpods_armtopraise_\(studyid)_\(height)_\(age)_\(armlength).csv"
                                 airpodscontroller.startTimerAndExport(to: filename_airpods)
                             }
                         }
+
                     }
                     
-                  //  Text("HZ: \(watchReciever.receivedCount)")
+                    //  Text("HZ: \(watchReciever.receivedCount)")
                     Text("Datenmenge insgesamt (Uhr): \(watchReciever.getArraySize())")
                     Text("Datenmenge insgesamt (AirPods): \(airpodscontroller.getSensorDataAmount())")
-
+                    Text("Datenmenge features (Uhr): \(watchReciever.getArraySize())")
+                    
                     Text("Vergangene Zeit: \(String(format: "%.0f", watchReciever.getElapsedTime()))")
                     Spacer()
                     Button("Aktulles Array exprotieren") {
@@ -198,7 +233,7 @@ struct WatchAirPodsSensorView: View {
                     }
                 }
                 
-            
+                
                 
                 if (airpodscontroller.isAvailable) {
                     Section(header: Text("Bewegungserkennung AirPods")){
@@ -252,6 +287,9 @@ struct WatchAirPodsSensorView: View {
         }
         
     }
+    
+    
+    
 }
 
 

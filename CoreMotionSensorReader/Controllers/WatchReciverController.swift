@@ -21,13 +21,19 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     var lastSensorData: SensorData?
     var sensorData = [SensorData]()
     
+    var filterSensorData = [SensorData]()
+    
+    var featureData = [SensorFeaturesAllLabel]()
+    var scaledFeatureData = [ScaledFeature]()
+    
     var tempData = [SensorData]()
+    var filterdTempData = [SensorData]()
     
     private var timer: Timer?
     private var countTimer: Timer? = nil
     var timerSeconds: Int = 60
     
-    var prediction: String = "-"
+    var predictionRf: String = "-"
     var modelPrediction: String = "-"
     
     var elapsedTime: TimeInterval = 0.0
@@ -38,9 +44,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     
     
-    var reducedFeatureLabelAll: String = "-"
     
-    var fullFeatureLabelAll: String = "-"
     
     let modelService = ModelService()
     
@@ -73,6 +77,25 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     var allLabelFeatures: SensorFeaturesAllLabel?
     
     
+    //MARK: - Predictions
+    var reducedRfFeatureLabelAll: String = "-"
+    var fullRfFeatureLabelAll: String = "-"
+    
+    var decisionTreeLabelAll: String = "-"
+    var knnLabelAll: String = "-"
+    var svmLabelAll: String = "-"
+    var svmResultString: String = "-"
+    
+    //MARK: - Modelflags
+    var isReducedRandomForestActive: Bool = false
+    
+    var isFullRandomForestActive: Bool = false
+    var isSVMActive: Bool = false
+    var isMutliLayerPerceptronActive: Bool = false
+    var isKNNActive: Bool = false
+    var isDecisionTreeActive: Bool = false
+    var isXGboostActive: Bool = false
+    var isMlpActive: Bool = false
     
     //MARK: - Watch Connectivity
     
@@ -85,7 +108,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         session.activate()
     }
     
-
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
         
     }
@@ -107,9 +130,12 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                     let filter = SensorDataProcessor(alpha: 0.2)
                     let filteredSensorArray = sensorArray.map { filter.processData($0) }
                     
+                    self.filterSensorData.append(contentsOf: filteredSensorArray)
+                    
                     
                     if self.isCollectingTrainData {
                         self.tempData.append(contentsOf: sensorArray)
+                        self.filterdTempData.append(contentsOf: filteredSensorArray)
                     }
                     
                     if filteredSensorArray.last != nil {
@@ -119,11 +145,11 @@ class WatchReciverController: NSObject, WCSessionDelegate {
                     
                     /*
                      if sensorArray.last != nil {
-                         self.armPositionThreshholdLabel = self.watchThresholdservice.getThresholdLabel(data: sensorArray.last!)
-                         
+                     self.armPositionThreshholdLabel = self.watchThresholdservice.getThresholdLabel(data: sensorArray.last!)
+                     
                      }
                      */
-                
+                    
                     sensorArray.forEach {
                         self.processData(data: $0)
                     }
@@ -134,8 +160,9 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     }
     
     //MARK: - Timer and Exports
-    func startTimerAndExport(to fileName: String) {
+    func startTimerAndExport(to fileName: String, to fileNameFeature: String) {
         self.tempData.removeAll()
+        self.filterdTempData.removeAll()
         self.isCollectingTrainData = true
         self.isCountTimerRunning = true
         
@@ -143,7 +170,9 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             guard let self = self else { return }
             self.isCollectingTrainData = false
             self.exportToCsv(data: self.tempData, to: fileName)
+            self.exportToFeatureCSV(to: fileNameFeature)
             self.tempData.removeAll()
+            self.filterdTempData.removeAll()
             self.soundservice.playSound()
             self.sendHapticFeedback()
         }
@@ -180,6 +209,10 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         csvWriter.exportCSV(from: self.sensorData, to: fileName)
     }
     
+    func exportToFeatureCSV(to fileName: String) {
+        csvWriter.exportFeaturesCSV(from: self.featureData, to: fileName)
+    }
+    
     
     // MARK: - Array Size and Time
     func getArraySize() -> Int {
@@ -192,6 +225,8 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     func clearData() -> Void {
         self.sensorData.removeAll()
+        self.featureData.removeAll()
+        self.scaledFeatureData.removeAll()
         self.elapsedTime = 0.0
     }
     
@@ -227,22 +262,45 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             
             let features = extract.computeFeatures(from: slidingWindow)
             let featuresAll = extract.computeFeaturesAllLabel(from: slidingWindow)
+            let scaledFeaturesAll = extract.scaleFeatures(features: featuresAll)
+            
+            
+            
+            self.featureData.append(featuresAll)
+            self.scaledFeatureData.append(scaledFeaturesAll)
             
             self.reducedLabelFeatures = features
             self.allLabelFeatures = featuresAll
             
-            if let prediction = modelService?.classifyReducedFeatures(features: features) {
-                self.reducedFeatureLabelAll = prediction
+            if isReducedRandomForestActive, let prediction = modelService?.classifyRfReducedFeatures(features: features) {
+                self.reducedRfFeatureLabelAll = prediction
             }
             
-            if let predictionAllLabel = modelService?.classifyFullFeatures(features: featuresAll) {
-                self.fullFeatureLabelAll = predictionAllLabel
+            if isFullRandomForestActive, let predictionAllLabel = modelService?.classifyRfFullFeatures(features: featuresAll) {
+                self.fullRfFeatureLabelAll = predictionAllLabel
             }
+            
+            if isDecisionTreeActive, let decisionTreePrediction = modelService?.classifyDecisionTree(features: featuresAll) {
+                self.decisionTreeLabelAll = decisionTreePrediction
+            }
+            
+            if isKNNActive, let knnPrediction = modelService?.classifyKnn(features: scaledFeaturesAll) {
+                self.knnLabelAll = knnPrediction
+            }
+            
+            if isSVMActive, let (predictedLabel, resultString) = modelService?.classifySvm(features: scaledFeaturesAll) {
+                self.svmLabelAll = predictedLabel ?? "-"
+                self.svmResultString = resultString ?? "-"
+            }
+            
+            
             
             updateUserMovingInfo(motionData: slidingWindow)
             updateSamplingFrequency()
         }
     }
+    
+    
     
     
     

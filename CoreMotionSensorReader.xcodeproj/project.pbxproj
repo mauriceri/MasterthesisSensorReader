@@ -34,6 +34,8 @@
 		518357602C1DF2D2000EAD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5183575F2C1DF2D2000EAD64 /* Assets.xcassets */; };
 		518357632C1DF2D2000EAD64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */; };
 		518357662C1DF2D2000EAD64 /* WatchCoreMotionSensorReader Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 518357592C1DF2D1000EAD64 /* WatchCoreMotionSensorReader Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		518810582DB7752300F17C4E /* ExampleTherapy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518810572DB7752300F17C4E /* ExampleTherapy.swift */; };
+		5188105A2DBBD86200F17C4E /* ButterworthLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518810592DBBD86200F17C4E /* ButterworthLowPassFilter.swift */; };
 		519FD5342DA588DA008F662F /* LabelMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519FD5332DA588DA008F662F /* LabelMapper.swift */; };
 		51B5A68F2D97184C001206E8 /* FourierTransformHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5A68E2D97184C001206E8 /* FourierTransformHelper.swift */; };
 		51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD6A9D2C1EE28200C53B8A /* SensorData.swift */; };
@@ -107,6 +109,8 @@
 		5183575D2C1DF2D1000EAD64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5183575F2C1DF2D2000EAD64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		518357622C1DF2D2000EAD64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		518810572DB7752300F17C4E /* ExampleTherapy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTherapy.swift; sourceTree = "<group>"; };
+		518810592DBBD86200F17C4E /* ButterworthLowPassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButterworthLowPassFilter.swift; sourceTree = "<group>"; };
 		51935BA12C3EBD4000839BAB /* CoreMotionSensorReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoreMotionSensorReader.entitlements; sourceTree = "<group>"; };
 		51935BA42C4824D700839BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		519FD5332DA588DA008F662F /* LabelMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMapper.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				51376FF62D91977F0079812E /* SensorDataProcessor.swift */,
+				518810592DBBD86200F17C4E /* ButterworthLowPassFilter.swift */,
 				5165104A2D8C974C0029FA3E /* UserMovementDetection.swift */,
 				51376FF42D91975B0079812E /* LowPassFilter.swift */,
 				51B5A68E2D97184C001206E8 /* FourierTransformHelper.swift */,
@@ -282,6 +287,7 @@
 		5183576C2C1DF2F6000EAD64 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				518810562DB7750A00F17C4E /* TherapyViews */,
 				516510422D8C77E70029FA3E /* ClassificationViews */,
 				516F67302D21890400C44CD1 /* InfoViews */,
 				51F7C0042C2312680058B12F /* SensorViews */,
@@ -297,6 +303,14 @@
 				51CD6ABD2C207A8600C53B8A /* AirpodsDataController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		518810562DB7750A00F17C4E /* TherapyViews */ = {
+			isa = PBXGroup;
+			children = (
+				518810572DB7752300F17C4E /* ExampleTherapy.swift */,
+			);
+			path = TherapyViews;
 			sourceTree = "<group>";
 		};
 		51CD6AA02C1EE28700C53B8A /* Shared */ = {
@@ -493,6 +507,7 @@
 				5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */,
 				51B5A68F2D97184C001206E8 /* FourierTransformHelper.swift in Sources */,
 				5183574A2C1DF1F8000EAD64 /* ContentView.swift in Sources */,
+				518810582DB7752300F17C4E /* ExampleTherapy.swift in Sources */,
 				514CBA352D6CBBDF0081AC06 /* FeatureView.swift in Sources */,
 				51CD6AA62C1EE4F000C53B8A /* WatchReciverController.swift in Sources */,
 				51376FF32D9162C60079812E /* WatchThreshhold.swift in Sources */,
@@ -504,6 +519,7 @@
 				5165104B2D8C974C0029FA3E /* UserMovementDetection.swift in Sources */,
 				51CD6A9E2C1EE28200C53B8A /* SensorData.swift in Sources */,
 				51E484732C2716A60084A3C7 /* AirPodsCsvWriterService.swift in Sources */,
+				5188105A2DBBD86200F17C4E /* ButterworthLowPassFilter.swift in Sources */,
 				516BD6EE2D807B840087FCFB /* ModelService.swift in Sources */,
 				514CBA372D6E04310081AC06 /* DebugView.swift in Sources */,
 				519FD5342DA588DA008F662F /* LabelMapper.swift in Sources */,

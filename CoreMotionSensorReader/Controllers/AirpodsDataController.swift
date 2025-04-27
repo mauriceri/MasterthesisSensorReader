@@ -52,6 +52,9 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     var gravityAccelZBias: Double = 0.0
     
     var latestUncalibratedData: AirPodsMotionData?
+    
+    
+    var isClassificationActive: Bool = false
  
     
     var isAvailable: Bool {

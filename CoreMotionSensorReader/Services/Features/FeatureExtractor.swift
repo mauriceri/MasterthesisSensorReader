@@ -8,21 +8,6 @@
 import Foundation
 import Accelerate
 
-
-
-
-struct ScalerParams {
-    let mean: [Double]
-    let std: [Double]
-    
-    static let defaultScaler = ScalerParams(
-        mean: [ 1.49584231,  2.32193533,  0.94175419, -2.26208662,  0.64448792,  0.28287349,
-                -0.0790468,  -0.80686126, -0.06297699,  0.01790369],
-        std: [1.4702313 , 2.32698841, 0.61716279 ,2.16311315, 0.32188388 ,0.27951477
-              ,1.23603774, 0.47592983 ,0.63687188 ,0.02990101]
-    )
-}
-
 struct SensorFeatures {
     let rotationRateZ_std: Double
     let rotationRateZ_max: Double
@@ -49,13 +34,22 @@ struct SensorFeaturesAllLabel {
     var gravityAccelX_min: Double
 }
 
+
+struct ScaledFeature {
+    var pitch_min: Double
+    var gravityAccelZ_max: Double
+    var gravityAccelY_max: Double
+    var rotationRateZ_std: Double
+    var gravityAccelZ_min: Double
+    var rotationRateZ_max: Double
+    var accelerationY_max: Double
+    var roll_min: Double
+    var roll_std: Double
+    var gravityAccelX_min: Double
+}
+
 class FeatureExtractor {
-    
-    func scale(_ value: Double, index: Int) -> Double {
-        let mean = ScalerParams.defaultScaler.mean[index]
-        let std = ScalerParams.defaultScaler.std[index]
-        return (value - mean) / std
-    }
+
     
     func computeFeatures(from data: [SensorData]) -> SensorFeatures {
         var rotationRateZ: [Double] = []
@@ -154,6 +148,38 @@ class FeatureExtractor {
             roll_min: roll.min() ?? 0.0,
             roll_std: standardDeviation(of: roll),
             gravityAccelX_min: gravityAccelX.min() ?? 0.0
+        )
+    }
+    
+    func scaleFeatures(features: SensorFeaturesAllLabel) -> ScaledFeature {
+        let means = [-0.59493994, -0.27698391,  0.48371406,  1.11787349, -0.60216707,  1.7629554,
+                     0.72492358, -0.20636859,  0.35970556, -0.1498855]
+        
+        let stdDevs = [0.51220974, 0.40951295, 0.37199073, 1.33631733, 0.36647821, 2.10464533,
+                       0.61559696, 1.10809129, 0.38818016, 0.60612554]
+
+        let scaledPitchMin = (features.pitch_min - means[0]) / stdDevs[0]
+        let scaledGravityAccelZMax = (features.gravityAccelZ_max - means[1]) / stdDevs[1]
+        let scaledGravityAccelYMax = (features.gravityAccelY_max - means[2]) / stdDevs[2]
+        let scaledRotationRateZStd = (features.rotationRateZ_std - means[3]) / stdDevs[3]
+        let scaledGravityAccelZMin = (features.gravityAccelZ_min - means[4]) / stdDevs[4]
+        let scaledRotationRateZMax = (features.rotationRateZ_max - means[5]) / stdDevs[5]
+        let scaledAccelerationYMax = (features.accelerationY_max - means[6]) / stdDevs[6]
+        let scaledRollMin = (features.roll_min - means[7]) / stdDevs[7]
+        let scaledRollStd = (features.roll_std - means[8]) / stdDevs[8]
+        let scaledGravityAccelXMin = (features.gravityAccelX_min - means[9]) / stdDevs[9]
+        
+        return ScaledFeature(
+            pitch_min: scaledPitchMin,
+            gravityAccelZ_max: scaledGravityAccelZMax,
+            gravityAccelY_max: scaledGravityAccelYMax,
+            rotationRateZ_std: scaledRotationRateZStd,
+            gravityAccelZ_min: scaledGravityAccelZMin,
+            rotationRateZ_max: scaledRotationRateZMax,
+            accelerationY_max: scaledAccelerationYMax,
+            roll_min: scaledRollMin,
+            roll_std: scaledRollStd,
+            gravityAccelX_min: scaledGravityAccelXMin
         )
     }
 }

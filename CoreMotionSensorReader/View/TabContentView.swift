@@ -23,6 +23,8 @@ struct TabContentView: View {
             FeatureView(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem{
                 Label("FeatureView", systemImage: "x.squareroot")}
             
+            ExampleTherapy(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem { Label("Therapie", systemImage: "sun.max.fill")}
+            
             
             WatchAirPodsSensorView(watchReciever: watchReciever, airpodscontroller: airpodscontroller)
                 .tabItem { Label("Watch&AirPods", systemImage: "person.wave.2.fill")}
