@@ -31,10 +31,12 @@ struct ExampleTherapy: View {
         VStack {
             VStack {
                 
+                Text("Übungsauswahl:")
+                    .font(.headline)
                 pickerView
                     
                 
-                Text("Erkannte Übung")
+                Text("Erkannte Übung:")
                     .font(.headline)
                 Text(watchReciever.svmLabelAll)
                     .font(.largeTitle)
@@ -62,25 +64,34 @@ struct ExampleTherapy: View {
                 }
                 
             
-                if self.airpodscontroller.isAvailable {
-                    Text("Körperhaltung: \(airpodscontroller.posturePrediction)")
-                        .font(.title)
+                if self.airpodscontroller.isAvailable || true {
+                    Spacer()
+                        .frame(minHeight: 10, idealHeight: 100, maxHeight: 600)
+                        .fixedSize()
+                    Text("AirPods Haltungserkennung:")
+                        .font(.headline)
+                    Text("Körperhaltung \n \(airpodscontroller.posturePrediction)")
+                        .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
                         .padding(.top)
                         .padding(.bottom)
-                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .frame(maxWidth: .infinity, maxHeight: 100)
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(10)
                         .shadow(radius: 5)
+                    
+                    Spacer()
+                        .frame(minHeight: 5, idealHeight: 20, maxHeight: 400)
+                        .fixedSize()
 
-                    Text("Kopfposition: \(airpodscontroller.prediction)")
-                        .font(.title)
+                    Text("Kopfposition: \n \(airpodscontroller.prediction)")
+                        .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
                         .padding(.top)
                         .padding(.bottom)
-                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .frame(maxWidth: .infinity, maxHeight: 100)
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(10)
                         .shadow(radius: 5)
@@ -114,7 +125,7 @@ struct ExampleTherapy: View {
                 Text(exercise)
                     .font(.title3)
             }
-        }.pickerStyle(.wheel)
+        }
         
     }
     
