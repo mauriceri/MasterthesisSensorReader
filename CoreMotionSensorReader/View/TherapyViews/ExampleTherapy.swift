@@ -30,12 +30,6 @@ struct ExampleTherapy: View {
         VStack {
             VStack {
                 
-                /*
-                 Toggle(isOn: $watchReciever.isSVMActive) {
-                 Text("Aktiviere Klassifikation")
-                 }.padding(.horizontal)
-                 */
-                
                 pickerView
                     .padding()
                 
@@ -64,10 +58,18 @@ struct ExampleTherapy: View {
                         .padding(.top)
                         .transition(.opacity)
                 }
+                
+                
+                if isActionTriggered {
+                    Text("Auf Ausführung achten!")
+                        .foregroundColor(.blue)
+                        .font(.title2)
+                        .padding(.top)
+                }
             }
             .padding(.horizontal)
-            .onReceive(timer) { _ in
-                checkForTimeout()
+            .onChange(of: watchReciever.svmLabelAll) { oldValue, newValue in
+                handleSvmLabelChange(newValue)
             }
         }
         .onAppear {
@@ -92,13 +94,13 @@ struct ExampleTherapy: View {
         Timer.publish(every: 0.1, on: .main, in: .common)
     }
     
-    private func checkForTimeout() {
-        if watchReciever.svmLabelAll != selectedExercise {
+    private func handleSvmLabelChange(_ newValue: String) {
+        if newValue != selectedExercise {
             let timeDifference = Date().timeIntervalSince(lastUpdateTime)
             if timeDifference > 1 {
                 if !isActionTriggered {
                     isActionTriggered = true
-                    print("Aktion ausgelöst")
+                    watchReciever.sendHapticFeedback()
                 }
             }
         } else {
