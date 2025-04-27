@@ -25,13 +25,14 @@ struct ExampleTherapy: View {
     
     @State private var lastUpdateTime: Date = Date()
     @State private var isActionTriggered: Bool = false
+
     
     var body: some View {
         VStack {
             VStack {
                 
                 pickerView
-                    .padding()
+                    
                 
                 Text("Erkannte Übung")
                     .font(.headline)
@@ -40,6 +41,7 @@ struct ExampleTherapy: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                     .padding(.top)
+                    .padding(.bottom)
                     .frame(maxWidth: .infinity, maxHeight: 120)
                     .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
@@ -59,11 +61,37 @@ struct ExampleTherapy: View {
                         .transition(.opacity)
                 }
                 
+            
+                if self.airpodscontroller.isAvailable {
+                    Text("Körperhaltung: \(airpodscontroller.posturePrediction)")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .padding(.top)
+                        .padding(.bottom)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+
+                    Text("Kopfposition: \(airpodscontroller.prediction)")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .padding(.top)
+                        .padding(.bottom)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                
+                }
+                
                 
                 if isActionTriggered {
                     Text("Auf Ausführung achten!")
-                        .foregroundColor(.blue)
-                        .font(.title2)
+                        .foregroundColor(.red)
+                        .font(.title)
                         .padding(.top)
                 }
             }
