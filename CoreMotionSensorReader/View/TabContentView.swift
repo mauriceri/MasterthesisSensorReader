@@ -20,8 +20,8 @@ struct TabContentView: View {
             }
             
             
-            FeatureView(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem{
-                Label("FeatureView", systemImage: "x.squareroot")}
+            SensorSettings(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem { Label("Einstellungen", systemImage: "gearshape")}
+
             
             ExampleTherapy(watchReciever: watchReciever, airpodscontroller: airpodscontroller).tabItem { Label("Therapie", systemImage: "sun.max.fill")}
             

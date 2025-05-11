@@ -21,21 +21,28 @@ struct ExampleTherapy: View {
     @Bindable var watchReciever: WatchReciverController
     @Bindable var airpodscontroller: AirpodsDataController
     
+    let soundservice = SoundService()
+    
     @State private var selectedExercise: String = "Sitzendes Marschieren"
     
     @State private var lastUpdateTime: Date = Date()
     @State private var isActionTriggered: Bool = false
+    
+    @State private var isCountingDown = false
+    @State private var countdown = 3
+    @State private var calibrateTimer: Timer?
+    
+    @State private var trackBodyPosition: Bool = false
 
     
     var body: some View {
         VStack {
+            Text("Übungsauswahl:")
+                .font(.headline)
+            pickerView
+                
             VStack {
-                
-                Text("Übungsauswahl:")
-                    .font(.headline)
-                pickerView
-                    
-                
+
                 Text("Erkannte Übung:")
                     .font(.headline)
                 Text(watchReciever.svmLabelAll)
@@ -44,12 +51,12 @@ struct ExampleTherapy: View {
                     .foregroundColor(.primary)
                     .padding(.top)
                     .padding(.bottom)
-                    .frame(maxWidth: .infinity, maxHeight: 120)
+                    .frame(maxWidth: .infinity, maxHeight: 80)
                     .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
                     .shadow(radius: 5)
                 
-                if watchReciever.svmLabelAll == selectedExercise {
+                if watchReciever.svmLabelAll == watchReciever.currentAcitivity {
                     Text("Korrekte Ausführung")
                         .foregroundColor(.green)
                         .font(.largeTitle)
@@ -66,86 +73,70 @@ struct ExampleTherapy: View {
             
                 if self.airpodscontroller.isAvailable || true {
                     Spacer()
-                        .frame(minHeight: 10, idealHeight: 100, maxHeight: 600)
+                        .frame(minHeight: 10, idealHeight: 50, maxHeight: 500)
                         .fixedSize()
                     Text("AirPods Haltungserkennung:")
                         .font(.headline)
+                    
+                   
+                    Toggle("Körperhaltung tracken", isOn: $airpodscontroller.isTrackingActive)
+                        .padding()
+                    Toggle("Kopfausrichtung tracken", isOn: $airpodscontroller.isHeadTrackingActive)
+                        .padding()
+                   
+                    
                     Text("Körperhaltung \n \(airpodscontroller.posturePrediction)")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
-                        .padding(.top)
-                        .padding(.bottom)
-                        .frame(maxWidth: .infinity, maxHeight: 100)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical)
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(10)
                         .shadow(radius: 5)
-                    
+                        .fixedSize(horizontal: false, vertical: true)
+
                     Spacer()
-                        .frame(minHeight: 5, idealHeight: 20, maxHeight: 400)
-                        .fixedSize()
+                        .frame(height: 10)
 
                     Text("Kopfposition: \n \(airpodscontroller.prediction)")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
-                        .padding(.top)
-                        .padding(.bottom)
-                        .frame(maxWidth: .infinity, maxHeight: 100)
+                        .padding(.vertical)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(10)
                         .shadow(radius: 5)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+
                 
                 }
-                
-                
-                if isActionTriggered {
-                    Text("Auf Ausführung achten!")
-                        .foregroundColor(.red)
-                        .font(.title)
-                        .padding(.top)
-                }
+               
             }
             .padding(.horizontal)
-            .onChange(of: watchReciever.svmLabelAll) { oldValue, newValue in
-                handleSvmLabelChange(newValue)
-            }
         }
         .onAppear {
             self.watchReciever.isSVMActive = true
+            self.watchReciever.isTherapyViewActive = true
         }
         .onDisappear {
             self.watchReciever.isSVMActive = false
+            self.airpodscontroller.isTrackingActive = false
+            self.watchReciever.isTherapyViewActive = false
         }
     }
     
     private var pickerView: some View {
-        Picker("Übung auswählen", selection: $selectedExercise) {
+        Picker("Übung auswählen", selection: $watchReciever.currentAcitivity) {
             ForEach(exercies, id: \.self) { exercise in
                 Text(exercise)
                     .font(.title3)
             }
         }
         
-    }
-    
-    private var timer: Timer.TimerPublisher {
-        Timer.publish(every: 0.1, on: .main, in: .common)
-    }
-    
-    private func handleSvmLabelChange(_ newValue: String) {
-        if newValue != selectedExercise {
-            let timeDifference = Date().timeIntervalSince(lastUpdateTime)
-            if timeDifference > 1 {
-                if !isActionTriggered {
-                    isActionTriggered = true
-                    watchReciever.sendHapticFeedback()
-                }
-            }
-        } else {
-            lastUpdateTime = Date()
-            isActionTriggered = false
-        }
     }
 }
 

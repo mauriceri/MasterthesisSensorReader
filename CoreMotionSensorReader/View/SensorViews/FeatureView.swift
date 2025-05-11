@@ -10,32 +10,16 @@ import SwiftUI
 struct FeatureView: View {
     
     @Bindable var watchReciever: WatchReciverController
-    @Bindable var airpodscontroller: AirpodsDataController
     
     
     
     var body: some View {
         
         
-        List {
-            Section(header: Text("Features für 4 Label Model")) {
-                if let featureReducedLabel = watchReciever.reducedLabelFeatures {
-                    Text("rotationRateZ_std: \(String(format: "%.3f", featureReducedLabel.rotationRateZ_std))")
-                    Text("rotationRateZ_max: \(String(format: "%.3f", featureReducedLabel.rotationRateZ_max))")
-                    Text("accelerationY_max: \(String(format: "%.3f", featureReducedLabel.accelerationY_max))")
-                    Text("rotationRateZ_min: \(String(format: "%.3f", featureReducedLabel.rotationRateZ_min))")
-                    Text("gravityAccelY_max: \(String(format: "%.3f", featureReducedLabel.gravityAccelY_max))")
-                    Text("userAccelY_std: \(String(format: "%.3f", featureReducedLabel.userAccelY_std))")
-                    Text("roll_min: \(String(format: "%.3f", featureReducedLabel.roll_min))")
-                    Text("pitch_min: \(String(format: "%.3f", featureReducedLabel.pitch_min))")
-                    Text("gravityAccelX_min: \(String(format: "%.3f", featureReducedLabel.gravityAccelX_min))")
-                    Text("gravityAccelSquaredVarCoeff: \(String(format: "%.3f", featureReducedLabel.gravityAccelSquaredVarCoeff))")
-                } else {
-                    Text("Keine features vorhanden")
-                }
-            }
-            
-            Section(header: Text("Features für 6 Label Model")) {
+        VStack {
+        
+
+       
                 if let featureAllLabel = watchReciever.allLabelFeatures {
                     Text("pitch_min: \(String(format: "%.3f", featureAllLabel.pitch_min))")
                     Text("gravityAccelZ_max: \(String(format: "%.3f", featureAllLabel.gravityAccelZ_max))")
@@ -50,8 +34,6 @@ struct FeatureView: View {
                 } else {
                     Text("Keine Features vorhanden")
                 }
-            }
-
        
         }
         
@@ -63,5 +45,5 @@ struct FeatureView: View {
 
 
 #Preview {
-    FeatureView(watchReciever: WatchReciverController(), airpodscontroller: AirpodsDataController())
+    FeatureView(watchReciever: WatchReciverController())
 }

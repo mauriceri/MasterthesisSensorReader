@@ -24,10 +24,9 @@ class UserMovementDetection {
         return totalAcceleration / Double(data.count)
     }
 
-    func isActiveMovement(from data: [SensorData]) -> Bool {
+    func isActiveMovement(from data: [SensorData], threshhold: Double) -> Bool {
         let avgAcceleration = calculateAccelerationMagnitude(from: data)
-        let threshold = 0.1        
-        return avgAcceleration > threshold
+        return avgAcceleration > threshhold
     }
 }
 

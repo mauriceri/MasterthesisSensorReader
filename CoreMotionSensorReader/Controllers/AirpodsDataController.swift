@@ -13,6 +13,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     
     let predictionService = AirPodsPredictionService()
     let csvWriter = AirPodsCsvWriterService()
+    let soundService = SoundService()
     
     let queue = OperationQueue()
     var motionManager = CMHeadphoneMotionManager()
@@ -35,6 +36,11 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     var sensorlocation: String = "-"
     var posturePrediction: String = "-"
     
+    var postureSensititvy: Double = 0.2
+    
+    
+    private var lastPosition: String?
+    
     
     var isCalibrated: Bool = false
     
@@ -55,7 +61,12 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
     
     
     var isClassificationActive: Bool = false
- 
+    
+    var isTrackingActive: Bool = false
+    var isHeadTrackingActive: Bool = false
+    
+    private var lastPosturePrediction: String = ""
+    
     
     var isAvailable: Bool {
         return motionManager.isDeviceMotionAvailable
@@ -90,7 +101,7 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
         self.sensorData.removeAll()
     }
     
- 
+    
     func getElapsedTime() -> TimeInterval {
         guard let first = tempData.first, let last = tempData.last else {
             return 0
@@ -178,10 +189,11 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                     gravityAccelZ: motion.gravity.z
                 )
                 
+                self.latestUncalibratedData = rawNewData
                 
                 DispatchQueue.main.async {
                     self.lastSensorData = newData
-                    self.latestUncalibratedData = rawNewData
+                   
                     self.sensorData.append(newData)
                     
                     if (self.isCollectingTrainData) {
@@ -189,8 +201,24 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
                     }
                     
                     self.prediction = self.predictionService.predictViewingDirection(data: newData)
-                    self.posturePrediction = self.predictionService.predicitPosture(data: newData)
-                  //  self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
+                    self.posturePrediction = self.predictionService.predicitPosture(data: newData, sens: self.postureSensititvy)
+                    //  self.modelPrediction = self.predictionService.airpodsPrediction(motionData: motion)
+                    
+                    
+                    if self.isTrackingActive &&
+                        self.posturePrediction == "Nicht gerade" &&
+                        self.lastPosturePrediction != "Nicht gerade" {
+                        
+                        self.soundService.playBodyPosSound()
+                    }
+                    
+                    
+                    if self.isHeadTrackingActive {
+                        self.headDirectionFeedback(position: self.prediction)
+                    }
+            
+                    
+                    self.lastPosturePrediction = self.posturePrediction
                     
                     switch motion.sensorLocation {
                     case .headphoneLeft:
@@ -226,7 +254,41 @@ class AirpodsDataController: NSObject, CMHeadphoneMotionManagerDelegate {
         self.gravityAccelXBias = data.gravityAccelX
         self.gravityAccelYBias = data.gravityAccelY
         self.gravityAccelZBias = data.gravityAccelZ
-      
+        
+    }
+    
+    func headDirectionFeedback(position: String) {
+        guard position != lastPosition else { return }
+        lastPosition = position
+        
+        switch position {
+        case "Links":
+            soundService.playLeft()
+        case "Rechts":
+            soundService.playRight()
+        case "Oben":
+            soundService.playUp()
+        case "Unten":
+            soundService.playDown()
+        case "Rechts geneigt":
+            soundService.playRightInclined()
+        case "Links geneigt":
+            soundService.playLeftInclined()
+            /*
+        case "Oben rechts":
+            soundService.playUpRight()
+        case "Oben links":
+            soundService.playUpLeft()
+        case "Unten rechts":
+            soundService.playDownRight()
+        case "Unten links":
+            soundService.playDownLeft()
+             */
+        default:
+            break
+            
+        }
+        
     }
     
 }

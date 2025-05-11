@@ -21,6 +21,19 @@
 		514CBA372D6E04310081AC06 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514CBA362D6E04310081AC06 /* DebugView.swift */; };
 		516510442D8C77F90029FA3E /* ClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516510432D8C77F90029FA3E /* ClassificationView.swift */; };
 		5165104B2D8C974C0029FA3E /* UserMovementDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5165104A2D8C974C0029FA3E /* UserMovementDetection.swift */; };
+		516709C72DCFBFB800226942 /* feedbacksound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709C62DCFBFB800226942 /* feedbacksound.mp3 */; };
+		516709CC2DD09D0D00226942 /* oben.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709C92DD09D0D00226942 /* oben.mp3 */; };
+		516709CD2DD09D0D00226942 /* rechts.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709CA2DD09D0D00226942 /* rechts.mp3 */; };
+		516709CE2DD09D0D00226942 /* unten.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709CB2DD09D0D00226942 /* unten.mp3 */; };
+		516709CF2DD09D0D00226942 /* links.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709C82DD09D0D00226942 /* links.mp3 */; };
+		516709D22DD09EA000226942 /* rechtsgeneigt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709D12DD09EA000226942 /* rechtsgeneigt.mp3 */; };
+		516709D32DD09EA000226942 /* linksgeneigt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709D02DD09EA000226942 /* linksgeneigt.mp3 */; };
+		516709D62DD0A2AD00226942 /* SensorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516709D52DD0A2AD00226942 /* SensorSettings.swift */; };
+		516709D82DD0BC1D00226942 /* kalibriert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709D72DD0BC1D00226942 /* kalibriert.mp3 */; };
+		516709DD2DD0DB3C00226942 /* ulinks.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709DB2DD0DB3C00226942 /* ulinks.mp3 */; };
+		516709DE2DD0DB3C00226942 /* urechts.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709DC2DD0DB3C00226942 /* urechts.mp3 */; };
+		516709DF2DD0DB3C00226942 /* obenlinks.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709D92DD0DB3C00226942 /* obenlinks.mp3 */; };
+		516709E02DD0DB3C00226942 /* obenrechts.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 516709DA2DD0DB3C00226942 /* obenrechts.mp3 */; };
 		516BD6EE2D807B840087FCFB /* ModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD6ED2D807B840087FCFB /* ModelService.swift */; };
 		516F67322D21891D00C44CD1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516F67312D21891D00C44CD1 /* InfoView.swift */; };
 		5172CF862D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */; };
@@ -94,6 +107,19 @@
 		514CBA362D6E04310081AC06 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		516510432D8C77F90029FA3E /* ClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationView.swift; sourceTree = "<group>"; };
 		5165104A2D8C974C0029FA3E /* UserMovementDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMovementDetection.swift; sourceTree = "<group>"; };
+		516709C62DCFBFB800226942 /* feedbacksound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = feedbacksound.mp3; sourceTree = "<group>"; };
+		516709C82DD09D0D00226942 /* links.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = links.mp3; sourceTree = "<group>"; };
+		516709C92DD09D0D00226942 /* oben.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = oben.mp3; sourceTree = "<group>"; };
+		516709CA2DD09D0D00226942 /* rechts.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rechts.mp3; sourceTree = "<group>"; };
+		516709CB2DD09D0D00226942 /* unten.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = unten.mp3; sourceTree = "<group>"; };
+		516709D02DD09EA000226942 /* linksgeneigt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = linksgeneigt.mp3; sourceTree = "<group>"; };
+		516709D12DD09EA000226942 /* rechtsgeneigt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rechtsgeneigt.mp3; sourceTree = "<group>"; };
+		516709D52DD0A2AD00226942 /* SensorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSettings.swift; sourceTree = "<group>"; };
+		516709D72DD0BC1D00226942 /* kalibriert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kalibriert.mp3; sourceTree = "<group>"; };
+		516709D92DD0DB3C00226942 /* obenlinks.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = obenlinks.mp3; sourceTree = "<group>"; };
+		516709DA2DD0DB3C00226942 /* obenrechts.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = obenrechts.mp3; sourceTree = "<group>"; };
+		516709DB2DD0DB3C00226942 /* ulinks.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ulinks.mp3; sourceTree = "<group>"; };
+		516709DC2DD0DB3C00226942 /* urechts.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = urechts.mp3; sourceTree = "<group>"; };
 		516BD6ED2D807B840087FCFB /* ModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelService.swift; sourceTree = "<group>"; };
 		516F67312D21891D00C44CD1 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		5172CF852D1EB6BF00BCD740 /* WatchAirPodsSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAirPodsSensorView.swift; sourceTree = "<group>"; };
@@ -198,6 +224,14 @@
 			path = ClassificationViews;
 			sourceTree = "<group>";
 		};
+		516709D42DD0A29800226942 /* SettingViews */ = {
+			isa = PBXGroup;
+			children = (
+				516709D52DD0A2AD00226942 /* SensorSettings.swift */,
+			);
+			path = SettingViews;
+			sourceTree = "<group>";
+		};
 		516F67302D21890400C44CD1 /* InfoViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +321,7 @@
 		5183576C2C1DF2F6000EAD64 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				516709D42DD0A29800226942 /* SettingViews */,
 				518810562DB7750A00F17C4E /* TherapyViews */,
 				516510422D8C77E70029FA3E /* ClassificationViews */,
 				516F67302D21890400C44CD1 /* InfoViews */,
@@ -383,6 +418,18 @@
 		51F7BFFF2C2308390058B12F /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				516709C82DD09D0D00226942 /* links.mp3 */,
+				516709C92DD09D0D00226942 /* oben.mp3 */,
+				516709D92DD0DB3C00226942 /* obenlinks.mp3 */,
+				516709DA2DD0DB3C00226942 /* obenrechts.mp3 */,
+				516709DB2DD0DB3C00226942 /* ulinks.mp3 */,
+				516709DC2DD0DB3C00226942 /* urechts.mp3 */,
+				516709D02DD09EA000226942 /* linksgeneigt.mp3 */,
+				516709D72DD0BC1D00226942 /* kalibriert.mp3 */,
+				516709D12DD09EA000226942 /* rechtsgeneigt.mp3 */,
+				516709CA2DD09D0D00226942 /* rechts.mp3 */,
+				516709CB2DD09D0D00226942 /* unten.mp3 */,
+				516709C62DCFBFB800226942 /* feedbacksound.mp3 */,
 				51F7C0002C2308480058B12F /* interfacesound.mp3 */,
 			);
 			path = Sounds;
@@ -482,9 +529,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				516709C72DCFBFB800226942 /* feedbacksound.mp3 in Resources */,
+				516709CC2DD09D0D00226942 /* oben.mp3 in Resources */,
+				516709CD2DD09D0D00226942 /* rechts.mp3 in Resources */,
+				516709CE2DD09D0D00226942 /* unten.mp3 in Resources */,
+				516709D22DD09EA000226942 /* rechtsgeneigt.mp3 in Resources */,
+				516709D32DD09EA000226942 /* linksgeneigt.mp3 in Resources */,
+				516709DD2DD0DB3C00226942 /* ulinks.mp3 in Resources */,
+				516709DE2DD0DB3C00226942 /* urechts.mp3 in Resources */,
+				516709DF2DD0DB3C00226942 /* obenlinks.mp3 in Resources */,
+				516709E02DD0DB3C00226942 /* obenrechts.mp3 in Resources */,
+				516709CF2DD09D0D00226942 /* links.mp3 in Resources */,
 				51F7C0012C2308480058B12F /* interfacesound.mp3 in Resources */,
 				5183574F2C1DF1F9000EAD64 /* Preview Assets.xcassets in Resources */,
 				5183574C2C1DF1F9000EAD64 /* Assets.xcassets in Resources */,
+				516709D82DD0BC1D00226942 /* kalibriert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +565,7 @@
 			files = (
 				5114104B2C23058D004ACAE4 /* TabContentView.swift in Sources */,
 				51B5A68F2D97184C001206E8 /* FourierTransformHelper.swift in Sources */,
+				516709D62DD0A2AD00226942 /* SensorSettings.swift in Sources */,
 				5183574A2C1DF1F8000EAD64 /* ContentView.swift in Sources */,
 				518810582DB7752300F17C4E /* ExampleTherapy.swift in Sources */,
 				514CBA352D6CBBDF0081AC06 /* FeatureView.swift in Sources */,
@@ -692,7 +752,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoreMotionSensorReader/CoreMotionSensorReader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -712,7 +772,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -728,7 +788,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoreMotionSensorReader/CoreMotionSensorReader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -748,7 +808,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -764,7 +824,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -779,7 +839,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -798,7 +858,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -813,7 +873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

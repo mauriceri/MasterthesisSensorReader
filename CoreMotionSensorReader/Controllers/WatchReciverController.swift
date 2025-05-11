@@ -42,10 +42,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     var isCollectingTrainData: Bool = false
     var isCountTimerRunning: Bool = false
     
-    
-    
-    
-    
+
     let modelService = ModelService()
     
     
@@ -56,8 +53,17 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     
     let windowSize: TimeInterval = 1.54
-    
     var sensorBuffer: [SensorData] = []
+    
+
+    //MARK: - Audiofeedback
+    var mismatchTimer: Timer?
+    var currentAcitivity = "Arm nach vorne"
+    let soundService = SoundService()
+    
+    var isTherapyViewActive: Bool = false
+    var isAudioFeedbackActive: Bool = false
+    
     
     //MARK: - SlidingWindow var
     var slidingWindow: [SensorData] = []
@@ -69,6 +75,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     
     //MARK: - Threshhold vars:
     var armPositionThreshholdLabel: String = "-"
+    var activeMovingThreshhold: Double = 0.1
     
     
     
@@ -291,9 +298,16 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             if isSVMActive, let (predictedLabel, resultString) = modelService?.classifySvm(features: scaledFeaturesAll) {
                 self.svmLabelAll = predictedLabel ?? "-"
                 self.svmResultString = resultString ?? "-"
+                
+                if self.svmLabelAll != self.currentAcitivity {
+                    if mismatchTimer == nil {
+                        startMismatchTimer()
+                    }
+                } else {
+                    mismatchTimer?.invalidate()
+                    mismatchTimer = nil
+                }
             }
-            
-            
             
             updateUserMovingInfo(motionData: slidingWindow)
             updateSamplingFrequency()
@@ -331,7 +345,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
     //MARK: - Update information if user is moving
     private func updateUserMovingInfo(motionData: [SensorData]) {
         
-        if (userMovementDetection.isActiveMovement(from: motionData)) {
+        if (userMovementDetection.isActiveMovement(from: motionData, threshhold: self.activeMovingThreshhold)) {
             isUserMoving = true
             isUserMovingInformation = "Aktiv"
         } else {
@@ -339,5 +353,21 @@ class WatchReciverController: NSObject, WCSessionDelegate {
             isUserMovingInformation = "Inaktiv"
         }
         
+    }
+    
+    //MARK: - Audio Feedback
+    func startMismatchTimer() {
+        
+        if self.isTherapyViewActive && self.isAudioFeedbackActive {
+            mismatchTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { [weak self] _ in
+                self?.handleMismatchLongEnough()
+                self?.mismatchTimer = nil
+            }
+        }
+       
+    }
+
+    func handleMismatchLongEnough() {
+        soundservice.playBodyPosSound()
     }
 }

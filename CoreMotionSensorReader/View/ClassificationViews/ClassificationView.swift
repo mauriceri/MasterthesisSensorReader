@@ -16,6 +16,7 @@ struct ClassificationView: View {
     @State private var isCountingDown = false
     @State private var countdown = 3
     @State private var timer: Timer?
+    @State var debugMode: Bool = false
     
     
     var body: some View {
@@ -31,7 +32,7 @@ struct ClassificationView: View {
             
             
             Toggle(isOn: $watchReciever.isReducedRandomForestActive) {
-                Text("Zeige Random Forest mit reduzierten Labels")
+                Text("Zeige Random Forest mit reduzierten Klassen")
             }
             
             if watchReciever.isReducedRandomForestActive {
@@ -44,7 +45,7 @@ struct ClassificationView: View {
             
             
             Toggle(isOn: $watchReciever.isFullRandomForestActive) {
-                Text("Zeige Random Forest mit allen Labels")
+                Text("Zeige Random Forest mit allen Klassen")
             }
             
             if watchReciever.isFullRandomForestActive {
@@ -119,10 +120,20 @@ struct ClassificationView: View {
                 }
             }
             
-            
+            Section(header: Text("Feature View")) {
+                Toggle(isOn: $debugMode) {
+                    Text("Debug Mode, Zeige Sensordaten an")
+                }
+                
+                if debugMode {
+                    FeatureView(watchReciever: watchReciever)
+                }
+            }
             
             
         }
+        
+      
     }
     
     
