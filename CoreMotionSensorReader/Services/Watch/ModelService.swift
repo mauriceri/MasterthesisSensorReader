@@ -10,18 +10,18 @@ import CoreML
 
 class ModelService {
     let modelReduced: RandomForestReducedLabel
-    let modelFull: RandomForestFullLabel
+    let modelFull: RF
     let decisionTree: DecisionTree
     let knn: Knn
-    let svm: SVM
+    let svm: SVC
     
     init?() {
         do {
             self.modelReduced = try RandomForestReducedLabel(configuration: MLModelConfiguration())
-            self.modelFull = try RandomForestFullLabel(configuration: MLModelConfiguration())
+            self.modelFull = try RF(configuration: MLModelConfiguration())
             self.decisionTree = try DecisionTree(configuration: MLModelConfiguration())
             self.knn = try Knn(configuration: MLModelConfiguration())
-            self.svm = try SVM(configuration: MLModelConfiguration())
+            self.svm = try SVC(configuration: MLModelConfiguration())
         } catch {
             print("Failed to load model: \(error)")
             return nil
@@ -68,7 +68,7 @@ class ModelService {
     
     func classifyRfFullFeatures(features: SensorFeaturesAllLabel) -> String? {
         do {
-            let input = RandomForestFullLabelInput(
+            let input = RFInput(
                 pitch_min: features.pitch_min,
                 gravityAccelZ_max: features.gravityAccelZ_max,
                 gravityAccelY_max: features.gravityAccelY_max,
@@ -185,7 +185,7 @@ class ModelService {
     func classifySvm(features: ScaledFeature) -> (String?, String?) {
         
         
-        let input = SVMInput(
+        let input = SVCInput(
             pitch_min: features.pitch_min,
             gravityAccelZ_max: features.gravityAccelZ_max,
             gravityAccelY_max: features.gravityAccelY_max,
@@ -199,7 +199,7 @@ class ModelService {
         )
         
         let prediction = try? svm.prediction(input: input)
-        let predictedLabel = LabelMapper.getLabelAllLabel(for: Int(prediction?.label ?? 0))
+        let predictedLabel = LabelMapper.getLabelAllLabel(for: Int(prediction?.classLabel ?? 0))
 
         
         var resultString: String? = nil
