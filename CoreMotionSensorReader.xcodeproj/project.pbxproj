@@ -752,12 +752,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoreMotionSensorReader/CoreMotionSensorReader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.0;
+				CURRENT_PROJECT_VERSION = 4.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreMotionSensorReader/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_CFBundleDisplayName = MasterarbeitApp;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Für das Updaten der Gesundheitsdaten";
@@ -772,7 +772,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -788,12 +788,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoreMotionSensorReader/CoreMotionSensorReader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.0;
+				CURRENT_PROJECT_VERSION = 4.0;
 				DEVELOPMENT_ASSET_PATHS = "\"CoreMotionSensorReader/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreMotionSensorReader/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_CFBundleDisplayName = MasterarbeitApp;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Für das Updaten der Gesundheitsdaten";
@@ -808,7 +808,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -824,12 +824,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.0;
+				CURRENT_PROJECT_VERSION = 4.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WatchCoreMotionSensorReader-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_CFBundleDisplayName = MasterarbeitApp;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Benötigt für Lesen von Gesubndheitsdaten";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten wird dieser Zugriff benötigt";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wird benötigt um Gesundheitsdaten während des Workouts zu updaten";
@@ -839,7 +839,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -858,12 +858,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "WatchCoreMotionSensorReader Watch App/WatchCoreMotionSensorReader Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.0;
+				CURRENT_PROJECT_VERSION = 4.0;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchCoreMotionSensorReader Watch App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WatchCoreMotionSensorReader-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = SensorReader;
+				INFOPLIST_KEY_CFBundleDisplayName = MasterarbeitApp;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Benötigt für Lesen von Gesubndheitsdaten";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Für das Lesen der Gesundheitsdaten wird dieser Zugriff benötigt";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wird benötigt um Gesundheitsdaten während des Workouts zu updaten";
@@ -873,7 +873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maurice.richter.CoreMotionSensorReader.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

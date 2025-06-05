@@ -361,6 +361,7 @@ class WatchReciverController: NSObject, WCSessionDelegate {
         if self.isTherapyViewActive && self.isAudioFeedbackActive {
             mismatchTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { [weak self] _ in
                 self?.handleMismatchLongEnough()
+                self?.sendHapticFeedback()
                 self?.mismatchTimer = nil
             }
         }

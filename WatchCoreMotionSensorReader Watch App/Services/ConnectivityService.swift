@@ -81,7 +81,7 @@ class ConnectivityService: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         if let hapticValue = message["haptic"] as? String, hapticValue == "true" {
             print("Haptic is set to true")
-            WKInterfaceDevice.current().play(.success)
+            WKInterfaceDevice.current().play(.failure)
             
         } else {
             print("Haptic is not set to true or is missing")
