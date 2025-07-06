@@ -6,7 +6,7 @@
 
 ## Beschreibung
 
-Dieser Quellcode wurde im Rahmen meiner Masterarbeit entwickelt. Ziel des Projekts ist die automatische Erkennung und Klassifizierung therapeutischer Übungen von Schlaganfallpatienten anhand von Bewegungsdaten, die mit Apple Watch und AirPods erfasst werden.
+Dieser Quellcode wurde im Rahmen meiner Masterarbeit entwickelt. Ziel des Projekts ist die automatische Erkennung und Klassifizierung therapeutischer Übungen für Schlaganfallpatienten anhand von Bewegungsdaten, die mit Apple Watch und AirPods erfasst werden.
 
 
 
